@@ -43,9 +43,9 @@ Create `experiment_inventory.md` when experiments exist:
 
 - A paper is not a collection of experiments; it is a technical story with a clear claim and evidence.
 - The reader should understand the **what**, **why**, and **so what** by the end of the Introduction.
-- Do not frame a systems/workflow contribution as a "unified model" unless it truly is a single model.
+- Do not frame a workflow contribution as a "unified model" unless it truly is a single model.
 - Do not describe a method as SOTA unless the comparison is fair, complete, and supported on the main metrics.
-- Prefer "we study/introduce a workflow/system/benchmark" when the novelty is task or system scope.
+- Prefer "we study/introduce a workflow/benchmark" when the novelty is task or evaluation scope.
 - Prefer "supports", "enables", "bridges", or "connects" over "solves" for broad open-ended problems.
 - State limitations early enough that reviewers do not discover them first.
 - Avoid a "naive method then our patch" story unless the paper is genuinely about one small fix. Instead, motivate from a technical gap that prior methods naturally leave open.
@@ -88,10 +88,10 @@ Reject or rewrite contributions that are only implementation details without a p
 
 ## Naming Test
 
-For method or system names:
+For method or artifact names:
 
 - Avoid generic names that already describe a broad category.
-- Avoid names that imply a single unified model when the contribution is an agent workflow or system.
+- Avoid names that imply a single unified model when the contribution is an agent workflow or tool.
 - Prefer names connected to the task, mechanism, representation, or metaphor.
 - Check likely collisions in related work before finalizing a name for a paper.
 
@@ -108,11 +108,11 @@ However, neither supports ...
 We introduce ...
 ```
 
-Good for papers connecting generation and verification, learning and systems, or single-object and compositional settings.
+Good for papers connecting generation and verification, learning and tool use, or single-object and compositional settings.
 
-### Pattern B: Executable Workflow / System
+### Pattern B: Executable Workflow
 
-Use when the paper is a pipeline or agent system.
+Use when the paper is a pipeline or agent workflow.
 
 ```text
 Existing methods can produce X, but practical use requires Y.

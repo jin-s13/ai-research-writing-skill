@@ -23,7 +23,8 @@ For larger projects, use the schema in `figure-spec.md` and store specs in `figu
 - Use deterministic plotting for numerical results. Prefer matplotlib/seaborn or direct SVG/PDF generation. Never use image generation for exact numbers.
 - Use `scripts/make_latex_table.py` for exact CSV-to-LaTeX tables when table values must remain auditable.
 - Use TikZ/SVG for diagrams that require exact text, labels, and arrows.
-- Use image generation for polished overview diagrams or teaser-style visuals only when text accuracy is non-critical or a fallback exists.
+- Use the environment's built-in image generation capability for polished overview diagrams or teaser-style visuals only when text accuracy is non-critical or a fallback exists.
+- Do not require or name a specific external image API/model for generated diagrams unless the user explicitly asks for one.
 - For generated diagrams with labels, inspect the image before committing. If text is distorted, use TikZ/SVG instead.
 
 ## Figure Types
@@ -84,6 +85,8 @@ For image-generated diagrams, include:
 5. Exact labels.
 6. Arrows and feedback paths.
 7. Constraints: no logos, no watermarks, no unsupported terminology, no tiny text.
+
+Generated diagrams should be produced through the agent's built-in image-generation tool when available. Store the prompt or spec as the source, not vendor-specific API code.
 
 ### Diagram Prompt Structure
 

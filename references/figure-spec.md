@@ -1,6 +1,6 @@
 # Figure Specification Reference
 
-Use this before making any paper figure. It absorbs the `academic-plotting` role/message/entities/layout/backend workflow and makes it explicit enough for review.
+Use this before making any paper figure. It makes the role/message/entities/layout/backend workflow explicit enough for review.
 
 ## Required Figure Spec
 
@@ -44,7 +44,7 @@ evidence_status: exact-data | illustrative-only | qualitative-example
 - `deterministic-plot`: required for all numerical charts.
 - `latex-table`: use for exact values, many metrics, or leaderboard-style comparison.
 - `tikz`/`svg`: use when exact labels and arrows matter.
-- `generated-image`: use only when the figure is illustrative and text accuracy is non-critical.
+- `generated-image`: use only when the figure is illustrative and text accuracy is non-critical; default to the agent's built-in image generation capability, not a specific external API/model.
 - `hybrid`: allowed when a generated visual is paired with deterministic labels or a TikZ fallback.
 
 Never use image generation for exact numbers, axes, metric values, or tables.

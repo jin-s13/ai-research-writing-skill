@@ -1,6 +1,6 @@
 # Abstract and Introduction Reference
 
-Use this reference for the highest-risk writing sections: Abstract and Introduction. It absorbs the `research-paper-writing` abstract/introduction templates, backward-first logic, and reverse-outline workflow.
+Use this reference for the highest-risk writing sections: Abstract and Introduction.
 
 ## Shared Rule
 
@@ -42,7 +42,7 @@ Use when the paper has a clear design insight.
 
 ### Template C: Multiple Contributions
 
-Use for systems papers with several necessary pieces.
+Use for multi-component papers with several necessary pieces.
 
 1. Task and gap.
 2. Contribution 1 + advantage.
@@ -95,7 +95,7 @@ Use when the task is niche or newly defined.
 Use when readers already know the task.
 
 ```text
-[Application area] increasingly requires ... Existing systems therefore need ...
+[Application area] increasingly requires ... Existing methods therefore need ...
 ```
 
 ### Opening C: General to Specific

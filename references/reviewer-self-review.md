@@ -1,10 +1,17 @@
 # Reviewer Self-Review Reference
 
-Use this reference before major revisions and before submission. The goal is to find rejection risks before reviewers do.
+Use this reference before major revisions and before submission. The goal is to find rejection risks before reviewers do and to produce an author-facing diagnosis, not only automatic edits.
+
+Reviewer self-review has two outputs:
+
+1. **Author analysis**: explain the paper's strengths, weaknesses, likely reviewer objections, and trade-offs in a form the author can evaluate.
+2. **Revision plan**: convert the highest-impact risks into edits, experiments, citation work, limitations, or claims to weaken.
+
+Do not silently "fix" a paper in ways that hide scientific trade-offs from the author. If a risk requires new experiments, different framing, or a weaker claim, state that clearly.
 
 ## Five-Dimension Review
 
-Score each dimension as `pass`, `needs revision`, or `needs evidence`.
+Score each dimension as `pass`, `needs revision`, or `needs evidence`. Use `references/reviewer-guidelines.md` for venue-facing reviewer expectations and score calibration.
 
 | Dimension | Reviewer question | Common failure |
 |---|---|---|
@@ -13,8 +20,7 @@ Score each dimension as `pass`, `needs revision`, or `needs evidence`.
 | Experimental strength | Do the experiments support the main claims? | Main claims rely on partial or cherry-picked numbers. |
 | Evaluation completeness | Are baselines, metrics, and splits fair? | Missing ablations, unclear settings, or weak baselines. |
 | Method soundness | Are design choices justified and reproducible? | The method depends on undocumented prompts, heuristics, or hidden manual steps. |
-
-Use `references/reviewer-guidelines.md` for venue-facing reviewer expectations and score calibration.
+| Responsibility | Are limitations, data use, ethics, and release claims handled? | Obvious risks, data issues, or limitations are unstated. |
 
 ## Acceptance Signals
 
@@ -24,11 +30,73 @@ A paper becomes reviewer-ready when:
 - the main result is supported by fair baselines and suitable metrics;
 - ablations cover the key design choices;
 - the first page makes novelty and significance clear;
-- limitations are honest and do not contradict the central claim.
+- limitations are honest and do not contradict the central claim;
+- code/data/supplementary claims are anonymized, citable, and consistent with venue rules.
+
+## Reviewer-Review Simulation
+
+Before finalizing, write a short simulated review:
+
+```text
+Summary:
+Strengths:
+Weaknesses:
+Key reason for accept/reject:
+Questions for authors:
+Actionable suggestions:
+Confidence:
+```
+
+Rules:
+
+- The summary should be something authors would recognize as accurate.
+- Weaknesses must cite specific sections, claims, experiments, missing baselines, or unclear terms.
+- If the simulated review sounds generic, the paper story is not yet concrete enough.
+- If the simulated reviewer cannot name the main evidence, strengthen Abstract/Introduction and the results presentation.
+
+## Author-Facing Reviewer Analysis
+
+Create or update `reviewer_analysis.md` when doing a major review or pre-submission audit:
+
+```text
+# Reviewer Analysis
+
+## Executive Summary
+Current likely reviewer stance:
+Strongest part of the paper:
+Highest rejection risk:
+Recommended next decision:
+
+## Strengths
+- Strength:
+- Evidence:
+- Why reviewers may value it:
+
+## Major Risks
+| Risk | Why reviewers may care | Evidence status | Severity | Recommended action |
+|---|---|---|---|---|
+
+## Claim and Evidence Gaps
+| Claim | Current evidence | Reviewer concern | Recommendation |
+|---|---|---|---|
+
+## Author Decisions Needed
+- Decision:
+- Options:
+- Trade-off:
+- Recommendation:
+
+## Revision Priorities
+1. Must fix before submission:
+2. Should fix if time allows:
+3. Safe to leave as limitation:
+```
+
+Use this report to help the author decide what to do. Keep it analytical and specific; do not turn it into a generic checklist.
 
 ## Rejection-Risk Audit
 
-Create `submission_readiness.md` with:
+Create `submission_readiness.md` or include this in `reviewer_analysis.md` with:
 
 1. **Paper thesis**.
 2. **Top five reviewer objections**.
@@ -53,6 +121,10 @@ Ask these as a skeptical reviewer:
 - Are examples cherry-picked, or do they illustrate systematic behavior?
 - Are any citations being used as decoration rather than evidence?
 - Are limitations obvious but unstated?
+- Would a reviewer say "this has been done before"? If so, which exact prior work must be distinguished?
+- Would a reviewer ask for a substantial new experiment that cannot fit into rebuttal? If so, address it before submission or weaken the claim.
+- Are supplementary details necessary for understanding the main claim? If yes, move the critical detail into the main paper.
+- Are dataset, code, prompt, or model assets cited and anonymized where required?
 
 ## Claim Audit
 
@@ -86,6 +158,20 @@ For each experiment:
 - Are failure cases analyzed?
 - Could a reviewer ask for a missing ablation?
 - Is the caption sufficient for standalone interpretation?
+- Are tuning budgets, pretraining data, compute, and implementation details comparable across methods?
+- If a requested comparison would require reimplementing closed or unavailable work, is that limitation explained?
+
+## Responsibility Audit
+
+Check the paper for review-process and policy risks:
+
+- **Limitations**: Are scope restrictions and failure modes explicit?
+- **Data assets**: Are datasets, annotations, licenses, and withdrawn/sensitive data issues handled?
+- **Human subjects / personal data**: Is consent, IRB, or equivalent ethics handling stated when relevant?
+- **Societal impact**: Are plausible negative uses or harms acknowledged when relevant?
+- **LLM usage**: Is author-side LLM assistance disclosed if the venue requires it?
+- **Anonymity**: Are author names, acknowledgments, repository links, file metadata, and supplementary assets anonymized for review?
+- **Supplementary material**: Does it clarify rather than replace or materially change the main submission?
 
 ## Writing Audit
 
@@ -109,6 +195,19 @@ Convert risks into actions:
 | Confusing method | Writing/Figure | Add overview diagram and method invariant. | |
 | Weak citation | Citation | Replace with verified primary source. | |
 | Scope gap | Limitation | Add limitation paragraph. | |
+| Policy / ethics risk | Responsibility | Add disclosure, anonymize asset, or remove unsupported release claim. | |
+
+## Rebuttal Readiness
+
+Before submission, prepare concise answers to likely reviewer questions:
+
+1. What is the closest prior work and why is this different?
+2. Why are the chosen baselines fair?
+3. Which result directly supports the central claim?
+4. What happens in failure cases or harder subsets?
+5. Which limitation is real but does not invalidate the main claim?
+
+If any answer requires a large new experiment, do not assume rebuttal can save it. Revise the paper, add the experiment, or weaken the claim before submission.
 
 ## Final Self-Review Statement
 

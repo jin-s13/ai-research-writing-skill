@@ -76,34 +76,24 @@ Writing emphasis:
 - Avoid overgeneralizing beyond evaluated languages, domains, or populations.
 - Put prompt, model, and decoding details where reproducibility requires them.
 
-## Systems Venues
-
-Relevant examples include OSDI, SOSP, NSDI, ASPLOS, and related systems conferences.
+## CVPR / ICCV / ECCV-Style Vision Submissions
 
 Typical expectations:
 
-- A real system problem with clear design constraints.
-- Explicit system architecture and implementation details.
-- End-to-end evaluation, component breakdown, and stress tests.
-- Artifact availability or reproducibility discussion.
-- Strong comparison to realistic baselines.
+- Clear visual problem definition, dataset protocol, and evaluation metric direction.
+- Strong comparison to current vision baselines under matching input/output assumptions.
+- Ablations that isolate the contribution rather than only reporting leaderboard numbers.
+- Qualitative examples that reveal systematic behavior, not only polished successes.
+- Supplementary material for implementation details, additional examples, and failure cases.
+- Anonymous submission unless final/camera-ready is requested.
 
 Writing emphasis:
 
-- Explain why each system boundary exists.
-- Separate design goals from implementation choices.
-- Show robustness, overhead, and failure behavior.
-- Include deployment or integration details when they affect the claim.
-
-## CAD / Robotics / Graphics-Adjacent Papers
-
-When writing for CAD, geometry, robotics, or graphics-adjacent ML work:
-
-- Define representations precisely: meshes, B-Rep, STEP, code, constraints, assemblies, joints, transforms, or point clouds.
-- State whether the task is part generation, assembly construction, text-to-CAD, retrieval, editing, verification, or benchmark creation.
-- Distinguish executable geometry from visual appearance.
-- Use metrics carefully: IoU, Chamfer distance, Hausdorff distance, success rate, compile rate, and functional correctness measure different things.
-- Explain what is deterministic geometry processing and what is LLM reasoning.
+- Make the main visual task and contribution understandable from the first page.
+- State dataset splits, pretraining data, resolution, augmentation, and evaluation protocol precisely.
+- Use figures for method intuition and failure analysis, but keep numerical claims tied to tables or deterministic plots.
+- Treat fairness of baselines, training budget, and test-time assumptions as reviewer-facing risks.
+- For structured-output vision work, define representations and metrics precisely so they match the paper's task claims.
 
 ## Conflict Handling
 

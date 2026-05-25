@@ -125,9 +125,9 @@ Before committing or pushing:
 Recommended commands:
 
 ```bash
-python scripts/check_citations.py main.tex references.bib
-python scripts/check_todos.py main.tex checklist.tex references.bib figures
-python scripts/parse_build_log.py main.log
+python3 scripts/check_citations.py main.tex references.bib
+python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
+python3 scripts/parse_build_log.py main.log
 ```
 
 Use the actual paths in the paper repository.

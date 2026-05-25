@@ -1,0 +1,56 @@
+# Artifact Contract
+
+Use this reference for full-paper tasks or whenever the agent needs to decide which durable files to create. Artifacts should be created in the target paper project, not in the skill library.
+
+For smaller requests, produce only the relevant subset, but still preserve claim-evidence discipline.
+
+## Project and Evidence Artifacts
+
+- `project_inventory.md`: repository structure, notes, results, templates, existing citations, unresolved missing inputs.
+- `experiment_inventory.md`: datasets, baselines, metrics, numbers, caveats, reproducibility gaps.
+- `claim_evidence_map.md`: major claims mapped to evidence and status.
+
+## Story Artifacts
+
+- `paper_story.md`: thesis, gap, method insight, contributions, claims to make, and claims to avoid.
+- Task boundary notes when the task is new, niche, or easy to confuse with nearby settings.
+
+## Literature Artifacts
+
+- `literature/paper_inventory.md`: important related papers, metadata, local file path or URL, status, and relevance.
+- `literature/related_work_matrix.md`: lines of work, representative papers, gaps, and how the paper relates.
+- `literature/positioning.md`: closest works, task differences, contribution boundary, and claims to make or avoid.
+- `literature/notes/`: compact notes for close papers and baselines.
+- `literature/papers/`: local copies of important papers only when access and licensing permit.
+
+Do not commit copyrighted PDFs or private downloads unless redistribution is allowed and the user explicitly wants them included.
+
+## Draft and Citation Artifacts
+
+- Main LaTeX draft: preserve the venue template; keep anonymous unless final/camera-ready is requested.
+- `references.bib`: verified references only.
+- `citation_verification.md`: source used to verify each citation and the sentence-level claim it supports.
+
+## Figure and Table Artifacts
+
+- `figures/figure_plan.md`: role, message, entities, relationships, layout, backend, source, and fallback for each figure.
+- `figures/figure_specs.yaml` or `figures/figure_specs.md`: machine-checkable role/message/entities/layout/backend specs.
+- Figure/table source files: deterministic scripts for numerical plots; editable fallback for diagrams.
+
+## Submission and Review Artifacts
+
+- Checklist, reproducibility, limitations, compute/data/code, and LLM usage notes for the target venue.
+- `build_check.md`: compilation attempt, tool availability, and unresolved build blockers.
+- `submission_readiness.md`: reviewer-risk status before final submission when the paper is close to complete.
+- `reviewer_analysis.md`: author-facing reviewer-style diagnosis with strengths, risks, evidence gaps, and recommended decisions.
+
+## Minimal Subsets
+
+| Request type | Minimal durable artifacts |
+|---|---|
+| Story only | `paper_story.md` |
+| Abstract/Introduction revision | `claim_evidence_map.md`, revised `.tex` section |
+| Related Work | `literature/paper_inventory.md`, `literature/related_work_matrix.md`, `literature/positioning.md`, citation updates |
+| Figures | `figures/figure_plan.md`, figure specs, source or fallback files |
+| Citation repair | `references.bib`, `citation_verification.md` |
+| Submission audit | `build_check.md`, `submission_readiness.md`, checklist notes |

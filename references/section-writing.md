@@ -51,7 +51,7 @@ Use when the paper has a clear design insight.
 
 ### Abstract C: Multiple Contributions
 
-Use for systems papers with several modules.
+Use for multi-component papers with several modules.
 
 1. Task and prior gap.
 2. Contribution 1 + advantage.
@@ -147,12 +147,14 @@ Avoid bullets that only say "we implement" unless the implementation creates a m
 
 ## Related Work
 
+For full-paper tasks, load `references/literature-review.md` before drafting this section. Build the local literature corpus, read the close papers, and create `literature/related_work_matrix.md` and `literature/positioning.md` before writing prose.
+
 Group by research problem, not by chronology.
 
 For each group:
 
 - State what the group solves.
-- Cite representative papers.
+- Cite representative papers whose metadata and claim support have been verified.
 - State the remaining gap relative to this paper.
 - Avoid strawman comparisons.
 - Treat concurrent work briefly unless it is the central baseline.
@@ -161,7 +163,7 @@ For each group:
 
 ### Related Work Matrix
 
-Before writing, create a compact matrix:
+Before writing, create a compact matrix in `literature/related_work_matrix.md`:
 
 | Line of work | Representative papers | What they solve | What they do not cover | How we relate |
 |---|---|---|---|---|
@@ -189,7 +191,7 @@ For each module:
 
 Avoid only listing implementation files. Convert implementation details into method concepts.
 
-For systems/workflow papers, include:
+For workflow or tool-building papers, include:
 
 - Stage overview.
 - Data/artifact flow.
@@ -298,7 +300,7 @@ Any `needs evidence` claim must be revised before final submission.
 For existing LaTeX drafts, bootstrap this table with:
 
 ```bash
-python scripts/extract_claims.py main.tex > claim_evidence_map.md
+python3 scripts/extract_claims.py main.tex > claim_evidence_map.md
 ```
 
 Then manually fill evidence and revision status.

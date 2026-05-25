@@ -1,6 +1,6 @@
 # Example Bank Reference
 
-Use this as a compact pattern bank. It absorbs the useful `research-paper-writing` example-bank idea without loading long examples by default.
+Use this as a compact pattern bank without loading long examples by default.
 
 ## Abstract Patterns
 

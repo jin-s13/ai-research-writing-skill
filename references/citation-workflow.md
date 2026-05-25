@@ -1,19 +1,20 @@
 # Citation Workflow Reference
 
-Use this reference when finding, adding, or repairing citations. This is the high-reliability workflow inherited from `ml-paper-writing`: never generate BibTeX from memory; always verify metadata and claim support.
+Use this reference when finding, adding, or repairing citations. Never generate BibTeX from memory; always verify metadata and claim support.
 
 ## Non-Negotiable Rule
 
 Do not invent citations. A fluent but false bibliography is an academic integrity failure. If a citation cannot be verified, mark it as a placeholder or remove the claim.
 
-## Five-Step Verified Citation Workflow
+## Six-Step Verified Citation Workflow
 
 ```text
 1. SEARCH   -> find candidates from authoritative scholarly sources
 2. VERIFY  -> confirm title/authors/year/DOI/arXiv in reliable metadata
-3. RETRIEVE -> fetch BibTeX from DOI, arXiv, publisher, or official metadata
-4. VALIDATE -> check that the cited work supports the sentence-level claim
-5. RECORD  -> add .bib entry and log verification in citation_verification.md
+3. SAVE     -> save important papers locally when access and licensing permit
+4. RETRIEVE -> fetch BibTeX from DOI, arXiv, publisher, or official metadata
+5. VALIDATE -> check that the cited work supports the sentence-level claim
+6. RECORD  -> add .bib entry and log verification in citation_verification.md
 ```
 
 ## Source Selection
@@ -40,6 +41,17 @@ Search in this order:
 5. Existing `.bib` keys and citations in the codebase.
 
 Record failed searches when they affect the paper story.
+
+## Local Paper Corpus
+
+For Related Work or positioning tasks, maintain a local literature corpus before drafting prose:
+
+- Save important papers in `literature/papers/` when access and licensing permit.
+- Record all important candidates in `literature/paper_inventory.md`, including official URL, local path, status, and relevance.
+- Create short notes under `literature/notes/` for close works and baselines before using them for contrast.
+- Do not commit copyrighted PDFs or private downloads to an open-source repository unless redistribution is allowed and the user explicitly wants them included.
+
+Use `references/literature-review.md` for the full corpus, matrix, and positioning workflow.
 
 ## Metadata Verification
 

@@ -1,6 +1,6 @@
 # Style Presets Reference
 
-Use this reference when creating figures or unifying a paper's visual language. It absorbs the useful `academic-plotting` style presets while preserving the suite's rule that exact data must be deterministic.
+Use this reference when creating figures or unifying a paper's visual language. Exact data must remain deterministic.
 
 ## Universal Figure Rules
 
