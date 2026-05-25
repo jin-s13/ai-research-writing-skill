@@ -101,26 +101,21 @@ tlmgr install <package-name>
 # Or install full distribution to avoid this
 ```
 
-## Available Templates
+## Available Templates and Official Rules
 
-### ML/AI Conferences / ML/AI 
+The table below combines bundled template locations with official source/rule pages. Page limits change by year and track; always verify the linked official instructions before active submission.
 
-| Conference | Directory | Year | Source |
-|------------|-----------|------|--------|
-| ICML | `icml2026/` | 2026 | [Official ICML](https://icml.cc/Conferences/2026/AuthorInstructions) |
-| ICLR | `iclr2026/` | 2026 | [Official GitHub](https://github.com/ICLR/Master-Template) |
-| NeurIPS | `neurips2025/` | 2025 | Community template |
-| ACL | `acl/` | 2025+ | [Official ACL](https://github.com/acl-org/acl-style-files) |
-| AAAI | `aaai2026/` | 2026 | [AAAI Author Kit](https://aaai.org/authorkit26/) |
-| COLM | `colm2025/` | 2025 | [Official COLM](https://github.com/COLM-org/Template) |
-
-### Computer Vision Conferences
-
-| Conference | Directory | Year | Source |
-|------------|-----------|------|--------|
-| CVPR | `cvpr2026/` | 2026 | CVPR-style template |
-| ICCV | `iccv2025/` | 2025 | ICCV-style template |
-| ECCV | `eccv2026/` | 2026 | ECCV / LNCS-style template |
+| Venue | Directory | Official source / rules | Submission limit | Camera-ready / final notes |
+|---|---|---|---|---|
+| ICML 2026 | `icml2026/` | [ICML Author Instructions](https://icml.cc/Conferences/2026/AuthorInstructions) | 8 main-body pages; unlimited references/appendices | Final version allows 1 extra main-body page; camera-ready PDF limit is 20MB |
+| ICLR 2026 | `iclr2026/` | [ICLR Author Guide](https://iclr.cc/Conferences/2026/AuthorGuide), [ICLR template](https://github.com/ICLR/Master-Template) | 9 main-text pages; citations can be additional | Rebuttal/camera-ready main-text limit increases to 10 pages |
+| NeurIPS 2025 | `neurips2025/` | [NeurIPS Call for Papers](https://nips.cc/Conferences/2025/CallForPapers), [formatting instructions](https://arxiv.org/html/2506.15953v1) | 9 content pages including figures/tables; references, checklist, and optional appendices excluded | Accepted papers receive 1 extra content page for camera-ready |
+| ACL 2025+ | `acl/` | [ACL style files](https://github.com/acl-org/acl-style-files), [ACLPUB formatting](https://acl-org.github.io/ACLPUB/formatting.html) | Long papers: 8 content pages plus unlimited references; short papers: 4 content pages plus unlimited references | Final long papers get 1 extra content page; final short papers get 1 extra content page |
+| AAAI 2026 | `aaai2026/` | [AAAI-26 Submission Instructions](https://aaai.org/conference/aaai/aaai-26/submission-instructions/), [AAAI Press camera-ready info](https://proceedings.aaai.org/info) | Main technical track: 7 content pages plus references/reproducibility checklist | Camera-ready limits vary by track; main track allows 7 content pages plus limited ack/ethics/references pages |
+| COLM 2025 | `colm2025/` | [COLM 2025 CFP](https://colmweb.org/2025/cfp.html), [COLM template](https://github.com/COLM-org/Template) | 9 main-text pages; citations/appendices additional | Accepted papers may add 1 extra page for camera-ready |
+| CVPR 2026 | `cvpr2026/` | [CVPR Author Guidelines](https://cvpr.thecvf.com/Conferences/2026/AuthorGuidelines) | 8 pages including figures/tables; cited references excluded | Rebuttal is a 1-page PDF; verify final camera-ready instructions |
+| ICCV 2025 | `iccv2025/` | [ICCV Author Guidelines](https://iccv.thecvf.com/Conferences/2025/AuthorGuidelines), [submission checklist](https://iccv.thecvf.com/Conferences/2025/SubmissionCheckList) | 8 pages including figures/tables; cited references excluded | Rebuttal is a 1-page PDF; verify final camera-ready instructions |
+| ECCV 2026 | `eccv2026/` | [ECCV Submission Policies](https://eccv.ecva.net/Conferences/2026/SubmissionPolicies) | 14 pages including figures/tables in LNCS style; cited references excluded | Use the ECCV 2026 LNCS template; template/font/margin changes may cause desk rejection |
 
 
 ## Usage
@@ -208,27 +203,6 @@ Key files:
 - `colm2025_conference.sty` - Style file
 - `colm2025_conference.bst` - Bibliography style
 
-## Page Limits Summary
-
-### ML/AI Conferences / ML/AI 
-
-| Conference | Submission | Camera-Ready | Notes |
-|------------|-----------|--------------|-------|
-| ICML 2026 | 8 pages | 9 pages | +unlimited refs/appendix |
-| ICLR 2026 | 9 pages | 10 pages | +unlimited refs/appendix |
-| NeurIPS 2025 | 9 pages | 9 pages | +checklist outside limit |
-| ACL 2025 | 8 pages (long) | varies | +unlimited refs/appendix |
-| AAAI 2026 | 7 pages | 8 pages | +unlimited refs/appendix |
-| COLM 2025 | 9 pages | 10 pages | +unlimited refs/appendix |
-
-### Computer Vision Conferences
-
-| Conference | Submission | Camera-Ready | Notes |
-|------------|-----------|--------------|-------|
-| CVPR 2026 | verify official rules | verify official rules | Includes rebuttal and supplement structure in the bundled template |
-| ICCV 2025 | verify official rules | verify official rules | Includes rebuttal structure in the bundled template |
-| ECCV 2026 | verify official rules | verify official rules | LNCS-style template; verify official page limits and supplementary policy |
-
 ## Common Issues
 
 ### Compilation Errors
@@ -260,14 +234,4 @@ For submission, ensure:
 
 ## Updating Templates
 
-Templates are updated annually. Check official sources before each submission:
-**ML/AI:**
-- ICML: https://icml.cc/
-- ICLR: https://iclr.cc/
-- NeurIPS: https://neurips.cc/
-- CVPR: https://cvpr.thecvf.com/
-- ICCV: https://iccv.thecvf.com/
-- ECCV: https://eccv.ecva.net/
-- ACL: https://github.com/acl-org/acl-style-files
-- AAAI: https://aaai.org/
-- COLM: https://colmweb.org/
+Templates are updated annually. Before each submission, verify the official source/rule links in the table above and update `SOURCES.md` if a bundled template changes.
