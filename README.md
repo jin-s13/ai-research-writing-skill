@@ -20,21 +20,21 @@ Global install:
 
 ```bash
 mkdir -p ~/.cursor/skills
-ln -s /path/to/paper-writing-skills ~/.cursor/skills/paper-writing-suite
+ln -s /path/to/paper-writing-suite ~/.cursor/skills/paper-writing-suite
 ```
 
 Project-level install:
 
 ```bash
 mkdir -p .cursor/skills
-ln -s /path/to/paper-writing-skills .cursor/skills/paper-writing-suite
+ln -s /path/to/paper-writing-suite .cursor/skills/paper-writing-suite
 ```
 
 ### Codex
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-ln -s /path/to/paper-writing-skills "$CODEX_HOME/skills/paper-writing-suite"
+ln -s /path/to/paper-writing-suite "$CODEX_HOME/skills/paper-writing-suite"
 ```
 
 ### Claude Code
@@ -43,21 +43,21 @@ Global install:
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-ln -s /path/to/paper-writing-skills "$HOME/.claude/skills/paper-writing-suite"
+ln -s /path/to/paper-writing-suite "$HOME/.claude/skills/paper-writing-suite"
 ```
 
 Project-level install:
 
 ```bash
 mkdir -p .claude/skills
-ln -s /path/to/paper-writing-skills .claude/skills/paper-writing-suite
+ln -s /path/to/paper-writing-suite .claude/skills/paper-writing-suite
 ```
 
 ### Gemini
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-ln -s /path/to/paper-writing-skills "$HOME/.gemini/skills/paper-writing-suite"
+ln -s /path/to/paper-writing-suite "$HOME/.gemini/skills/paper-writing-suite"
 ```
 
 ## Usage
