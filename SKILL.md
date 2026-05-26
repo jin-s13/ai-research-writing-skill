@@ -1,6 +1,6 @@
 ---
 name: paper-writing-suite
-description: End-to-end research paper generation and revision for ML/AI/vision/NLP papers from repositories, notes, experiments, and conference templates. Use when turning a research project into a publication-ready LaTeX draft, building a paper story, writing or revising Abstract/Introduction/Related Work/Method/Experiments, designing figures and tables, verifying citations, completing NeurIPS/ICML/ICLR/CVPR/ICCV/ECCV/ACL-style checklists, running build checks, or preparing an Overleaf/Git submission.
+description: End-to-end research paper generation and revision for ML/AI/CV/NLP papers from repositories, notes, experiments, and conference templates. Use when turning a research project into a publication-ready LaTeX draft, building a paper story, writing or revising Abstract/Introduction/Related Work/Method/Experiments, designing figures and tables, verifying citations, completing NeurIPS/ICML/ICLR/CVPR/ICCV/ECCV/ACL-style checklists, running build checks, or preparing an Overleaf/Git submission.
 ---
 
 # Paper Writing Suite

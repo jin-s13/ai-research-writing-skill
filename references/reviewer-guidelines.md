@@ -1,6 +1,6 @@
 # Reviewer Guidelines Reference
 
-Use this to align a draft with how reviewers judge ML/AI/vision/NLP papers.
+Use this to align a draft with how reviewers judge ML/AI/CV/NLP papers.
 
 ## Core Reviewer Questions
 

@@ -76,12 +76,12 @@ Writing emphasis:
 - Avoid overgeneralizing beyond evaluated languages, domains, or populations.
 - Put prompt, model, and decoding details where reproducibility requires them.
 
-## CVPR / ICCV / ECCV-Style Vision Submissions
+## CVPR / ICCV / ECCV-Style CV Submissions
 
 Typical expectations:
 
 - Clear visual problem definition, dataset protocol, and evaluation metric direction.
-- Strong comparison to current vision baselines under matching input/output assumptions.
+- Strong comparison to current CV baselines under matching input/output assumptions.
 - Ablations that isolate the contribution rather than only reporting leaderboard numbers.
 - Qualitative examples that reveal systematic behavior, not only polished successes.
 - Supplementary material for implementation details, additional examples, and failure cases.
@@ -93,7 +93,7 @@ Writing emphasis:
 - State dataset splits, pretraining data, resolution, augmentation, and evaluation protocol precisely.
 - Use figures for method intuition and failure analysis, but keep numerical claims tied to tables or deterministic plots.
 - Treat fairness of baselines, training budget, and test-time assumptions as reviewer-facing risks.
-- For structured-output vision work, define representations and metrics precisely so they match the paper's task claims.
+- For structured-output CV work, define representations and metrics precisely so they match the paper's task claims.
 
 ## Conflict Handling
 

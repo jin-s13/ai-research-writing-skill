@@ -12,7 +12,7 @@ Expert notes (faithful translation):
 ```latex
 % Introduce Application
 %% Example 1: Reconstructing 3D scenes from multi-view images is a cornerstone of many applications such as augmented reality, robotics, and autonomous driving.
-%% Example 2: Instance segmentation is the cornerstone of many computer vision tasks, such as video analysis, autonomous driving, and robotic grasping, which require both accuracy and efficiency.
+%% Example 2: Instance segmentation is the cornerstone of many CV tasks, such as video analysis, autonomous driving, and robotic grasping, which require both accuracy and efficiency.
 
 % Use previous methods to expose the target technical challenge
 %% Example 1: Given input images, traditional methods [43, 44, 59] generally estimate the depth map for each image based on the multi-view stereo (MVS) algorithms and then fuse estimated depth maps into 3D models. Although these methods achieve successful reconstruction in most cases, they have difficulty in handling low-textured regions, e.g., floors and walls of indoor scenes, due to the unreliable stereo matching in these regions.

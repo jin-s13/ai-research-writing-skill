@@ -1,6 +1,6 @@
 # LaTeX Templates for ML/AI, CV, and NLP Conferences
 
-This directory contains LaTeX templates for major machine learning, AI, computer vision, and NLP conferences.
+This directory contains LaTeX templates for major machine learning, AI, CV, and NLP conferences.
 
 Before using or redistributing bundled templates, check `SOURCES.md` and the official venue author instructions. Local templates are convenience copies, not a substitute for current venue requirements.
 
