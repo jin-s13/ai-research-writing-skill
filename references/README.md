@@ -11,7 +11,7 @@ Use this file as the first stop when deciding which reference files to load. Loa
 | Abstract / Introduction | `abstract-introduction.md` | `section-writing.md`, one example file after choosing a pattern |
 | Related Work or positioning | `literature-review.md`, `citation-workflow.md` | `section-writing.md`, related-work examples |
 | Method, Experiments, Limitations, or Conclusion | `section-writing.md` | `example-bank.md`, one narrow example file |
-| Figures and tables | `figure-workflow.md`, `figure-spec.md` | `style-presets.md`, `scripts/README.md` |
+| Figures and tables | `figure-workflow.md`, `figure-spec.md` | `style-presets.md`, `figure-pattern-atlas.md`, `scripts/README.md` |
 | Citations and BibTeX | `citation-workflow.md` | `citation-checklist.md` for final audit |
 | Venue checklist text | `venue-profiles.md`, `venue-templates.md` | `reviewer-guidelines.md` |
 | Reviewer diagnosis | `reviewer-guidelines.md`, `reviewer-self-review.md` | `artifacts.md` for `reviewer_analysis.md` |

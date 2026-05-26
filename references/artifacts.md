@@ -24,18 +24,20 @@ For smaller requests, produce only the relevant subset, but still preserve claim
 - `literature/papers/`: local copies of important papers only when access and licensing permit.
 
 Do not commit copyrighted PDFs or private downloads unless redistribution is allowed and the user explicitly wants them included.
+If a paper cannot be downloaded, the inventory must record the official URL and status (`metadata-only` or `needs-access`) instead of silently omitting the missing local copy.
 
 ## Draft and Citation Artifacts
 
 - Main LaTeX draft: preserve the venue template; keep anonymous unless final/camera-ready is requested.
-- `references.bib`: verified references only.
+- `references.bib`: verified references only, fetched from authoritative BibTeX/metadata sources rather than written from memory.
 - `citation_verification.md`: source used to verify each citation and the sentence-level claim it supports.
 
 ## Figure and Table Artifacts
 
 - `figures/figure_plan.md`: role, message, entities, relationships, layout, backend, source, and fallback for each figure.
 - `figures/figure_specs.yaml` or `figures/figure_specs.md`: machine-checkable role/message/entities/layout/backend specs.
-- Figure/table source files: deterministic scripts for numerical plots; editable fallback for diagrams.
+- Generated figure/table assets: image-generated diagrams, deterministic plot PDFs/PNGs, and LaTeX tables that the draft can include directly.
+- Figure/table source files: prompts/specs for generated diagrams, deterministic scripts for numerical plots, and editable fallback/overlay files when needed.
 
 ## Submission and Review Artifacts
 
@@ -51,6 +53,6 @@ Do not commit copyrighted PDFs or private downloads unless redistribution is all
 | Story only | `paper_story.md` |
 | Abstract/Introduction revision | `claim_evidence_map.md`, revised `.tex` section |
 | Related Work | `literature/paper_inventory.md`, `literature/related_work_matrix.md`, `literature/positioning.md`, citation updates |
-| Figures | `figures/figure_plan.md`, figure specs, source or fallback files |
+| Figures | `figures/figure_plan.md`, figure specs, generated assets, source or fallback files |
 | Citation repair | `references.bib`, `citation_verification.md` |
 | Submission audit | `build_check.md`, `submission_readiness.md`, checklist notes |

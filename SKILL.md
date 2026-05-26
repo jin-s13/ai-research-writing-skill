@@ -15,6 +15,8 @@ Never invent citations. Fetch BibTeX from arXiv, DOI/Crossref, Semantic Scholar,
 
 When the user asks for a full paper, do not stop at an outline. Produce concrete paper artifacts, then iterate.
 
+For full-paper work, do not stop at plans for figures or citations. Generate or fetch the concrete assets whenever tools and access allow: image files for non-numeric diagrams, deterministic plot/table files for results, `references.bib` entries for citations, and local paper copies or metadata records for the literature corpus.
+
 ## Operating Modes
 
 Choose the smallest mode that satisfies the user request.
@@ -24,7 +26,7 @@ Choose the smallest mode that satisfies the user request.
 | Full-paper mode | Turn a repo, notes, results, and template into a draft or submission package | `references/README.md`, `references/workflow.md`, `references/artifacts.md` |
 | Story mode | Clarify thesis, gap, contributions, and claims to make or avoid | `references/paper-story.md` |
 | Section mode | Write or revise Abstract, Introduction, Related Work, Method, Experiments, Limitations, or Conclusion | `references/README.md`, then the section-specific reference |
-| Figure mode | Design publication figures, tables, diagrams, or teaser visuals | `references/figure-workflow.md`, `references/figure-spec.md` |
+| Figure mode | Design publication figures, tables, diagrams, or teaser visuals | `references/figure-workflow.md`, `references/figure-spec.md`, `references/figure-pattern-atlas.md` as needed |
 | Citation mode | Find, verify, repair, or add references | `references/citation-workflow.md` |
 | Reviewer mode | Diagnose reviewer risks or prepare author-facing self-review | `references/reviewer-guidelines.md`, `references/reviewer-self-review.md` |
 | Submission mode | Run checklist, build checks, TODO/citation checks, or Overleaf/Git packaging | `references/submission-packaging.md`, `references/citation-checklist.md` |
@@ -48,7 +50,9 @@ Do not load the entire `references/` tree by default.
 - **Literature gate**: no Related Work draft before close papers, baselines, and major lines of work are inventoried and positioned.
 - **Claim gate**: no unsupported strong claim in Abstract or Introduction.
 - **Citation gate**: no unverified BibTeX unless clearly marked as a placeholder.
+- **Citation asset gate**: every cited work must be added to `references.bib` from an authoritative source, or be recorded as a visible placeholder/blocker. Important related papers should be downloaded or saved locally when access and licensing permit.
 - **Figure gate**: no generated numeric figure; numbers must come from code, data, tables, or logs.
+- **Figure asset gate**: after writing a figure plan, actually produce the figure assets when the environment provides the needed tools. For method, teaser, framework, pipeline, architecture, and overview diagrams, invoke the built-in image-generation capability and save the generated image as the visual/inspiration version; in parallel, keep a TikZ/SVG exact-text backup or simplified editable schematic when feasible. If image generation is unavailable, record the blocker instead of treating the plan as complete.
 - **Reviewer gate**: no final draft while high-severity reviewer objections remain unaddressed.
 - **Checklist gate**: no submission without limitations, reproducibility, compute/data/code status, and LLM usage status when applicable.
 - **Build gate**: attempt compilation or record why compilation could not run.

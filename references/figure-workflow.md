@@ -2,30 +2,47 @@
 
 Use this reference when planning, generating, or revising figures for a paper.
 
-Load `figure-spec.md` before creating a figure plan, and `style-presets.md` when visual style or venue sizing matters.
+Load `figure-spec.md` before creating a figure plan, `style-presets.md` when visual style or venue sizing matters, and `figure-pattern-atlas.md` when deterministic result figures need publication-style layout patterns.
 
 ## Required Figure Plan
 
 Create `figures/figure_plan.md` before producing figures. For each figure, specify:
 
+- **Class**: evidence/result figure or concept/method diagram.
 - **Role**: overview, method detail, result summary, ablation, teaser, failure analysis.
 - **Message**: the single claim the figure should communicate.
 - **Entities**: modules, inputs, outputs, metrics, or datasets.
 - **Relationships**: arrows, grouping, feedback loops, comparisons.
 - **Layout**: horizontal pipeline, two-row process, grouped bars, heatmap, grid, etc.
-- **Backend**: deterministic plot, built-in image generation, hybrid, or TikZ/SVG fallback.
+- **Backend**: deterministic plot, built-in image generation + TikZ/SVG backup, hybrid, or table.
 - **Fallback**: how the paper compiles if generated assets are absent.
 
 For larger projects, use the schema in `figure-spec.md` and store specs in `figures/figure_specs.yaml` or `figures/figure_specs.md`.
 
+The figure plan is not the final output. Once the plan is approved enough to proceed, produce the actual figure/table asset, save it under `figures/`, and update the LaTeX draft or figure TODO with the concrete path. If generation cannot run, record the missing tool, data, prompt, or permission as a blocker in the plan.
+
 ## Backend Selection
 
-- Use deterministic plotting for numerical results. Prefer matplotlib/seaborn or direct SVG/PDF generation. Never use image generation for exact numbers.
-- Use `scripts/make_latex_table.py` for exact CSV-to-LaTeX tables when table values must remain auditable.
-- Use the environment's built-in image-generation capability by default for non-numeric paper diagrams: method, teaser, framework, pipeline, architecture, and overview figures.
-- Use TikZ/SVG as a fallback or overlay when exact labels, arrows, or LaTeX-native editability are required; do not default method/pipeline figures to TikZ.
-- Do not require or name a specific external image API/model for generated diagrams unless the user explicitly asks for one.
-- For generated diagrams with labels, inspect the image before committing. If text is distorted, regenerate with shorter text or add deterministic labels as an SVG/TikZ/LaTeX overlay.
+Figure drawing has two classes. Classify every figure before choosing a backend.
+
+### Class 1: Evidence / Result Figures
+
+Use for quantitative results, ablations, comparisons, trend plots, heatmaps, radar plots, qualitative grids tied to evidence, and multi-panel result figures.
+
+- Use deterministic plotting or LaTeX tables. Prefer matplotlib/seaborn, direct SVG/PDF generation, or `scripts/make_latex_table.py`.
+- Never use image generation for exact numbers, axes, metric values, tables, statistical summaries, or benchmark claims.
+- Use `figure-pattern-atlas.md` to choose a chart family, layout pattern, palette, and export contract.
+- Store source data and plotting scripts so the figure can be regenerated.
+
+### Class 2: Concept / Method Diagrams
+
+Use for method, teaser, framework, pipeline, architecture, overview, and mechanism-style diagrams.
+
+- Use the environment's built-in image-generation capability as the visual/inspiration version.
+- In parallel, keep TikZ/SVG as the exact-text version: precise labels, arrows, terminology, overlays, simplified editable schematic, or emergency compile path.
+- Invoke the built-in image-generation tool when available; do not merely write a prompt or plan, and do not use TikZ/SVG as the only implementation unless image generation is unavailable or blocked.
+- Do not require or name a specific external image API/model unless the user explicitly asks for one.
+- Inspect generated diagrams before committing. If text is distorted, regenerate with shorter text or add deterministic labels as an SVG/TikZ/LaTeX overlay.
 
 ## Figure Types
 
@@ -78,6 +95,14 @@ Use single-column width for simple comparisons and full-width figures only when 
 
 For method, teaser, framework, pipeline, architecture, and overview diagrams, use the agent's built-in image-generation tool when available. The figure plan should store the prompt or spec as the source, not vendor-specific API code.
 
+Expected outputs for a generated diagram:
+
+- generated visual/inspiration asset, such as `figures/fig_overview_generated.png`;
+- prompt/spec source, such as `figures/fig_overview_prompt.md`;
+- TikZ/SVG exact-text backup or simplified editable schematic, such as `figures/fig_overview_backup.svg` or `figures/fig_overview_tikz.tex`, when feasible;
+- optional deterministic overlay when exact labels are needed;
+- LaTeX include path or a recorded blocker if the asset could not be produced.
+
 For image-generated diagrams, include:
 
 1. Venue and figure purpose.
@@ -101,7 +126,7 @@ For generated overview, method, framework, teaser, and pipeline diagrams, use th
 5. **Connections**: every arrow, feedback path, dashed failure path, and label.
 6. **Constraints**: no hallucinated labels, no tiny text, no logos, no fake numbers, no unsupported claims.
 
-Generated diagrams are strongest when they minimize text. If exact labels matter, add labels as a deterministic overlay or keep a TikZ/SVG fallback.
+Generated diagrams are strongest when they minimize text. If exact labels matter, add labels as a deterministic overlay and keep the TikZ/SVG backup aligned with the same terminology.
 
 ## LaTeX Fallback Pattern
 

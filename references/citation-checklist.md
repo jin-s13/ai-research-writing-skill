@@ -8,6 +8,7 @@ For finding and adding new references, load `citation-workflow.md` first. This f
 
 - Never write BibTeX from memory.
 - Prefer primary sources: arXiv, DOI/Crossref, Semantic Scholar, official publisher pages, or official software documentation.
+- Create or update `references.bib` with retrieved entries; a citation plan or URL list is not enough for a draft that uses citations.
 - Record each citation source in `citation_verification.md`.
 - If a citation cannot be verified, use a visibly named placeholder such as `PLACEHOLDER_author_year_verify` and state it in the final response.
 - Do not cite a paper for a claim unless the paper actually supports that claim.
@@ -21,7 +22,7 @@ Use this workflow whenever adding new citations:
 2. **Verify existence**: confirm title/authors/year in at least one authoritative source; use two sources when metadata conflicts.
 3. **Retrieve BibTeX**: prefer DOI/arXiv/publisher BibTeX, not hand-written entries.
 4. **Validate claim support**: check that the cited work supports the sentence-level claim.
-5. **Record**: add the BibTeX entry and log the source in `citation_verification.md`.
+5. **Record**: add the BibTeX entry to `references.bib` and log the source in `citation_verification.md`.
 
 If any step fails, do not silently cite the work. Use a visible placeholder or remove the sentence.
 

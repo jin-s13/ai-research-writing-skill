@@ -125,6 +125,8 @@ python3 scripts/camera_ready_check.py main.tex
 
 - [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills)
 - [Orchestra-Research/AI-research-SKILLs](https://github.com/Orchestra-Research/AI-research-SKILLs)
+- [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills)
+- [ChenLiu-1996/figures4papers](https://github.com/ChenLiu-1996/figures4papers)
 
 ## License
 

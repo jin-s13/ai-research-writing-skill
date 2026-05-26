@@ -52,13 +52,14 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 
 - Load `references/figure-workflow.md`.
 - Load `references/figure-spec.md` when creating or reviewing a figure plan.
-- For every figure, first write its role, message, entities, relationships, layout, backend, source, and fallback.
-- Use deterministic plotting for numbers.
-- Use built-in image generation by default for non-numeric method, teaser, framework, pipeline, architecture, and overview figures.
-- Keep TikZ/SVG as an editable fallback or exact-label overlay, not as the default backend for these paper diagrams.
+- For every figure, first classify it as `evidence-result` or `concept-method`, then write its role, message, entities, relationships, layout, backend, source, and backup/fallback.
+- For `evidence-result` figures, use deterministic plotting or LaTeX tables; never use image generation for exact numbers, axes, metric values, tables, or benchmark claims.
+- After the plan is written, generate the actual figure files. Do not stop with `figures/figure_plan.md` unless the needed tool, data, or access is unavailable and recorded as a blocker.
+- For `concept-method` figures, use built-in image generation as the visual/inspiration version, and keep TikZ/SVG as the exact-text version: editable backup, simplified schematic, or exact-label overlay whenever feasible.
 - Do not bind generated figures to a specific external image API or model unless the user explicitly requests it.
 - Use `scripts/make_latex_table.py` for CSV-to-LaTeX tables when exact table formatting is needed.
 - Inspect generated diagrams. If text is distorted or labels are wrong, regenerate with shorter text or add deterministic labels through the fallback/overlay.
+- Update the LaTeX draft to reference generated figure/table assets when the paper section depends on them.
 - Captions must state the takeaway, not merely describe the visual elements.
 
 ### 7. Citation Verification
@@ -66,6 +67,8 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 - Load `references/citation-workflow.md` for finding and adding citations.
 - Load `references/citation-checklist.md` for final citation/checklist audit.
 - Fetch citation metadata programmatically; do not write BibTeX from memory.
+- Create or update `references.bib` with retrieved BibTeX entries. Do not stop at candidate URLs or a citation plan when an authoritative BibTeX source is available.
+- Download or save official accessible copies of important related papers in `literature/papers/` when access and licensing permit; otherwise record `metadata-only` or `needs-access` in `literature/paper_inventory.md`.
 - Record verification sources in `citation_verification.md`.
 - Verify that the cited paper supports the sentence-level claim, not merely the broad topic.
 

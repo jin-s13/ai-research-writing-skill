@@ -121,6 +121,13 @@ Create `literature/positioning.md` for author-facing decisions:
 5. Build the related work matrix and positioning analysis.
 6. Only then draft Related Work paragraphs.
 
+Expected concrete outputs:
+
+- `references.bib` contains verified BibTeX entries for cited papers.
+- `literature/papers/` contains accessible important papers, or `literature/paper_inventory.md` records why each local copy is unavailable.
+- `literature/paper_inventory.md` lists official URLs, local paths when present, status, and relevance.
+- `literature/notes/` contains notes for close works and baselines before they are used for contrast.
+
 ## Writing Rules
 
 - Group by research problem, not chronology.

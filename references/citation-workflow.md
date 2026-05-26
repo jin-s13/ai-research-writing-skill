@@ -17,6 +17,8 @@ Do not invent citations. A fluent but false bibliography is an academic integrit
 6. RECORD  -> add .bib entry and log verification in citation_verification.md
 ```
 
+This workflow must produce concrete files when possible. For full-paper work, citation completion means `references.bib` has been created or updated, `citation_verification.md` records the checked source, and important accessible papers are saved or explicitly marked as `metadata-only`/`needs-access` in the literature inventory.
+
 ## Source Selection
 
 | Need | Preferred source |
@@ -29,6 +31,29 @@ Do not invent citations. A fluent but false bibliography is an academic integrit
 | Dataset citation | dataset card, official dataset page, paper, or license page |
 
 Google Scholar has no official public API. Avoid workflows that depend on scraping it.
+
+## Source Reliability Tiers
+
+Prefer structured, authoritative sources before broad discovery tools:
+
+1. **Tier 1: authoritative structured metadata**: DOI/Crossref, arXiv, PubMed/PMID when applicable, publisher/proceedings pages, official software or dataset citation metadata.
+2. **Tier 2: scholarly discovery APIs**: Semantic Scholar, OpenAlex, domain preprint servers, and citation graph services. Use these for discovery and cross-checking, then verify against Tier 1 when possible.
+3. **Tier 3: unstable or access-limited search**: Google Scholar, institutional indexes, Web of Science/Scopus pages, CNKI/万方 manual search. Use only as last resort and mark results as potentially incomplete.
+
+For citation verification, route from strongest identifier to weaker search: DOI -> arXiv ID/PMID -> exact title -> title plus first author -> method/task query.
+
+## Segment-to-Citation Workflow
+
+When adding citations to prose, do not search the whole paragraph as one vague query:
+
+1. Split text into citable claims or short segments.
+2. For each segment, extract the exact claim and its boundary.
+3. Generate 2-4 English search queries: precise title/term query, synonym query, broader background query, and method/dataset query when relevant.
+4. Search candidates using the source tiers above.
+5. Assign support status before citing: `direct`, `partial`, `background`, `contrast`, `software`, `weak`, or `metadata-only`.
+6. Only cite `direct`, `contrast`, or `software` for strong claims. Use `partial` or `background` only for scoped context sentences.
+
+Never cite a `metadata-only` candidate as claim support before checking the abstract, publisher page, or paper text.
 
 ## Query Strategy
 
@@ -52,6 +77,20 @@ For Related Work or positioning tasks, maintain a local literature corpus before
 - Do not commit copyrighted PDFs or private downloads to an open-source repository unless redistribution is allowed and the user explicitly wants them included.
 
 Use `references/literature-review.md` for the full corpus, matrix, and positioning workflow.
+
+Do not treat a list of search results as a downloaded corpus. If the paper is open access or otherwise accessible, save the official PDF or stable local copy. If it cannot be saved, keep the official URL and status in the inventory so the missing local copy is visible.
+
+## BibTeX Retrieval Output
+
+When adding citations:
+
+1. Create `references.bib` if it does not exist.
+2. Fetch BibTeX or structured metadata from DOI/Crossref, arXiv, publisher pages, Semantic Scholar, OpenAlex, or official docs.
+3. Normalize only the key and obvious formatting; do not invent missing metadata.
+4. Add the entry to `references.bib`.
+5. Record the source URL/API and claim relation in `citation_verification.md`.
+
+If no authoritative BibTeX is available, use a visible placeholder key and record the blocker. Do not leave citations only in prose or only in the verification table.
 
 ## Metadata Verification
 
@@ -126,8 +165,9 @@ When a citation key is missing or suspicious:
 1. Search the key in `.bib`, `.tex`, notes, and downloaded PDFs.
 2. Search the title or nearby prose online/API if network tools are available.
 3. Replace with a verified primary source.
-4. If no source supports the sentence, revise the sentence.
-5. Run `scripts/check_citations.py`.
+4. Add or update the corresponding `references.bib` entry.
+5. If no source supports the sentence, revise the sentence.
+6. Run `scripts/check_citations.py`.
 
 ## Common Failure Modes
 
