@@ -1,4 +1,4 @@
-# LaTeX Templates for ML/AI, Vision, and NLP Conferences
+# LaTeX Templates for ML/AI, CV, and NLP Conferences
 
 This directory contains LaTeX templates for major machine learning, AI, computer vision, and NLP conferences.
 
