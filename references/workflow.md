@@ -55,7 +55,7 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 - For every figure, first classify it as `evidence-result` or `concept-method`, then write its role, message, entities, relationships, layout, backend, source, and backup/fallback.
 - For `evidence-result` figures, use deterministic plotting or LaTeX tables; never use image generation for exact numbers, axes, metric values, tables, or benchmark claims.
 - After the plan is written, generate the actual figure files. Do not stop with `figures/figure_plan.md` unless the needed tool, data, or access is unavailable and recorded as a blocker.
-- For `concept-method` figures, use built-in image generation as the visual/inspiration version, and keep TikZ/SVG as the exact-text version: editable backup, simplified schematic, or exact-label overlay whenever feasible.
+- For `concept-method` figures (overview, method, framework, pipeline, architecture, teaser), use built-in image generation as the default figure in the paper. TikZ/SVG precise schematics are optional backup/reference only—add them when exact labels, terminology alignment, or a compile fallback is needed, not as a parallel required deliverable.
 - Do not bind generated figures to a specific external image API or model unless the user explicitly requests it.
 - Use `scripts/make_latex_table.py` for CSV-to-LaTeX tables when exact table formatting is needed.
 - Inspect generated diagrams. If text is distorted or labels are wrong, regenerate with shorter text or add deterministic labels through the fallback/overlay.

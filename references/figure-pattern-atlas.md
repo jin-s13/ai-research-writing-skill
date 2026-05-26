@@ -19,7 +19,7 @@ Load this after `figure-workflow.md` and `figure-spec.md` when:
 
 When using the atlas, inspect the closest local `plot_*.py` files under `references/assets/figures4papers/` before writing a new deterministic plotting script.
 
-For Class 2 concept/method diagrams, follow `figure-workflow.md`: generated image is the visual/inspiration version, while TikZ/SVG is the exact-text backup. Use this atlas mainly for Class 1 deterministic result panels and exact-text/vector backups.
+For Class 2 concept/method diagrams, follow `figure-workflow.md`: generated image is the default figure; TikZ/SVG is optional backup/reference only. Use this atlas mainly for Class 1 deterministic result panels and exact-text/vector backups when needed.
 
 ## Pattern Routing
 
@@ -32,7 +32,7 @@ For Class 2 concept/method diagrams, follow `figure-workflow.md`: generated imag
 | Model-family comparison over several criteria | Radar or polar comparison | inspect `figure_VIGIL` |
 | Qualitative result plus quantification | Image plate + small quantitative support panels | representative examples, scale/label clarity, traceable source paths |
 | Survey or composition figure | Stacked bars, composition heatmap, or timeline trend | consistent category order and compact legend |
-| Concept or motivation panel | Simple 2D/3D schematic only when it supports a claim | inspect `figure_Dispersion`, `figure_Cflows`, or `figure_FPGM`; prefer generated visual + exact-text SVG/TikZ backup |
+| Concept or motivation panel | Simple 2D/3D schematic only when it supports a claim | inspect `figure_Dispersion`, `figure_Cflows`, or `figure_FPGM`; default to generated image; optional SVG/TikZ reference when exact text matters |
 
 ## Reusable Design Rules
 

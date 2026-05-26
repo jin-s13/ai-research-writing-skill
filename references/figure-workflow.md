@@ -14,7 +14,7 @@ Create `figures/figure_plan.md` before producing figures. For each figure, speci
 - **Entities**: modules, inputs, outputs, metrics, or datasets.
 - **Relationships**: arrows, grouping, feedback loops, comparisons.
 - **Layout**: horizontal pipeline, two-row process, grouped bars, heatmap, grid, etc.
-- **Backend**: deterministic plot, built-in image generation + TikZ/SVG backup, hybrid, or table.
+- **Backend**: deterministic plot, generated image (default for concept/method), hybrid, optional TikZ/SVG reference, or table.
 - **Fallback**: how the paper compiles if generated assets are absent.
 
 For larger projects, use the schema in `figure-spec.md` and store specs in `figures/figure_specs.yaml` or `figures/figure_specs.md`.
@@ -38,11 +38,11 @@ Use for quantitative results, ablations, comparisons, trend plots, heatmaps, rad
 
 Use for method, teaser, framework, pipeline, architecture, overview, and mechanism-style diagrams.
 
-- Use the environment's built-in image-generation capability as the visual/inspiration version.
-- In parallel, keep TikZ/SVG as the exact-text version: precise labels, arrows, terminology, overlays, simplified editable schematic, or emergency compile path.
-- Invoke the built-in image-generation tool when available; do not merely write a prompt or plan, and do not use TikZ/SVG as the only implementation unless image generation is unavailable or blocked.
+- **Default**: use built-in image generation and include the generated asset in the paper (`\includegraphics`).
+- **Optional reference only**: TikZ/SVG precise schematics for exact labels, terminology alignment, or compile fallback—not a parallel required deliverable.
+- Invoke the built-in image-generation tool when available; do not merely write a prompt or plan, and do not use TikZ/SVG as the primary implementation unless image generation is unavailable or blocked.
 - Do not require or name a specific external image API/model unless the user explicitly asks for one.
-- Inspect generated diagrams before committing. If text is distorted, regenerate with shorter text or add deterministic labels as an SVG/TikZ/LaTeX overlay.
+- Inspect generated diagrams before committing. If text is distorted, regenerate with shorter text or add deterministic labels as an SVG/LaTeX overlay; optional TikZ may document terminology but is not required by default.
 
 ## Figure Types
 
@@ -97,9 +97,9 @@ For method, teaser, framework, pipeline, architecture, and overview diagrams, us
 
 Expected outputs for a generated diagram:
 
-- generated visual/inspiration asset, such as `figures/fig_overview_generated.png`;
-- prompt/spec source, such as `figures/fig_overview_prompt.md`;
-- TikZ/SVG exact-text backup or simplified editable schematic, such as `figures/fig_overview_backup.svg` or `figures/fig_overview_tikz.tex`, when feasible;
+- **Required**: generated asset used in the paper, such as `figures/fig_overview.png` or `figures/fig_overview_generated.png`;
+- **Required**: prompt/spec source, such as `figures/fig_overview_prompt.md`;
+- **Optional**: TikZ/SVG reference schematic, such as `figures/fig_overview_ref.tikz`, only when exact labels, terminology alignment, or compile fallback is needed;
 - optional deterministic overlay when exact labels are needed;
 - LaTeX include path or a recorded blocker if the asset could not be produced.
 
@@ -126,17 +126,23 @@ For generated overview, method, framework, teaser, and pipeline diagrams, use th
 5. **Connections**: every arrow, feedback path, dashed failure path, and label.
 6. **Constraints**: no hallucinated labels, no tiny text, no logos, no fake numbers, no unsupported claims.
 
-Generated diagrams are strongest when they minimize text. If exact labels matter, add labels as a deterministic overlay and keep the TikZ/SVG backup aligned with the same terminology.
+Generated diagrams are strongest when they minimize text. If exact labels matter, add labels as a deterministic overlay; an optional TikZ/SVG reference may document terminology but is not required by default.
 
-## LaTeX Fallback Pattern
+## LaTeX Include Pattern
 
-Use this pattern for generated diagrams:
+Default: include the generated image directly:
 
 ```latex
-\IfFileExists{figures/name_generated.png}{%
-  \includegraphics[width=\linewidth]{figures/name_generated.png}
+\includegraphics[width=\linewidth]{figures/fig_overview.png}
+```
+
+Optional compile fallback when generation failed but a TikZ reference exists:
+
+```latex
+\IfFileExists{figures/fig_overview.png}{%
+  \includegraphics[width=\linewidth]{figures/fig_overview.png}
 }{%
-  \input{figures/name_tikz}
+  \input{figures/fig_overview_ref.tikz}
 }
 ```
 

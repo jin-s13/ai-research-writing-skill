@@ -25,9 +25,9 @@ relationships:
     target: "Planner"
     relation: data-flow | control-flow | feedback | comparison | failure-path
 layout: left-to-right pipeline | framework overview | horizontal bands | two-row process | grouped bars | line plot | heatmap | table
-backend: deterministic-plot | latex-table | generated-image-with-backup | hybrid
+backend: deterministic-plot | latex-table | generated-image | hybrid
 source: "CSV/log/script/prompt path"
-backup: "TikZ/SVG/PDF/PNG backup or fallback path"
+backup: "optional TikZ/SVG reference or compile fallback path"
 caption_takeaway: "The sentence the caption must communicate."
 evidence_status: exact-data | illustrative-only | qualitative-example
 reviewer_risk: "What a skeptical reviewer may question about this figure."
@@ -37,10 +37,10 @@ reviewer_risk: "What a skeptical reviewer may question about this figure."
 
 | Role | Class | Purpose | Typical backend |
 |---|---|---|---|
-| overview | concept-method | Explain the whole method or system | generated-image with TikZ/SVG exact-text backup |
-| method-detail | concept-method | Explain one module, invariant, or interface | generated-image with backup or hybrid |
-| framework/pipeline | concept-method | Show the paper's method, architecture, or processing stages | generated-image with TikZ/SVG exact-text backup |
-| teaser | concept-method | Make the task and output intuitive | generated-image or curated examples, with backup when diagrammatic |
+| overview | concept-method | Explain the whole method or system | generated-image (default); optional TikZ/SVG reference |
+| method-detail | concept-method | Explain one module, invariant, or interface | generated-image or hybrid |
+| framework/pipeline | concept-method | Show the paper's method, architecture, or processing stages | generated-image (default); optional TikZ/SVG reference |
+| teaser | concept-method | Make the task and output intuitive | generated-image or curated examples |
 | result-summary | evidence-result | Support the main quantitative claim | deterministic plot or table |
 | ablation | evidence-result | Show which design choices matter | deterministic plot or table |
 | difficulty breakdown | evidence-result | Explain performance by subset/level | deterministic plot or heatmap |
@@ -49,9 +49,9 @@ reviewer_risk: "What a skeptical reviewer may question about this figure."
 ## Backend Rules
 
 - `evidence-result`: use `deterministic-plot` or `latex-table`. This class covers numerical charts, tables, result summaries, ablations, benchmark comparisons, trend plots, heatmaps, and metric-driven qualitative grids.
-- `concept-method`: use `generated-image-with-backup` or `hybrid`. This class covers method, teaser, framework, pipeline, architecture, overview, and mechanism-style diagrams.
-- `generated-image-with-backup`: for `concept-method`, use built-in image generation for the visual/inspiration version, and keep a TikZ/SVG exact-text version or simplified editable schematic in parallel when feasible.
-- `hybrid`: use when a generated visual/inspiration version is paired with deterministic labels, LaTeX text, SVG annotations, or a TikZ/SVG exact-text backup.
+- `concept-method`: use `generated-image` or `hybrid`. This class covers method, teaser, framework, pipeline, architecture, overview, and mechanism-style diagrams.
+- `generated-image`: for `concept-method`, use built-in image generation as the default figure in the paper. TikZ/SVG precise schematics are optional backup/reference only—not a parallel required deliverable.
+- `hybrid`: use when a generated image is paired with deterministic labels, LaTeX text, or SVG annotations; optional TikZ/SVG may serve as terminology reference, not as the primary figure.
 - TikZ/SVG alone is only acceptable for `concept-method` when image generation is unavailable, blocked by policy, or inappropriate for the content.
 
 Never use image generation for exact numbers, axes, metric values, or tables.
@@ -90,7 +90,7 @@ When in doubt, use a table for exact numbers and a plot for trends.
 - Is the evidence hierarchy clear, with a hero panel or main visual message?
 - Is backend risk appropriate for the content?
 - Is the source file listed?
-- Is there a TikZ/SVG backup or documented blocker for generated diagrams?
+- Is the generated image produced, or is there a documented blocker? (Optional TikZ/SVG reference only when needed.)
 - Is reviewer risk recorded before final styling?
 - Is the caption takeaway written before final styling?
 
