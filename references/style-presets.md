@@ -4,7 +4,7 @@ Use this reference when creating figures or unifying a paper's visual language. 
 
 ## Universal Figure Rules
 
-- Prefer vector outputs: PDF/SVG/TikZ.
+- Prefer PDF/SVG for deterministic plots and overlays; use high-resolution PNG/PDF exports for built-in image-generated diagrams.
 - Use 300 DPI or higher for raster images.
 - Use colorblind-safe palettes and never rely on color alone.
 - Keep all text readable at final paper size; no text below 7 pt.
@@ -85,7 +85,7 @@ BEST_BASELINE = "#264653"
 
 ### Classic Academic
 
-Best default for exact system diagrams.
+Use when a diagram needs exact labels or deterministic overlays.
 
 - White background.
 - Pale section bands.
@@ -96,7 +96,7 @@ Best default for exact system diagrams.
 
 ### Modern Minimal
 
-Use for clean method overviews.
+Use for clean image-generated method, framework, pipeline, and overview figures.
 
 - Sparse layout.
 - One accent color per group.

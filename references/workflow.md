@@ -54,10 +54,11 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 - Load `references/figure-spec.md` when creating or reviewing a figure plan.
 - For every figure, first write its role, message, entities, relationships, layout, backend, source, and fallback.
 - Use deterministic plotting for numbers.
-- Use built-in image generation only for non-numeric polished diagrams or teaser visuals, and keep an editable fallback such as TikZ/SVG.
+- Use built-in image generation by default for non-numeric method, teaser, framework, pipeline, architecture, and overview figures.
+- Keep TikZ/SVG as an editable fallback or exact-label overlay, not as the default backend for these paper diagrams.
 - Do not bind generated figures to a specific external image API or model unless the user explicitly requests it.
 - Use `scripts/make_latex_table.py` for CSV-to-LaTeX tables when exact table formatting is needed.
-- Inspect generated diagrams. If text is distorted or labels are wrong, use the editable fallback.
+- Inspect generated diagrams. If text is distorted or labels are wrong, regenerate with shorter text or add deterministic labels through the fallback/overlay.
 - Captions must state the takeaway, not merely describe the visual elements.
 
 ### 7. Citation Verification

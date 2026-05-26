@@ -19,8 +19,8 @@ relationships:
   - source: "Input"
     target: "Planner"
     relation: data-flow | control-flow | feedback | comparison | failure-path
-layout: left-to-right pipeline | horizontal bands | two-row process | grouped bars | line plot | heatmap | table
-backend: deterministic-plot | latex-table | tikz | svg | generated-image | hybrid
+layout: left-to-right pipeline | framework overview | horizontal bands | two-row process | grouped bars | line plot | heatmap | table
+backend: deterministic-plot | latex-table | generated-image | hybrid | tikz-fallback | svg-fallback
 source: "CSV/log/script/prompt path"
 fallback: "TikZ/SVG/PDF/PNG fallback path"
 caption_takeaway: "The sentence the caption must communicate."
@@ -31,21 +31,22 @@ evidence_status: exact-data | illustrative-only | qualitative-example
 
 | Role | Purpose | Typical backend |
 |---|---|---|
-| overview | Explain the whole method or system | TikZ/SVG/generated-image with fallback |
-| method-detail | Explain one module, invariant, or interface | TikZ/SVG |
+| overview | Explain the whole method or system | generated-image with fallback |
+| method-detail | Explain one module, invariant, or interface | generated-image or hybrid |
 | result-summary | Support the main quantitative claim | deterministic plot or table |
 | ablation | Show which design choices matter | deterministic plot or table |
 | difficulty breakdown | Explain performance by subset/level | deterministic plot or heatmap |
 | failure-analysis | Show systematic failure modes | qualitative grid + labels |
-| teaser | Make the task and output intuitive | generated image or curated examples |
+| teaser | Make the task and output intuitive | generated-image or curated examples |
+| framework/pipeline | Show the paper's method, architecture, or processing stages | generated-image with fallback |
 
 ## Backend Rules
 
 - `deterministic-plot`: required for all numerical charts.
 - `latex-table`: use for exact values, many metrics, or leaderboard-style comparison.
-- `tikz`/`svg`: use when exact labels and arrows matter.
-- `generated-image`: use only when the figure is illustrative and text accuracy is non-critical; default to the agent's built-in image generation capability, not a specific external API/model.
-- `hybrid`: allowed when a generated visual is paired with deterministic labels or a TikZ fallback.
+- `generated-image`: default for non-numeric paper diagrams, including method, teaser, framework, pipeline, architecture, and overview figures. Use the agent's built-in image-generation capability, not a specific external API/model.
+- `hybrid`: use when a generated visual is paired with deterministic labels, LaTeX text, SVG annotations, or a TikZ/SVG fallback.
+- `tikz-fallback`/`svg-fallback`: use as fallback assets or exact-label overlays; do not make TikZ the default backend for method, framework, teaser, or pipeline figures.
 
 Never use image generation for exact numbers, axes, metric values, or tables.
 

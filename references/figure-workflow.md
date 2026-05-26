@@ -13,7 +13,7 @@ Create `figures/figure_plan.md` before producing figures. For each figure, speci
 - **Entities**: modules, inputs, outputs, metrics, or datasets.
 - **Relationships**: arrows, grouping, feedback loops, comparisons.
 - **Layout**: horizontal pipeline, two-row process, grouped bars, heatmap, grid, etc.
-- **Backend**: deterministic plot, TikZ/SVG, image generation, or hybrid.
+- **Backend**: deterministic plot, built-in image generation, hybrid, or TikZ/SVG fallback.
 - **Fallback**: how the paper compiles if generated assets are absent.
 
 For larger projects, use the schema in `figure-spec.md` and store specs in `figures/figure_specs.yaml` or `figures/figure_specs.md`.
@@ -22,10 +22,10 @@ For larger projects, use the schema in `figure-spec.md` and store specs in `figu
 
 - Use deterministic plotting for numerical results. Prefer matplotlib/seaborn or direct SVG/PDF generation. Never use image generation for exact numbers.
 - Use `scripts/make_latex_table.py` for exact CSV-to-LaTeX tables when table values must remain auditable.
-- Use TikZ/SVG for diagrams that require exact text, labels, and arrows.
-- Use the environment's built-in image generation capability for polished overview diagrams or teaser-style visuals only when text accuracy is non-critical or a fallback exists.
+- Use the environment's built-in image-generation capability by default for non-numeric paper diagrams: method, teaser, framework, pipeline, architecture, and overview figures.
+- Use TikZ/SVG as a fallback or overlay when exact labels, arrows, or LaTeX-native editability are required; do not default method/pipeline figures to TikZ.
 - Do not require or name a specific external image API/model for generated diagrams unless the user explicitly asks for one.
-- For generated diagrams with labels, inspect the image before committing. If text is distorted, use TikZ/SVG instead.
+- For generated diagrams with labels, inspect the image before committing. If text is distorted, regenerate with shorter text or add deterministic labels as an SVG/TikZ/LaTeX overlay.
 
 ## Figure Types
 
@@ -33,7 +33,7 @@ Choose the figure type by the claim it supports:
 
 | Claim type | Recommended figure | Notes |
 |---|---|---|
-| System/workflow contribution | Pipeline or architecture diagram | Show artifacts, control flow, feedback, and deterministic/LLM boundaries. |
+| System/workflow contribution | Image-generated pipeline or architecture diagram | Show artifacts, control flow, feedback, and deterministic/LLM boundaries. |
 | Main quantitative comparison | Table or grouped bar chart | Tables are often better when many exact numbers matter. |
 | Progress over time/iterations | Line plot | Include uncertainty when runs exist. |
 | Ablation | Grouped bars or small multiples | Highlight the removed component and the consequence. |
@@ -76,6 +76,8 @@ Use single-column width for simple comparisons and full-width figures only when 
 
 ## Diagram Prompt Template
 
+For method, teaser, framework, pipeline, architecture, and overview diagrams, use the agent's built-in image-generation tool when available. The figure plan should store the prompt or spec as the source, not vendor-specific API code.
+
 For image-generated diagrams, include:
 
 1. Venue and figure purpose.
@@ -86,11 +88,11 @@ For image-generated diagrams, include:
 6. Arrows and feedback paths.
 7. Constraints: no logos, no watermarks, no unsupported terminology, no tiny text.
 
-Generated diagrams should be produced through the agent's built-in image-generation tool when available. Store the prompt or spec as the source, not vendor-specific API code.
+Generated diagrams should be treated as the normal path for polished non-numeric paper figures. Keep exact data plots and tables deterministic.
 
 ### Diagram Prompt Structure
 
-For generated overview diagrams, use this six-part prompt:
+For generated overview, method, framework, teaser, and pipeline diagrams, use this six-part prompt:
 
 1. **Framing**: venue, section, reader takeaway, and tone.
 2. **Visual style**: clean academic, sketch, modern minimal, or technical illustration.
@@ -99,7 +101,7 @@ For generated overview diagrams, use this six-part prompt:
 5. **Connections**: every arrow, feedback path, dashed failure path, and label.
 6. **Constraints**: no hallucinated labels, no tiny text, no logos, no fake numbers, no unsupported claims.
 
-Generated diagrams are strongest when they minimize text. If exact labels matter, make a TikZ/SVG version.
+Generated diagrams are strongest when they minimize text. If exact labels matter, add labels as a deterministic overlay or keep a TikZ/SVG fallback.
 
 ## LaTeX Fallback Pattern
 
