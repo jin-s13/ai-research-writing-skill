@@ -1,10 +1,8 @@
-# Paper Writing Suite
+# AI Research Writing Skill
 
 [English](README.md)
 
-**把研究仓库变成可投稿的论文——有证据链，不靠幻觉。**
-
-Paper Writing Suite 是一个面向 **ML / AI / CV / NLP** 的 agent skill：把你的代码、实验日志、笔记和会议模板交给 coding agent，它会帮你产出**可审计、有证据支撑**的 LaTeX 草稿与投稿材料，而不是“读起来很顺、但经不起追问”的 prose。
+AI Research Writing Skill 是一个面向 **ML / AI / CV / NLP** 研究者的 agent skill：把你的代码、实验日志、笔记和会议模板交给 coding agent，它会帮你产出**可审计、有证据支撑**的 LaTeX 草稿与投稿材料，而不是“读起来很顺、但经不起追问”的 prose。
 
 > **论文写作是 claim–evidence 工程，不是散文生成。**  
 > 每个重要主张都应能追溯到代码、实验结果、笔记或已核验引用。
@@ -13,7 +11,7 @@ Paper Writing Suite 是一个面向 **ML / AI / CV / NLP** 的 agent skill：把
 
 ## 为什么用这个 skill
 
-| 常见 AI 写论文方式 | Paper Writing Suite |
+| 常见 AI 写论文方式 | AI Research Writing Skill |
 |---|---|
 | 凭记忆写流畅段落 | 主张与仓库证据一一对应 |
 | 引用猜造或编造 | 从 arXiv / DOI / Semantic Scholar 拉 BibTeX |
@@ -30,8 +28,8 @@ Paper Writing Suite 是一个面向 **ML / AI / CV / NLP** 的 agent skill：把
 **1. 安装**（软链到 agent 的 skills 目录）：
 
 ```bash
-git clone https://gitlab.tetras.ai/jinsheng/paper-writing-suite.git
-ln -s "$(pwd)/paper-writing-suite" ~/.cursor/skills/paper-writing-suite   # Cursor 全局
+git clone https://gitlab.tetras.ai/jinsheng/ai-research-writing-skill.git
+ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-skill   # Cursor 全局
 ```
 
 更多 agent 路径见下方 [安装](#安装)。
@@ -39,17 +37,17 @@ ln -s "$(pwd)/paper-writing-suite" ~/.cursor/skills/paper-writing-suite   # Curs
 **2. 在论文仓库里对 agent 说：**
 
 ```text
-Use paper-writing-suite to inspect this repo and create paper_story.md and claim_evidence_map.md.
+Use AI Research Writing Skill to inspect this repo and create paper_story.md and claim_evidence_map.md.
 ```
 
 **3. 按章节迭代**，例如：
 
 ```text
-Use paper-writing-suite to revise Related Work: build a literature inventory and positioning analysis before drafting.
+Use AI Research Writing Skill to revise Related Work: build a literature inventory and positioning analysis before drafting.
 ```
 
 ```text
-Use paper-writing-suite to plan Figure 1 (method overview), generate the figure asset, and wire it into main.tex.
+Use AI Research Writing Skill to plan Figure 1 (method overview), generate the figure asset, and wire it into main.tex.
 ```
 
 内置脚本仅依赖 **Python 3 标准库**，无需额外安装。
@@ -107,10 +105,10 @@ Skill 要求 agent 不能跳过的检查点：
 
 | Agent | 全局路径 |
 |---|---|
-| **Cursor** | `~/.cursor/skills/paper-writing-suite` |
-| **Codex** | `$CODEX_HOME/skills/paper-writing-suite` |
-| **Claude Code** | `$HOME/.claude/skills/paper-writing-suite` |
-| **Gemini** | `$HOME/.gemini/skills/paper-writing-suite` |
+| **Cursor** | `~/.cursor/skills/ai-research-writing-skill` |
+| **Codex** | `$CODEX_HOME/skills/ai-research-writing-skill` |
+| **Claude Code** | `$HOME/.claude/skills/ai-research-writing-skill` |
+| **Gemini** | `$HOME/.gemini/skills/ai-research-writing-skill` |
 
 ### Cursor
 
@@ -118,21 +116,21 @@ Skill 要求 agent 不能跳过的检查点：
 
 ```bash
 mkdir -p ~/.cursor/skills
-ln -s /path/to/paper-writing-suite ~/.cursor/skills/paper-writing-suite
+ln -s /path/to/ai-research-writing-skill ~/.cursor/skills/ai-research-writing-skill
 ```
 
 项目级：
 
 ```bash
 mkdir -p .cursor/skills
-ln -s /path/to/paper-writing-suite .cursor/skills/paper-writing-suite
+ln -s /path/to/ai-research-writing-skill .cursor/skills/ai-research-writing-skill
 ```
 
 ### Codex
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-ln -s /path/to/paper-writing-suite "$CODEX_HOME/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$CODEX_HOME/skills/ai-research-writing-skill"
 ```
 
 ### Claude Code
@@ -141,7 +139,7 @@ ln -s /path/to/paper-writing-suite "$CODEX_HOME/skills/paper-writing-suite"
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-ln -s /path/to/paper-writing-suite "$HOME/.claude/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$HOME/.claude/skills/ai-research-writing-skill"
 ```
 
 项目级：将路径改为 `.claude/skills/` 即可。
@@ -150,7 +148,7 @@ ln -s /path/to/paper-writing-suite "$HOME/.claude/skills/paper-writing-suite"
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-ln -s /path/to/paper-writing-suite "$HOME/.gemini/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$HOME/.gemini/skills/ai-research-writing-skill"
 ```
 
 ---
@@ -158,7 +156,7 @@ ln -s /path/to/paper-writing-suite "$HOME/.gemini/skills/paper-writing-suite"
 ## 仓库结构
 
 ```text
-paper-writing-suite/
+ai-research-writing-skill/
 ├── SKILL.md              # Agent 入口：模式、门禁、证据策略
 ├── references/           # 工作流、写作、引用、图表、venue、审稿
 │   └── assets/           # 结果图版式参考（figures4papers 风格）
@@ -211,4 +209,4 @@ python3 scripts/camera_ready_check.py main.tex
 
 ## License
 
-MIT License。
+MIT License

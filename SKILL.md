@@ -1,9 +1,9 @@
 ---
-name: paper-writing-suite
+name: ai-research-writing-skill
 description: End-to-end research paper generation and revision for ML/AI/CV/NLP papers from repositories, notes, experiments, and conference templates. Use when turning a research project into a publication-ready LaTeX draft, building a paper story, writing or revising Abstract/Introduction/Related Work/Method/Experiments, designing figures and tables, verifying citations, completing NeurIPS/ICML/ICLR/CVPR/ICCV/ECCV/ACL-style checklists, running build checks, or preparing an Overleaf/Git submission.
 ---
 
-# Paper Writing Suite
+# AI Research Writing Skill
 
 ## Core Mandate
 
@@ -32,7 +32,7 @@ Choose the smallest mode that satisfies the user request.
 | Submission mode | Run checklist, build checks, TODO/citation checks, or Overleaf/Git packaging | `references/submission-packaging.md`, `references/citation-checklist.md` |
 | Automation mode | Use bundled scripts for claims, tables, logs, citations, TODOs, or camera-ready checks | `scripts/README.md` |
 
-If the user asks for multiple named skills that this suite subsumes, apply this suite as the coordinator and load the relevant reference files.
+If the user asks for multiple named skills that this skill subsumes, apply it as the coordinator and load the relevant reference files.
 
 ## Loading Strategy
 

@@ -1,10 +1,8 @@
-# Paper Writing Suite
+# AI Research Writing Skill
 
 [中文说明](README.zh-CN.md)
 
-**Turn a research repo into a submission-ready paper — with evidence, not hallucination.**
-
-Paper Writing Suite is an agent skill for ML / AI / CV / NLP researchers. Point your coding agent at code, experiment logs, notes, and a venue template; it helps you produce an **auditable, evidence-backed** LaTeX draft and submission package — not a polished fiction.
+AI Research Writing Skill is an agent skill for ML / AI / CV / NLP researchers. Point your coding agent at code, experiment logs, notes, and a venue template; it helps you produce an **auditable, evidence-backed** LaTeX draft and submission package — not a polished fiction.
 
 > **Claim-evidence engineering, not prose generation.**  
 > Every major claim should trace to code, results, notes, or verified citations.
@@ -13,7 +11,7 @@ Paper Writing Suite is an agent skill for ML / AI / CV / NLP researchers. Point 
 
 ## Why this skill
 
-| Typical AI paper help | Paper Writing Suite |
+| Typical AI paper help | AI Research Writing Skill |
 |---|---|
 | Fluent paragraphs from memory | Claims mapped to repo evidence |
 | Citations guessed or invented | BibTeX from arXiv / DOI / Semantic Scholar |
@@ -30,8 +28,8 @@ Paper Writing Suite is an agent skill for ML / AI / CV / NLP researchers. Point 
 **1. Install** (symlink into your agent’s skills directory):
 
 ```bash
-git clone https://gitlab.tetras.ai/jinsheng/paper-writing-suite.git
-ln -s "$(pwd)/paper-writing-suite" ~/.cursor/skills/paper-writing-suite   # Cursor global
+git clone https://gitlab.tetras.ai/jinsheng/ai-research-writing-skill.git
+ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-skill   # Cursor global
 ```
 
 See [Installation](#installation) for Codex, Claude Code, Gemini, and project-level paths.
@@ -39,17 +37,17 @@ See [Installation](#installation) for Codex, Claude Code, Gemini, and project-le
 **2. Open your paper repo** in the agent and run:
 
 ```text
-Use paper-writing-suite to inspect this repo and create paper_story.md and claim_evidence_map.md.
+Use AI Research Writing Skill to inspect this repo and create paper_story.md and claim_evidence_map.md.
 ```
 
 **3. Iterate by section** — for example:
 
 ```text
-Use paper-writing-suite to revise Related Work: build a literature inventory and positioning analysis before drafting.
+Use AI Research Writing Skill to revise Related Work: build a literature inventory and positioning analysis before drafting.
 ```
 
 ```text
-Use paper-writing-suite to plan Figure 1 (method overview), generate the figure asset, and wire it into main.tex.
+Use AI Research Writing Skill to plan Figure 1 (method overview), generate the figure asset, and wire it into main.tex.
 ```
 
 Bundled helper scripts use **Python 3 stdlib only** — no extra dependencies.
@@ -107,37 +105,37 @@ Clone this repo, then symlink (or copy) into your agent’s skills folder.
 
 | Agent | Global path |
 |---|---|
-| **Cursor** | `~/.cursor/skills/paper-writing-suite` |
-| **Codex** | `$CODEX_HOME/skills/paper-writing-suite` |
-| **Claude Code** | `$HOME/.claude/skills/paper-writing-suite` |
-| **Gemini** | `$HOME/.gemini/skills/paper-writing-suite` |
+| **Cursor** | `~/.cursor/skills/ai-research-writing-skill` |
+| **Codex** | `$CODEX_HOME/skills/ai-research-writing-skill` |
+| **Claude Code** | `$HOME/.claude/skills/ai-research-writing-skill` |
+| **Gemini** | `$HOME/.gemini/skills/ai-research-writing-skill` |
 
 **Cursor — global**
 
 ```bash
 mkdir -p ~/.cursor/skills
-ln -s /path/to/paper-writing-suite ~/.cursor/skills/paper-writing-suite
+ln -s /path/to/ai-research-writing-skill ~/.cursor/skills/ai-research-writing-skill
 ```
 
 **Cursor — project-level**
 
 ```bash
 mkdir -p .cursor/skills
-ln -s /path/to/paper-writing-suite .cursor/skills/paper-writing-suite
+ln -s /path/to/ai-research-writing-skill .cursor/skills/ai-research-writing-skill
 ```
 
 **Codex**
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-ln -s /path/to/paper-writing-suite "$CODEX_HOME/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$CODEX_HOME/skills/ai-research-writing-skill"
 ```
 
 **Claude Code — global / project**
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-ln -s /path/to/paper-writing-suite "$HOME/.claude/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$HOME/.claude/skills/ai-research-writing-skill"
 # or: .claude/skills/ for project-level
 ```
 
@@ -145,7 +143,7 @@ ln -s /path/to/paper-writing-suite "$HOME/.claude/skills/paper-writing-suite"
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-ln -s /path/to/paper-writing-suite "$HOME/.gemini/skills/paper-writing-suite"
+ln -s /path/to/ai-research-writing-skill "$HOME/.gemini/skills/ai-research-writing-skill"
 ```
 
 ---
@@ -153,7 +151,7 @@ ln -s /path/to/paper-writing-suite "$HOME/.gemini/skills/paper-writing-suite"
 ## Repository layout
 
 ```text
-paper-writing-suite/
+ai-research-writing-skill/
 ├── SKILL.md              # Agent entry: modes, gates, evidence policy
 ├── references/           # Workflow, writing, citations, figures, venues, review
 │   └── assets/           # Figure pattern references (figures4papers-style)
