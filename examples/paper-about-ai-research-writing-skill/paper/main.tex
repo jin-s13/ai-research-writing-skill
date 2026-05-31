@@ -1,18 +1,48 @@
 \documentclass{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\usepackage[preprint]{icml2026}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{url}
 
-\title{AI Research Writing Skill: Claim-Evidence Engineering for Agentic Research Paper Generation}
-\author{Example Paper Package}
-\date{}
+\icmltitlerunning{AI Research Writing Skill}
 
 \begin{document}
-\maketitle
+
+\twocolumn[
+\icmltitle{AI Research Writing Skill: Claim-Evidence Engineering for Agentic Research Paper Generation}
+
+\begin{icmlauthorlist}
+  \icmlauthor{Example Paper Package}{demo}
+\end{icmlauthorlist}
+
+\icmlaffiliation{demo}{Demonstration Artifact}
+\icmlcorrespondingauthor{Example Maintainer}{example@example.com}
+\icmlkeywords{Machine Learning, Research Writing, AI Agents, LaTeX, Reproducibility}
+
+\vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
 
 \begin{abstract}
 AI agents can draft fluent research prose, but scientific writing also requires evidence discipline: claims must be traceable, citations must be verified, figures and tables must become concrete assets, and submission readiness must be checked. This example paper describes AI Research Writing Skill, a cross-platform agent skill for turning ML/AI research repositories into auditable paper packages. The system contribution is a workflow contract rather than a benchmarked model: repository inventory, paper story, claim-evidence map, citation verification, figure and table planning, reviewer self-review, and build checks. We use the repository itself as evidence and show how its templates, references, scripts, and platform entrypoints support a repo-to-paper workflow.
 \end{abstract}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/teaser_imagegen.png}
+\caption{Teaser generated with image generation. The project reframes agentic paper writing as a transformation from repository evidence to a build-ready paper package.}
+\label{fig:teaser}
+\end{figure*}
 
 \section{Introduction}
 
@@ -22,16 +52,23 @@ The project builds on a growing ecosystem of research-writing and research-agent
 
 \section{System Design}
 
-Figure~\ref{fig:architecture} summarizes the workflow. The root skill contract defines operating modes for full-paper drafting, story building, section writing, figures, citations, reviewer checks, submission, and automation. References are loaded progressively so that a task uses the narrow guidance it needs rather than the entire documentation tree.
+Figure~\ref{fig:method-overview} summarizes the method. The root skill contract defines operating modes for full-paper drafting, story building, section writing, figures, citations, reviewer checks, submission, and automation. References are loaded progressively so that a task uses the narrow guidance it needs rather than the entire documentation tree.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\input{figures/architecture.tex}
-\caption{AI Research Writing Skill turns repository inputs into a paper package through explicit story, evidence, citation, figure, and build gates.}
-\label{fig:architecture}
-\end{figure}
+\includegraphics[width=\textwidth]{figures/overview_imagegen.png}
+\caption{Method overview generated with image generation. AI Research Writing Skill coordinates repository inputs, planning artifacts, evidence gates, and paper-package outputs.}
+\label{fig:method-overview}
+\end{figure*}
 
 The design has three main principles. First, strong claims must be backed by local repository evidence, experiment artifacts, notes, or verified citations. Second, the output should be durable: story files, claim maps, citation verification notes, figure plans, generated assets, and build checks are written into the target paper repository. Third, completion claims require verification or explicit blockers.
+
+\begin{figure*}[t]
+\centering
+\input{figures/artifact_contract.tex}
+\caption{Durable artifact contract used by the skill. Planning artifacts define scope, evidence artifacts constrain claims, manuscript assets carry paper content, and verification artifacts determine whether the agent may claim completion.}
+\label{fig:artifact-contract}
+\end{figure*}
 
 \section{Repository Evidence}
 
@@ -57,7 +94,7 @@ This example paper has important limitations. It does not benchmark the skill ag
 
 AI Research Writing Skill reframes agentic paper drafting as a claim-evidence-engineering process. By combining repository inspection, durable artifact contracts, verified citation practices, figure and table assets, cross-platform packaging, and build-readiness checks, it offers a concrete workflow for turning ML/AI research repositories into auditable paper drafts.
 
-\bibliographystyle{plain}
+\bibliographystyle{icml2026}
 \bibliography{references}
 
 \end{document}

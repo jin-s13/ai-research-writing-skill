@@ -14,6 +14,8 @@
 > **论文写作是 claim–evidence 工程，不是散文生成。**  
 > 每个重要主张都应能追溯到代码、实验结果、笔记或已核验引用。
 
+![AI Research Writing Skill teaser](examples/paper-about-ai-research-writing-skill/paper/figures/teaser_imagegen.png)
+
 ---
 
 ## 端到端 Demo
@@ -22,7 +24,7 @@
 使用 AI Research Writing Skill 给这个仓库本身写一篇完整的系统论文。
 把 ai-research-writing-skill 当作研究对象。
 检查 SKILL.md、references/、scripts/、templates/、跨平台 plugin 文件和 README。
-创建 paper_story.md、claim_evidence_map.md、literature positioning、已核验引用、图表，并在 examples/paper-about-ai-research-writing-skill/paper/ 下生成可编译的 LaTeX 论文。
+创建 paper_story.md、claim_evidence_map.md、literature positioning、已核验引用、ICML 风格方法图与表格，并在 examples/paper-about-ai-research-writing-skill/paper/ 下生成可编译的 ICML LaTeX 论文。
 不要编造性能数字。只使用仓库事实作为证据。
 ```
 
@@ -31,20 +33,11 @@
 - `evidence/repository_inventory.md`：作为证据的仓库事实。
 - `paper_story.md` 和 `claim_evidence_map.md`：论文叙事与 claim 边界。
 - `literature/positioning.md` 和 `citation_verification.md`：相关项目定位。
-- `paper/figures/architecture.tex` 和 `paper/tables/*.tex`：论文图表资产。
+- `paper/figures/method_overview.tex` 和 `paper/tables/*.tex`：ICML 风格论文图表资产。
 - `paper/main.tex`：关于本项目的完整论文草稿。
 - `build_check.md`：编译命令、预期结果和剩余风险。
 
-```mermaid
-flowchart LR
-  A["This repo: SKILL.md + references + scripts + templates"] --> B["Paper story"]
-  B --> C["Claim-evidence map"]
-  C --> D["Related-project positioning"]
-  C --> E["Figure + table assets"]
-  D --> F["paper/main.tex"]
-  E --> F
-  F --> G["Compiled PDF + build check"]
-```
+![AI Research Writing Skill method overview](examples/paper-about-ai-research-writing-skill/paper/figures/overview_imagegen.png)
 
 ## 为什么用这个 skill
 

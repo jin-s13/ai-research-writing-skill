@@ -14,6 +14,8 @@ Point your coding agent at code, experiment logs, notes, and a venue template. T
 > **Claim-evidence engineering, not prose generation.**  
 > Every major claim should trace to code, results, notes, or verified citations.
 
+![AI Research Writing Skill teaser](examples/paper-about-ai-research-writing-skill/paper/figures/teaser_imagegen.png)
+
 ---
 
 ## End-to-End Demo
@@ -22,7 +24,7 @@ Point your coding agent at code, experiment logs, notes, and a venue template. T
 Use AI Research Writing Skill to write a complete system paper about this repository itself.
 Treat ai-research-writing-skill as the research artifact.
 Inspect SKILL.md, references/, scripts/, templates/, cross-platform plugin files, and README.
-Create paper_story.md, claim_evidence_map.md, literature positioning, verified citations, figures/tables, and a build-ready LaTeX paper under examples/paper-about-ai-research-writing-skill/paper/.
+Create paper_story.md, claim_evidence_map.md, literature positioning, verified citations, ICML-style method figures/tables, and a build-ready ICML LaTeX paper under examples/paper-about-ai-research-writing-skill/paper/.
 Do not invent performance numbers. Use repository facts as evidence.
 ```
 
@@ -31,20 +33,11 @@ The example already includes the expected final paper package, so you can inspec
 - `evidence/repository_inventory.md`: repository facts used as evidence.
 - `paper_story.md` and `claim_evidence_map.md`: story and claim boundaries.
 - `literature/positioning.md` and `citation_verification.md`: related-project positioning.
-- `paper/figures/architecture.tex` and `paper/tables/*.tex`: paper assets.
+- `paper/figures/method_overview.tex` and `paper/tables/*.tex`: ICML-style paper assets.
 - `paper/main.tex`: complete paper draft about this project.
 - `build_check.md`: compilation command, expected result, and residual risks.
 
-```mermaid
-flowchart LR
-  A["This repo: SKILL.md + references + scripts + templates"] --> B["Paper story"]
-  B --> C["Claim-evidence map"]
-  C --> D["Related-project positioning"]
-  C --> E["Figure + table assets"]
-  D --> F["paper/main.tex"]
-  E --> F
-  F --> G["Compiled PDF + build check"]
-```
+![AI Research Writing Skill method overview](examples/paper-about-ai-research-writing-skill/paper/figures/overview_imagegen.png)
 
 ## Why this skill
 

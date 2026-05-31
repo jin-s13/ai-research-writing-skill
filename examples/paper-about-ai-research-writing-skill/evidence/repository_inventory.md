@@ -10,6 +10,24 @@ Inventory generated for the example paper about `ai-research-writing-skill`.
 - `references/artifacts.md`: durable artifact contract.
 - `references/task-management.md`: task packet and completion audit workflow.
 
+## Example Paper Template
+
+This example paper uses the repository's bundled ICML 2026 template files copied into `paper/`:
+
+- `icml2026.sty`
+- `icml2026.bst`
+- `fancyhdr.sty`
+
+The example includes two image-generated figures used in the paper:
+
+- `paper/figures/teaser_imagegen.png`
+- `paper/figures/overview_imagegen.png`
+
+It also keeps deterministic TikZ fallbacks:
+
+- `paper/figures/method_overview.tex`
+- `paper/figures/artifact_contract.tex`
+
 ## Deterministic Helper Scripts
 
 The repository includes 8 top-level helper script/reference files under `scripts/`:
