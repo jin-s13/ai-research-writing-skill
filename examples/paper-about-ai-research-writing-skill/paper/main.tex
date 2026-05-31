@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+
+\title{AI Research Writing Skill: Claim-Evidence Engineering for Agentic Research Paper Generation}
+\author{Example Paper Package}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+AI agents can draft fluent research prose, but scientific writing also requires evidence discipline: claims must be traceable, citations must be verified, figures and tables must become concrete assets, and submission readiness must be checked. This example paper describes AI Research Writing Skill, a cross-platform agent skill for turning ML/AI research repositories into auditable paper packages. The system contribution is a workflow contract rather than a benchmarked model: repository inventory, paper story, claim-evidence map, citation verification, figure and table planning, reviewer self-review, and build checks. We use the repository itself as evidence and show how its templates, references, scripts, and platform entrypoints support a repo-to-paper workflow.
+\end{abstract}
+
+\section{Introduction}
+
+Large language models and coding agents can accelerate research writing, but prose generation alone is a poor unit of scientific progress. A paper draft is only useful if the reader can inspect which results support which claims, which citations support which background statements, and which artifacts are ready for submission. AI Research Writing Skill addresses this problem by treating paper generation as claim-evidence engineering.
+
+The project builds on a growing ecosystem of research-writing and research-agent resources, including compact paper-writing skills~\cite{masterCaiResearchPaperWritingSkills}, broad multi-platform writing assistants~\cite{normanBuryResearchWritingSkill}, general AI research skill libraries~\cite{orchestraResearchAISkills}, Nature-style publication workflows~\cite{yuanNatureSkills}, and publication figure resources~\cite{chenFigures4Papers}. Its narrower focus is the ML/AI repository-to-paper setting: an agent works inside a codebase, inspects notes and results, and produces a paper package with explicit evidence boundaries.
+
+\section{System Design}
+
+Figure~\ref{fig:architecture} summarizes the workflow. The root skill contract defines operating modes for full-paper drafting, story building, section writing, figures, citations, reviewer checks, submission, and automation. References are loaded progressively so that a task uses the narrow guidance it needs rather than the entire documentation tree.
+
+\begin{figure}[t]
+\centering
+\input{figures/architecture.tex}
+\caption{AI Research Writing Skill turns repository inputs into a paper package through explicit story, evidence, citation, figure, and build gates.}
+\label{fig:architecture}
+\end{figure}
+
+The design has three main principles. First, strong claims must be backed by local repository evidence, experiment artifacts, notes, or verified citations. Second, the output should be durable: story files, claim maps, citation verification notes, figure plans, generated assets, and build checks are written into the target paper repository. Third, completion claims require verification or explicit blockers.
+
+\section{Repository Evidence}
+
+Table~\ref{tab:repository-evidence} summarizes local evidence used for this example paper. The repository includes venue template directories for major ML/AI conference families, top-level references for writing and submission workflows, helper scripts for static checks and table generation, and cross-platform entrypoints for multiple agent environments.
+
+\input{tables/repository_evidence.tex}
+
+These counts are not performance metrics. They support only structural claims about what the repository contains. They do not establish that the skill improves writing quality, acceptance probability, or agent reliability.
+
+\section{Related Projects}
+
+Table~\ref{tab:related-projects} positions AI Research Writing Skill against neighboring open-source projects. The comparison is intended to clarify scope rather than rank projects.
+
+\input{tables/related_projects.tex}
+
+The key distinction is operational depth in one vertical. Instead of serving as a general thesis assistant or a figure-only resource, this project specifies a complete paper package contract for ML/AI agents working over real research repositories.
+
+\section{Limitations}
+
+This example paper has important limitations. It does not benchmark the skill against other writing systems. It does not show user-study evidence. It does not prove that generated papers are correct or publishable. Venue templates bundled in the repository are convenience copies, so official instructions must still be checked before submission. The skill should therefore be understood as an auditable workflow scaffold, not as a replacement for scientific judgment.
+
+\section{Conclusion}
+
+AI Research Writing Skill reframes agentic paper drafting as a claim-evidence-engineering process. By combining repository inspection, durable artifact contracts, verified citation practices, figure and table assets, cross-platform packaging, and build-readiness checks, it offers a concrete workflow for turning ML/AI research repositories into auditable paper drafts.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

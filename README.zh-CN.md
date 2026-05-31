@@ -16,30 +16,34 @@
 
 ---
 
-## 30 秒 Demo
+## 端到端 Demo
 
 ```text
-使用 AI Research Writing Skill 检查 examples/minimal-paper-repo。
-创建或更新 paper_story.md、claim_evidence_map.md、引用核验计划、Figure 1 方案和 build-readiness note。
+使用 AI Research Writing Skill 给这个仓库本身写一篇完整的系统论文。
+把 ai-research-writing-skill 当作研究对象。
+检查 SKILL.md、references/、scripts/、templates/、跨平台 plugin 文件和 README。
+创建 paper_story.md、claim_evidence_map.md、literature positioning、已核验引用、图表，并在 examples/paper-about-ai-research-writing-skill/paper/ 下生成可编译的 LaTeX 论文。
+不要编造性能数字。只使用仓库事实作为证据。
 ```
 
-Agent 应该产出：
+这个 example 已经包含预期的最终论文包，所以你可以直接查看端到端输出会长什么样：
 
-- `paper_story.md`：thesis、gap、贡献与不该声称的内容。
-- `claim_evidence_map.md`：每个重要 claim 对应代码、日志、结果、笔记或引用证据。
-- `literature/positioning.md`：最接近工作、任务差异和引用风险。
-- `figures/figure_plan.md`：图的作用、信息、来源、后端和 fallback。
-- `build_check.md`：哪些已检查、哪些阻塞、哪些仍有风险。
+- `evidence/repository_inventory.md`：作为证据的仓库事实。
+- `paper_story.md` 和 `claim_evidence_map.md`：论文叙事与 claim 边界。
+- `literature/positioning.md` 和 `citation_verification.md`：相关项目定位。
+- `paper/figures/architecture.tex` 和 `paper/tables/*.tex`：论文图表资产。
+- `paper/main.tex`：关于本项目的完整论文草稿。
+- `build_check.md`：编译命令、预期结果和剩余风险。
 
 ```mermaid
 flowchart LR
-  A["Repo + notes + results"] --> B["Paper story"]
+  A["This repo: SKILL.md + references + scripts + templates"] --> B["Paper story"]
   B --> C["Claim-evidence map"]
-  C --> D["Verified citations"]
-  C --> E["Figures and tables"]
-  D --> F["LaTeX draft"]
+  C --> D["Related-project positioning"]
+  C --> E["Figure + table assets"]
+  D --> F["paper/main.tex"]
   E --> F
-  F --> G["Reviewer and submission checks"]
+  F --> G["Compiled PDF + build check"]
 ```
 
 ## 为什么用这个 skill
@@ -263,7 +267,7 @@ ai-research-writing-skill/
 | [`references/figure-workflow.md`](references/figure-workflow.md) | 示意图 vs 结果图；生成图默认策略 |
 | [`references/citation-workflow.md`](references/citation-workflow.md) | 检索、核验、BibTeX |
 | [`templates/README.md`](templates/README.md) | 模板列表与编译说明 |
-| [`examples/minimal-paper-repo/`](examples/minimal-paper-repo/) | 最小可运行 demo 仓库 |
+| [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | 关于本项目自身的端到端论文 demo |
 | [`docs/LAUNCH_PLAYBOOK.zh-CN.md`](docs/LAUNCH_PLAYBOOK.zh-CN.md) | 开源增长与发布清单 |
 
 ---

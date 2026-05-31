@@ -64,8 +64,8 @@ So I built AI Research Writing Skill: an agent workflow for turning ML/AI repos 
 
 It supports Claude Code, Cursor, Codex, Gemini CLI, and OpenCode.
 
-Demo repo included:
-https://github.com/jin-s13/ai-research-writing-skill/tree/main/examples/minimal-paper-repo
+Demo paper package included:
+https://github.com/jin-s13/ai-research-writing-skill/tree/main/examples/paper-about-ai-research-writing-skill
 ```
 
 ## 下一步最有用的素材

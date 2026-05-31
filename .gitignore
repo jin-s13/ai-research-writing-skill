@@ -22,3 +22,4 @@ literature/papers/
 *.pdf
 !templates/**/*.pdf
 !**/README*.pdf
+docs/

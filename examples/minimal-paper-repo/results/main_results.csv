@@ -1,3 +1,0 @@
-method,accuracy,ece,nll
-baseline,0.842,0.071,0.486
-toycalib,0.845,0.039,0.441

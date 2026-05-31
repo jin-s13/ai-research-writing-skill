@@ -16,30 +16,34 @@ Point your coding agent at code, experiment logs, notes, and a venue template. T
 
 ---
 
-## 30-Second Demo
+## End-to-End Demo
 
 ```text
-Use AI Research Writing Skill on examples/minimal-paper-repo.
-Create paper_story.md, claim_evidence_map.md, a verified citation plan, Figure 1 plan, and a build-readiness note.
+Use AI Research Writing Skill to write a complete system paper about this repository itself.
+Treat ai-research-writing-skill as the research artifact.
+Inspect SKILL.md, references/, scripts/, templates/, cross-platform plugin files, and README.
+Create paper_story.md, claim_evidence_map.md, literature positioning, verified citations, figures/tables, and a build-ready LaTeX paper under examples/paper-about-ai-research-writing-skill/paper/.
+Do not invent performance numbers. Use repository facts as evidence.
 ```
 
-What the agent should produce:
+The example already includes the expected final paper package, so you can inspect what an end-to-end output looks like:
 
-- `paper_story.md`: thesis, gap, contribution, and claims to avoid.
-- `claim_evidence_map.md`: every major claim tied to code, logs, results, notes, or citations.
-- `literature/positioning.md`: closest work, task difference, and citation risk.
-- `figures/figure_plan.md`: actual figure intent, source, backend, and fallback.
-- `build_check.md`: what compiled, what blocked, and what remains risky.
+- `evidence/repository_inventory.md`: repository facts used as evidence.
+- `paper_story.md` and `claim_evidence_map.md`: story and claim boundaries.
+- `literature/positioning.md` and `citation_verification.md`: related-project positioning.
+- `paper/figures/architecture.tex` and `paper/tables/*.tex`: paper assets.
+- `paper/main.tex`: complete paper draft about this project.
+- `build_check.md`: compilation command, expected result, and residual risks.
 
 ```mermaid
 flowchart LR
-  A["Repo + notes + results"] --> B["Paper story"]
+  A["This repo: SKILL.md + references + scripts + templates"] --> B["Paper story"]
   B --> C["Claim-evidence map"]
-  C --> D["Verified citations"]
-  C --> E["Figures and tables"]
-  D --> F["LaTeX draft"]
+  C --> D["Related-project positioning"]
+  C --> E["Figure + table assets"]
+  D --> F["paper/main.tex"]
   E --> F
-  F --> G["Reviewer and submission checks"]
+  F --> G["Compiled PDF + build check"]
 ```
 
 ## Why this skill
@@ -258,7 +262,7 @@ ai-research-writing-skill/
 | [`references/figure-workflow.md`](references/figure-workflow.md) | Diagrams vs plots; generation defaults |
 | [`references/citation-workflow.md`](references/citation-workflow.md) | Search, verify, BibTeX |
 | [`templates/README.md`](templates/README.md) | Template list and compile tips |
-| [`examples/minimal-paper-repo/`](examples/minimal-paper-repo/) | Minimal demo paper repo |
+| [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | End-to-end paper about this project |
 | [`docs/LAUNCH_PLAYBOOK.zh-CN.md`](docs/LAUNCH_PLAYBOOK.zh-CN.md) | Launch and growth checklist |
 
 ---
