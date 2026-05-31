@@ -9,7 +9,7 @@
 
 Turn an ML/AI research repo into an **evidence-backed, build-ready conference paper draft**.
 
-Point your coding agent at code, experiment logs, notes, and a venue template. This skill helps it produce an auditable LaTeX draft and submission package: story, claim-evidence map, verified citations, figures, reviewer checks, and build notes.
+Point your coding agent at code, experiment logs, notes, and a venue template. This skill helps it produce an auditable LaTeX draft and submission package: story, claim-evidence map, verified citations, figures, reviewer-style critique, rebuttal risks, and build notes.
 
 > **Claim-evidence engineering, not prose generation.**  
 > Every major claim should trace to code, results, notes, or verified citations.
@@ -30,14 +30,47 @@ Do not invent performance numbers. Use repository facts as evidence.
 
 The example already includes the expected final paper package, so you can inspect what an end-to-end output looks like:
 
+- **Read the generated ICML-style paper PDF:** [`paper/main.pdf`](examples/paper-about-ai-research-writing-skill/paper/main.pdf)
 - `evidence/repository_inventory.md`: repository facts used as evidence.
 - `paper_story.md` and `claim_evidence_map.md`: story and claim boundaries.
 - `literature/positioning.md` and `citation_verification.md`: related-project positioning.
 - `paper/figures/method_overview.tex` and `paper/tables/*.tex`: ICML-style paper assets.
 - `paper/main.tex`: complete paper draft about this project.
+- `paper/main.pdf`: compiled paper for quickly judging output quality.
 - `build_check.md`: compilation command, expected result, and residual risks.
 
 ![AI Research Writing Skill method overview](examples/paper-about-ai-research-writing-skill/paper/figures/overview_imagegen.png)
+
+## User Journeys
+
+Use the skill at different stages of a research project. Start with the journey that matches what you already have.
+
+| Journey | You have | Ask the agent to do |
+|---|---|---|
+| **Brainstorm and plan** | A topic, rough idea, or possible method | Clarify the thesis, research gap, contribution boundary, evidence needed, and next experiment/writing plan. |
+| **Repo to full paper** | Ideas, method design, code, notes, experiment logs, partial results, or a venue template | Build `paper_story.md`, `claim_evidence_map.md`, literature positioning, figures, tables, BibTeX, LaTeX draft, and build checks. |
+| **Draft review** | A complete or partial paper draft | Act as a skeptical reviewer: write reviewer-style comments, identify rejection risks, and turn major issues into concrete edits. |
+| **Targeted revision** | A draft plus known weaknesses, reviewer feedback, or a section to improve | Revise the section or whole paper while preserving claim-evidence boundaries and avoiding unsupported stronger claims. |
+| **Figures and tables** | Results, logs, CSVs, method notes, or a rough figure idea | Produce figure/table plans, generated overview or method figures, deterministic result plots/tables, captions, and LaTeX wiring. |
+| **Submission readiness** | A near-final paper package | Run citation, marker, build, venue, reviewer-risk, checklist, and packaging checks before submission or Overleaf/Git handoff. |
+
+Copyable prompts:
+
+```text
+I only have a rough idea. Use AI Research Writing Skill to brainstorm the paper story, identify the research gap, define claims to make/avoid, and create a concrete plan for evidence, experiments, figures, and writing.
+```
+
+```text
+I have code, notes, method design, and some experiment logs/results. Use AI Research Writing Skill to generate a complete paper package: paper_story.md, claim_evidence_map.md, literature positioning, verified BibTeX, figures, tables, LaTeX draft, and build_check.md.
+```
+
+```text
+I have a paper draft. Use AI Research Writing Skill as a skeptical ICML reviewer: write detailed reviewer comments, identify rejection risks, and convert the high-risk issues into concrete revisions.
+```
+
+```text
+I have a draft and want to revise it. Use AI Research Writing Skill to improve the paper section by section, preserve supported claims, weaken unsupported claims, fix citations, improve figures/tables, and update the LaTeX package.
+```
 
 ## Why this skill
 
@@ -47,7 +80,7 @@ The example already includes the expected final paper package, so you can inspec
 | Citations guessed or invented | BibTeX from arXiv / DOI / Semantic Scholar |
 | Figure “plans” that never ship | Generated overview/method figures + deterministic result plots |
 | Stops at an outline | Concrete artifacts: `paper_story.md`, `claim_evidence_map.md`, `references.bib`, figure files |
-| Generic writing tips | Venue checklists, reviewer self-review, build & packaging gates |
+| Generic writing tips | Reviewer-style comments, rejection-risk diagnosis, venue checklists, build & packaging gates |
 
 **Supported venues (templates & checklists):** NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL, AAAI, COLM, and related ML/AI conferences. Always verify [official author instructions](references/venue-templates.md) before submission.
 
@@ -59,7 +92,7 @@ The example already includes the expected final paper package, so you can inspec
 | Claims that sound plausible | `claim_evidence_map.md` with evidence status |
 | Candidate citations from memory | BibTeX fetched or verified from authoritative metadata |
 | Figure ideas in prose | Generated concept figures and deterministic result plots |
-| "Looks done" | Build, TODO, citation, reviewer, and submission checks |
+| "Looks done" | Reviewer-style critique, build, TODO, citation, and submission checks |
 
 ## How It Differs From Related Projects
 
@@ -75,39 +108,6 @@ This project is not trying to replace the excellent research-writing and figure-
 
 In short: the related projects provide writing wisdom, broad skill ecosystems, Nature-style publication craft, or figure-making expertise. This project packages those inspirations into a **claim-evidence-engineering workflow for AI paper agents working inside real research repositories**.
 
----
-
-## Quick start
-
-**1. Install** (symlink into your agent’s skills directory, or use the bundled plugin metadata):
-
-```bash
-git clone https://github.com/jin-s13/ai-research-writing-skill.git
-ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-skill   # Cursor global
-```
-
-See [Installation](#installation) for Claude Code, Cursor, Codex, Gemini CLI, OpenCode, hooks, and project-level paths.
-
-**2. Open your paper repo** in the agent and run:
-
-```text
-Use AI Research Writing Skill to inspect this repo and create paper_story.md and claim_evidence_map.md.
-```
-
-**3. Iterate by section** — for example:
-
-```text
-Use AI Research Writing Skill to revise Related Work: build a literature inventory and positioning analysis before drafting.
-```
-
-```text
-Use AI Research Writing Skill to plan Figure 1 (method overview), generate the figure asset, and wire it into main.tex.
-```
-
-Bundled helper scripts use **Python 3 stdlib only** — no extra dependencies.
-
----
-
 ## What you get
 
 End-to-end coverage from idea to camera-ready:
@@ -119,25 +119,8 @@ End-to-end coverage from idea to camera-ready:
 | **Writing** | Abstract, Intro, Related Work, Method, Experiments, Limitations, Conclusion |
 | **Literature** | Local corpus, positioning, verified `references.bib` |
 | **Figures** | Plan + assets: **generated** overview/method diagrams; **deterministic** plots for numbers |
-| **Review** | Reviewer-style risks, rejection diagnosis, self-review |
+| **Review** | Reviewer-style comments, rejection-risk diagnosis, self-review, concrete revision plan |
 | **Submit** | Venue checklist, LaTeX build check, TODO/citation audit, packaging |
-
-### Operating modes
-
-The agent loads only what the task needs:
-
-| Mode | When to use |
-|---|---|
-| Full-paper | Repo + results + template → draft or submission package |
-| Story | Clarify thesis, gap, and contribution boundaries |
-| Section | Revise one section with the right reference loaded |
-| Figure | Plan diagrams and result plots; produce real files |
-| Citation | Find, verify, repair BibTeX |
-| Reviewer | Pre-submission risk scan |
-| Submission | Checklist, build log, camera-ready checks |
-| Automation | `scripts/` for claims, citations, TODOs, build logs |
-
-Details: [`SKILL.md`](SKILL.md) and [`references/README.md`](references/README.md).
 
 ### Quality gates (built in)
 

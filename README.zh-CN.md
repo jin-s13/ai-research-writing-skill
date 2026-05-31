@@ -9,7 +9,7 @@
 
 把一个 ML/AI 研究仓库，变成**有证据链、可编译、可投稿的会议论文草稿**。
 
-把代码、实验日志、笔记和会议模板交给 coding agent。这个 skill 会引导它产出可审计的 LaTeX 草稿与投稿材料：论文叙事、claim-evidence map、核验引用、图表、审稿风险和 build notes。
+把代码、实验日志、笔记和会议模板交给 coding agent。这个 skill 会引导它产出可审计的 LaTeX 草稿与投稿材料：论文叙事、claim-evidence map、核验引用、图表、审稿人式评审意见、拒稿风险和 build notes。
 
 > **论文写作是 claim–evidence 工程，不是散文生成。**  
 > 每个重要主张都应能追溯到代码、实验结果、笔记或已核验引用。
@@ -30,14 +30,47 @@
 
 这个 example 已经包含预期的最终论文包，所以你可以直接查看端到端输出会长什么样：
 
+- **查看生成的 ICML 风格论文 PDF：** [`paper/main.pdf`](examples/paper-about-ai-research-writing-skill/paper/main.pdf)
 - `evidence/repository_inventory.md`：作为证据的仓库事实。
 - `paper_story.md` 和 `claim_evidence_map.md`：论文叙事与 claim 边界。
 - `literature/positioning.md` 和 `citation_verification.md`：相关项目定位。
 - `paper/figures/method_overview.tex` 和 `paper/tables/*.tex`：ICML 风格论文图表资产。
 - `paper/main.tex`：关于本项目的完整论文草稿。
+- `paper/main.pdf`：已编译论文，方便直接判断生成质量。
 - `build_check.md`：编译命令、预期结果和剩余风险。
 
 ![AI Research Writing Skill method overview](examples/paper-about-ai-research-writing-skill/paper/figures/overview_imagegen.png)
+
+## 用户使用路径
+
+你可以在研究项目的不同阶段使用这个 skill。先看自己手上有什么，再选择对应的入口。
+
+| 使用路径 | 你手上有什么 | 可以让 agent 做什么 |
+|---|---|---|
+| **头脑风暴与规划** | 一个选题、粗略想法或可能的方法 | 梳理论文 thesis、研究 gap、贡献边界、需要补的证据，以及下一步实验/写作计划。 |
+| **从 repo 到完整论文** | 思路、方案设计、代码、笔记、实验 log、中间结果或会议模板 | 生成 `paper_story.md`、`claim_evidence_map.md`、文献定位、图、表、BibTeX、LaTeX 草稿和 build check。 |
+| **初稿审稿式检查** | 已有完整或部分论文初稿 | 扮演严格审稿人，写 reviewer-style comments，扫描拒稿风险，并把主要问题转成具体修改动作。 |
+| **论文修订 revise** | 已有稿件、已知弱点、审稿意见或某个待改章节 | 按章节或整篇修订，保留有证据支撑的 claim，弱化不可靠 claim，修复引用，改进图表并更新 LaTeX 包。 |
+| **图表生成与接入** | 实验结果、日志、CSV、方法说明或粗略 figure 想法 | 产出 figure/table plan、生成 overview/method 图、确定性结果图/表、caption，并接入 LaTeX。 |
+| **投稿前检查** | 接近完成的论文包 | 运行引用、占位符、build、venue checklist、审稿风险、打包和 Overleaf/Git handoff 检查。 |
+
+可直接复制的 prompt：
+
+```text
+我现在只有一个粗略想法。请使用 AI Research Writing Skill 帮我做论文头脑风暴：梳理 paper story、研究 gap、可以声称和不能声称的 claim，并制定证据、实验、图表和写作计划。
+```
+
+```text
+我有代码、笔记、方案设计和一些实验 log / 结果。请使用 AI Research Writing Skill 端到端生成完整论文包：paper_story.md、claim_evidence_map.md、文献定位、核验 BibTeX、图、表、LaTeX 草稿和 build_check.md。
+```
+
+```text
+我已经有论文初稿。请使用 AI Research Writing Skill 扮演严格的 ICML 审稿人，写详细 reviewer comments，指出拒稿风险，并把高风险问题转成具体修改建议。
+```
+
+```text
+我已经有论文稿件，想进行 revise。请使用 AI Research Writing Skill 按章节改进论文，保留有证据支撑的 claim，弱化不可靠 claim，修复引用，改进图表，并更新 LaTeX 包。
+```
 
 ## 为什么用这个 skill
 
@@ -47,7 +80,7 @@
 | 引用猜造或编造 | 从 arXiv / DOI / Semantic Scholar 拉 BibTeX |
 | 只出 figure 计划、不出图 | Overview / 方法图默认生成；数值图用确定性脚本 |
 | 停在提纲 | 落地 `paper_story.md`、`claim_evidence_map.md`、`references.bib`、图文件 |
-| 泛泛写作建议 | Venue checklist、审稿人视角自检、编译与打包门禁 |
+| 泛泛写作建议 | 审稿人式 comments、拒稿风险诊断、Venue checklist、编译与打包门禁 |
 
 **模板与 checklist 覆盖：** NeurIPS、ICML、ICLR、CVPR、ICCV、ECCV、ACL、AAAI、COLM 等。正式投稿前务必核对[各会议官方说明](references/venue-templates.md)。
 
@@ -59,7 +92,7 @@
 | claim 听起来合理，但证据不清 | `claim_evidence_map.md` 记录证据状态 |
 | 凭记忆补引用 | 从权威元数据获取或核验 BibTeX |
 | 只有 figure 想法 | 生成概念图，数值图用确定性脚本 |
-| “看起来写完了” | build、TODO、引用、审稿和投稿检查 |
+| “看起来写完了” | 审稿人式批评、build、TODO、引用和投稿检查 |
 
 ## 和相关项目的区别
 
@@ -75,39 +108,6 @@
 
 一句话：相关项目提供了写作经验、通用技能生态、Nature 风格发表能力或科研绘图能力；本项目把这些启发整合成一个**面向真实 AI 研究仓库的 claim-evidence-engineering 论文 agent workflow**。
 
----
-
-## 快速开始
-
-**1. 安装**（软链到 agent 的 skills 目录，或使用仓库内置 plugin metadata）：
-
-```bash
-git clone https://github.com/jin-s13/ai-research-writing-skill.git
-ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-skill   # Cursor 全局
-```
-
-更多 Claude Code、Cursor、Codex、Gemini CLI、OpenCode 和 hooks 路径见下方 [安装](#安装)。
-
-**2. 在论文仓库里对 agent 说：**
-
-```text
-使用 AI Research Writing Skill 检查这个仓库，并创建 paper_story.md 和 claim_evidence_map.md。
-```
-
-**3. 按章节迭代**，例如：
-
-```text
-使用 AI Research Writing Skill 修改 Related Work：先建立 literature inventory 和 positioning analysis，再开始写正文。
-```
-
-```text
-使用 AI Research Writing Skill 规划 Figure 1（method overview），生成图像资产，并把它接入 main.tex。
-```
-
-内置脚本仅依赖 **Python 3 标准库**，无需额外安装。
-
----
-
 ## 你能得到什么
 
 从选题叙事到 camera-ready 的完整链路：
@@ -119,25 +119,8 @@ ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-sk
 | **写作** | Abstract、Introduction、Related Work、Method、Experiments、Limitations、Conclusion |
 | **文献** | 本地语料、定位分析、核验后的 `references.bib` |
 | **图表** | 计划 + 文件：**生成图**作 overview / 方法示意；**确定性绘图**承载数值结果 |
-| **审稿** | 审稿人视角风险、拒稿点诊断、作者自检 |
+| **审稿** | 审稿人式 comments、拒稿风险诊断、作者自检、具体修改计划 |
 | **投稿** | Venue checklist、LaTeX 编译检查、TODO / 引用审计、打包 |
-
-### 工作模式
-
-Agent 按任务只加载需要的 reference，避免“一口气读完整个 `references/`”：
-
-| 模式 | 适用场景 |
-|---|---|
-| Full-paper | 仓库 + 实验 + 模板 → 草稿或投稿包 |
-| Story | 厘清 thesis、gap、贡献边界 |
-| Section | 单节修订（加载对应写作指南） |
-| Figure | 规划并**实际产出**示意图与结果图 |
-| Citation | 检索、核验、修复 BibTeX |
-| Reviewer | 投稿前风险扫描 |
-| Submission | Checklist、build log、camera-ready |
-| Automation | 调用 `scripts/` 做批量检查 |
-
-细则见 [`SKILL.md`](SKILL.md) 与 [`references/README.md`](references/README.md)。
 
 ### 内置质量门禁
 
