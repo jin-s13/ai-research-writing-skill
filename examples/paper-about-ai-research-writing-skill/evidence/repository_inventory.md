@@ -23,10 +23,9 @@ The example includes two image-generated figures used in the paper:
 - `paper/figures/teaser_imagegen.png`
 - `paper/figures/overview_imagegen.png`
 
-It also keeps deterministic TikZ fallbacks:
+It also keeps a deterministic TikZ fallback:
 
 - `paper/figures/method_overview.tex`
-- `paper/figures/artifact_contract.tex`
 
 ## Deterministic Helper Scripts
 
@@ -55,16 +54,10 @@ The repository includes bundled LaTeX template directories for 9 venue families:
 - ICML 2026
 - NeurIPS 2025
 
-## Cross-Platform Agent Entrypoints
+## Portable Skill Entrypoint
 
-- `.claude-plugin/plugin.json`
-- `.cursor-plugin/plugin.json`
-- `.codex/INSTALL.md`
-- `.opencode/INSTALL.md`
-- `AGENTS.md`
-- `GEMINI.md`
-- `hooks/`
-- `skills/ai-research-writing-skill/SKILL.md`
+- `SKILL.md`: the canonical agent entrypoint.
+- `README.md`: installation guidance that asks agents to install or load the repository using the root `SKILL.md`.
 
 ## Reference Library
 

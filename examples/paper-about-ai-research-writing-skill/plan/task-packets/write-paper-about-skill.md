@@ -2,7 +2,7 @@
 
 - Scope: write a complete example paper package about this repository itself.
 - Target venue/template: ICML-style demo using the bundled ICML 2026 template.
-- Files to read: root `SKILL.md`, `README.md`, `references/`, `scripts/`, `templates/`, plugin metadata, examples.
+- Files to read: root `SKILL.md`, `README.md`, `references/`, `scripts/`, `templates/`, examples.
 - Files allowed to edit: `examples/paper-about-ai-research-writing-skill/`.
 - Evidence/data inputs: local repository inventory and public related-project URLs.
 - Required artifacts: `paper_story.md`, `claim_evidence_map.md`, `citation_verification.md`, `literature/positioning.md`, ICML-style `paper/main.tex`, method overview figure, paper tables, `paper/references.bib`, `build_check.md`.

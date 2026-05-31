@@ -1,4 +1,0 @@
-interface:
-  display_name: "AI Research Writing Skill"
-  short_description: "Create publication-ready ML papers from research repos."
-  default_prompt: "Use this skill to turn a research repository, notes, experiments, and a conference template into a structured paper draft with figures, verified citations, checklist answers, and build-ready LaTeX artifacts."

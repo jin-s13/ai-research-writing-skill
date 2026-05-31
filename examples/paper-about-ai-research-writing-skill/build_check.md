@@ -30,7 +30,6 @@ The command should produce `main.pdf` from:
 - `figures/teaser_imagegen.png`
 - `figures/overview_imagegen.png`
 - `figures/method_overview.tex`
-- `figures/artifact_contract.tex`
 - `tables/repository_evidence.tex`
 - `tables/related_projects.tex`
 - `references.bib`

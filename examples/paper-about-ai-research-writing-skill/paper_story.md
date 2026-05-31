@@ -16,7 +16,7 @@ General research-writing skills provide useful writing guidance, and figure-spec
 
 1. A skill-level workflow that coordinates story, evidence, literature, figures, citations, review, and submission gates.
 2. A durable artifact contract for auditable outputs such as `paper_story.md`, `claim_evidence_map.md`, `citation_verification.md`, and `build_check.md`.
-3. A cross-platform packaging approach for Claude Code, Cursor, Codex, Gemini CLI, OpenCode, and generic agents.
+3. A portable single-entrypoint design: the root `SKILL.md` is the canonical contract, while agents install or load it using their own platform conventions.
 4. A repository-backed template and script collection for major ML/AI venues and deterministic quality checks.
 
 ## Claims to Avoid
