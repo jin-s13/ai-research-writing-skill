@@ -2,12 +2,45 @@
 
 [中文说明](README.zh-CN.md)
 
-AI Research Writing Skill is an agent skill for ML / AI / CV / NLP researchers. Point your coding agent at code, experiment logs, notes, and a venue template; it helps you produce an **auditable, evidence-backed** LaTeX draft and submission package — not a polished fiction.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python: stdlib only](https://img.shields.io/badge/Python-stdlib%20only-blue.svg)](scripts/README.md)
+[![Platforms](https://img.shields.io/badge/Agents-Claude%20Code%20%7C%20Cursor%20%7C%20Codex%20%7C%20Gemini%20%7C%20OpenCode-purple.svg)](#installation)
+[![LaTeX templates](https://img.shields.io/badge/Templates-NeurIPS%20%7C%20ICML%20%7C%20ICLR%20%7C%20CVPR%20%7C%20ACL-orange.svg)](templates/README.md)
+
+Turn an ML/AI research repo into an **evidence-backed, build-ready conference paper draft**.
+
+Point your coding agent at code, experiment logs, notes, and a venue template. This skill helps it produce an auditable LaTeX draft and submission package: story, claim-evidence map, verified citations, figures, reviewer checks, and build notes.
 
 > **Claim-evidence engineering, not prose generation.**  
 > Every major claim should trace to code, results, notes, or verified citations.
 
 ---
+
+## 30-Second Demo
+
+```text
+Use AI Research Writing Skill on examples/minimal-paper-repo.
+Create paper_story.md, claim_evidence_map.md, a verified citation plan, Figure 1 plan, and a build-readiness note.
+```
+
+What the agent should produce:
+
+- `paper_story.md`: thesis, gap, contribution, and claims to avoid.
+- `claim_evidence_map.md`: every major claim tied to code, logs, results, notes, or citations.
+- `literature/positioning.md`: closest work, task difference, and citation risk.
+- `figures/figure_plan.md`: actual figure intent, source, backend, and fallback.
+- `build_check.md`: what compiled, what blocked, and what remains risky.
+
+```mermaid
+flowchart LR
+  A["Repo + notes + results"] --> B["Paper story"]
+  B --> C["Claim-evidence map"]
+  C --> D["Verified citations"]
+  C --> E["Figures and tables"]
+  D --> F["LaTeX draft"]
+  E --> F
+  F --> G["Reviewer and submission checks"]
+```
 
 ## Why this skill
 
@@ -21,18 +54,42 @@ AI Research Writing Skill is an agent skill for ML / AI / CV / NLP researchers. 
 
 **Supported venues (templates & checklists):** NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL, AAAI, COLM, and related ML/AI conferences. Always verify [official author instructions](references/venue-templates.md) before submission.
 
+## Before / After
+
+| Before using this skill | After using this skill |
+|---|---|
+| Scattered notes, logs, and half-written sections | `paper_story.md` and scoped task packets |
+| Claims that sound plausible | `claim_evidence_map.md` with evidence status |
+| Candidate citations from memory | BibTeX fetched or verified from authoritative metadata |
+| Figure ideas in prose | Generated concept figures and deterministic result plots |
+| "Looks done" | Build, TODO, citation, reviewer, and submission checks |
+
+## How It Differs From Related Projects
+
+This project is not trying to replace the excellent research-writing and figure-making projects below. It narrows their ideas into one opinionated workflow: **turn an ML/AI research repository into an evidence-backed, build-ready conference paper package**.
+
+| Project | What it is excellent at | How this project is different |
+|---|---|---|
+| [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | A compact skill package for ML/CV/NLP paper writing, adapted from research-writing notes into reusable agent skills. | Adds a full repo-to-paper production contract: inventories, claim-evidence maps, verified BibTeX, figure assets, build checks, and submission packaging. |
+| [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) | A broad, multi-platform research-writing assistant for thesis writing, chapter workflows, literature review, LaTeX output, and process tracking. | Specializes in AI conference papers from code, logs, experiments, and venue templates instead of general thesis/chapter writing. |
+| [Orchestra-Research/AI-research-SKILLs](https://github.com/Orchestra-Research/AI-research-SKILLs) | A comprehensive AI research and engineering skills library for agents, spanning the broader research lifecycle from idea to paper. | Focuses on one deep vertical: paper-writing execution and submission readiness for an existing ML/AI research repo. |
+| [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | Nature/CNS-style academic writing, polishing, reviewer response, data availability, citation, and publication-quality figure workflows. | Targets ML/AI conference workflows and templates such as NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL, AAAI, and COLM. |
+| [ChenLiu-1996/figures4papers](https://github.com/ChenLiu-1996/figures4papers) | High-quality Python scripts and examples for publication figures in top AI conferences and journals. | Integrates figure planning into a larger paper pipeline: figures are tied to claims, evidence, captions, LaTeX references, and submission checks. |
+
+In short: the related projects provide writing wisdom, broad skill ecosystems, Nature-style publication craft, or figure-making expertise. This project packages those inspirations into a **claim-evidence-engineering workflow for AI paper agents working inside real research repositories**.
+
 ---
 
 ## Quick start
 
-**1. Install** (symlink into your agent’s skills directory):
+**1. Install** (symlink into your agent’s skills directory, or use the bundled plugin metadata):
 
 ```bash
-git clone https://gitlab.tetras.ai/jinsheng/ai-research-writing-skill.git
+git clone https://github.com/jin-s13/ai-research-writing-skill.git
 ln -s "$(pwd)/ai-research-writing-skill" ~/.cursor/skills/ai-research-writing-skill   # Cursor global
 ```
 
-See [Installation](#installation) for Codex, Claude Code, Gemini, and project-level paths.
+See [Installation](#installation) for Claude Code, Cursor, Codex, Gemini CLI, OpenCode, hooks, and project-level paths.
 
 **2. Open your paper repo** in the agent and run:
 
@@ -101,14 +158,26 @@ The skill enforces checkpoints agents must not skip:
 
 ## Installation
 
-Clone this repo, then symlink (or copy) into your agent’s skills folder.
+Clone this repo, then symlink/copy it into your agent’s skills folder or install it as a plugin where the platform supports plugins.
 
-| Agent | Global path |
-|---|---|
-| **Cursor** | `~/.cursor/skills/ai-research-writing-skill` |
-| **Codex** | `$CODEX_HOME/skills/ai-research-writing-skill` |
-| **Claude Code** | `$HOME/.claude/skills/ai-research-writing-skill` |
-| **Gemini** | `$HOME/.gemini/skills/ai-research-writing-skill` |
+| Agent | Supported integration | Files in this repo |
+|---|---|---|
+| **Claude Code** | Plugin metadata + session hook, or skill symlink | `.claude-plugin/plugin.json`, `hooks/` |
+| **Cursor** | Plugin metadata + session hook, or skill symlink | `.cursor-plugin/plugin.json`, `hooks/` |
+| **Codex** | Native skill discovery | `SKILL.md`, `agents/openai.yaml`, `.codex/INSTALL.md` |
+| **Gemini CLI** | Agent instruction entry | `GEMINI.md` |
+| **OpenCode** | Plugin/local skill install | `.opencode/INSTALL.md`, `AGENTS.md` |
+| **Generic agents** | Instruction file | `AGENTS.md` |
+
+### Plugin Metadata
+
+The repository includes thin platform entrypoints that all route back to the same root `SKILL.md`.
+
+- Claude Code: `.claude-plugin/plugin.json`
+- Cursor: `.cursor-plugin/plugin.json`
+- Session-start hooks: `hooks/hooks.json`, `hooks/hooks-cursor.json`, `hooks/session-start`, `hooks/run-hook.cmd`
+- Gemini CLI: `GEMINI.md`
+- Generic/OpenCode-style agents: `AGENTS.md`
 
 **Cursor — global**
 
@@ -131,6 +200,8 @@ mkdir -p "$CODEX_HOME/skills"
 ln -s /path/to/ai-research-writing-skill "$CODEX_HOME/skills/ai-research-writing-skill"
 ```
 
+See [`.codex/INSTALL.md`](.codex/INSTALL.md) for details.
+
 **Claude Code — global / project**
 
 ```bash
@@ -139,6 +210,8 @@ ln -s /path/to/ai-research-writing-skill "$HOME/.claude/skills/ai-research-writi
 # or: .claude/skills/ for project-level
 ```
 
+Claude Code plugin-aware installs can use `.claude-plugin/plugin.json`; the bundled session hook injects the root skill entry on startup.
+
 **Gemini**
 
 ```bash
@@ -146,12 +219,28 @@ mkdir -p "$HOME/.gemini/skills"
 ln -s /path/to/ai-research-writing-skill "$HOME/.gemini/skills/ai-research-writing-skill"
 ```
 
+Gemini CLI can also read `GEMINI.md`, which points directly at `SKILL.md`.
+
+**OpenCode**
+
+See [`.opencode/INSTALL.md`](.opencode/INSTALL.md). The plugin/local install route points OpenCode back to the root skill.
+
 ---
 
 ## Repository layout
 
 ```text
 ai-research-writing-skill/
+├── .claude-plugin/       # Claude Code plugin metadata
+├── .cursor-plugin/       # Cursor plugin metadata
+├── .codex/               # Codex install notes
+├── .opencode/            # OpenCode install notes
+├── hooks/                # Session-start hook files for plugin-aware hosts
+├── AGENTS.md             # Generic agent entry
+├── GEMINI.md             # Gemini CLI entry
+├── docs/                 # Launch and growth playbook
+├── examples/             # Minimal demo paper repo
+├── skills/               # Thin plugin-discovery wrapper back to root SKILL.md
 ├── SKILL.md              # Agent entry: modes, gates, evidence policy
 ├── references/           # Workflow, writing, citations, figures, venues, review
 │   └── assets/           # Figure pattern references (figures4papers-style)
@@ -169,6 +258,8 @@ ai-research-writing-skill/
 | [`references/figure-workflow.md`](references/figure-workflow.md) | Diagrams vs plots; generation defaults |
 | [`references/citation-workflow.md`](references/citation-workflow.md) | Search, verify, BibTeX |
 | [`templates/README.md`](templates/README.md) | Template list and compile tips |
+| [`examples/minimal-paper-repo/`](examples/minimal-paper-repo/) | Minimal demo paper repo |
+| [`docs/LAUNCH_PLAYBOOK.zh-CN.md`](docs/LAUNCH_PLAYBOOK.zh-CN.md) | Launch and growth checklist |
 
 ---
 
@@ -180,6 +271,7 @@ python3 scripts/check_citations.py main.tex references.bib
 python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
 python3 scripts/parse_build_log.py main.log
 python3 scripts/camera_ready_check.py main.tex
+python3 scripts/research_quality_gate.py /path/to/paper-project
 ```
 
 More: [`scripts/README.md`](scripts/README.md).
@@ -198,6 +290,7 @@ More: [`scripts/README.md`](scripts/README.md).
 Inspired by and building on ideas from:
 
 - [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills)
+- [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill)
 - [Orchestra-Research/AI-research-SKILLs](https://github.com/Orchestra-Research/AI-research-SKILLs)
 - [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills)
 - [ChenLiu-1996/figures4papers](https://github.com/ChenLiu-1996/figures4papers)

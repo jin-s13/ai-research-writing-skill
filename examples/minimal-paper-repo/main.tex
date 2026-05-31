@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\title{ToyCalib: A Minimal Calibration-Head Demo}
+\author{Anonymous}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This demo repository is intended to exercise AI Research Writing Skill on a small, auditable project.
+\end{abstract}
+
+\section{Introduction}
+
+Modern classifiers can be accurate while remaining poorly calibrated. This demo studies a lightweight calibration head for a toy classifier and records the evidence needed before making paper-style claims.
+
+\section{Method}
+
+ToyCalib freezes the classifier backbone and learns a small head over validation logits. The head conditions corrections on logit entropy.
+
+\section{Experiments}
+
+The available demo metrics are stored in \texttt{results/main_results.csv}. These numbers are illustrative and should not be described as benchmark evidence.
+
+\end{document}

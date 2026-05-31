@@ -6,7 +6,7 @@ Use this file as the first stop when deciding which reference files to load. Loa
 
 | User intent | Load first | Then load as needed |
 |---|---|---|
-| Full paper or major revision | `workflow.md`, `artifacts.md` | `paper-story.md`, `section-writing.md`, `citation-workflow.md`, `figure-workflow.md`, venue/reviewer references |
+| Full paper or major revision | `workflow.md`, `artifacts.md`, `task-management.md` | `paper-story.md`, `section-writing.md`, `citation-workflow.md`, `figure-workflow.md`, venue/reviewer references |
 | Paper story, thesis, gap, or contributions | `paper-story.md` | `literature-review.md` if positioning is uncertain |
 | Abstract / Introduction | `abstract-introduction.md` | `section-writing.md`, one example file after choosing a pattern |
 | Related Work or positioning | `literature-review.md`, `citation-workflow.md` | `section-writing.md`, related-work examples |
@@ -17,6 +17,7 @@ Use this file as the first stop when deciding which reference files to load. Loa
 | Reviewer diagnosis | `reviewer-guidelines.md`, `reviewer-self-review.md` | `artifacts.md` for `reviewer_analysis.md` |
 | Submission or camera-ready package | `submission-packaging.md`, `citation-checklist.md` | `workflow.md`, `templates/README.md`, `templates/SOURCES.md` |
 | Script usage | `../scripts/README.md` | The specific script file |
+| Task packet, progress, or completion audit | `task-management.md` | `artifacts.md`, `../scripts/README.md` |
 
 ## Full-Paper Load Order
 
@@ -24,9 +25,10 @@ For full-paper tasks, use this order:
 
 1. `workflow.md`: state machine and execution sequence.
 2. `artifacts.md`: durable outputs to create in the target paper repo.
-3. `paper-story.md`: thesis, gap, contribution, and claim boundaries.
-4. `literature-review.md`: related work corpus and positioning if needed.
-5. Section, figure, citation, venue, reviewer, and submission references as the workflow reaches them.
+3. `task-management.md`: task packet, progress, review, and completion audit discipline.
+4. `paper-story.md`: thesis, gap, contribution, and claim boundaries.
+5. `literature-review.md`: related work corpus and positioning if needed.
+6. Section, figure, citation, venue, reviewer, and submission references as the workflow reaches them.
 
 ## Reference Layers
 

@@ -17,6 +17,8 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 
 - Inspect repo structure, README/docs, notes, results, templates, existing `.bib`, and prior drafts.
 - Create `project_inventory.md` and `experiment_inventory.md` for full-paper tasks.
+- If the paper repo uses a `plan/` workspace, create or update `plan/project-overview.md` and `plan/progress.md` instead of duplicating the same information.
+- For medium or full-paper tasks, create `plan/task-packets/<task>.md` before drafting. Include scope, files to read, files allowed to edit, evidence/data inputs, required artifacts, rejection checks, and validation commands.
 - Prefer repository evidence over memory.
 - Note missing artifacts instead of guessing.
 
@@ -78,6 +80,8 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 - Review the paper as a skeptical reviewer across contribution, clarity, experiments, evaluation completeness, and method soundness.
 - Produce an author-facing reviewer analysis, not only automatic edits; explain strengths, weaknesses, rejection risks, and trade-offs.
 - Convert high-risk issues into concrete edits, experiments, or explicit limitations.
+- For medium or larger tasks, run two reviews before claiming completion: spec compliance against the task packet, then quality review for claim support, logic, citation fit, and manuscript cleanliness.
+- Record the review result in `plan/progress.md` or `plan/review/`.
 
 ### 9. Venue Checklist and Build
 
@@ -88,6 +92,8 @@ For the expected artifacts, load `references/artifacts.md` alongside this workfl
 - Use `scripts/parse_build_log.py` when a LaTeX log exists.
 - Use `scripts/check_citations.py` when a `.tex`/`.bib` pair exists.
 - Use `scripts/check_todos.py` before submission packaging.
+- Use `scripts/research_quality_gate.py` for Markdown/LaTeX project-level checks when a draft has chapters, plan files, figures, or literature artifacts.
+- Before saying the work is complete, update the capability-use audit in `plan/progress.md` or record why no progress file exists.
 
 ### 10. Submission Packaging
 

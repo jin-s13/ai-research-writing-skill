@@ -34,6 +34,18 @@ Choose the smallest mode that satisfies the user request.
 
 If the user asks for multiple named skills that this skill subsumes, apply it as the coordinator and load the relevant reference files.
 
+## Task State and Audit
+
+For medium or full-paper tasks, create or update durable task-state artifacts in the target paper repo before substantial drafting:
+
+- `project_inventory.md` or `plan/project-overview.md` for scope, target venue, inputs, constraints, and missing evidence.
+- `plan/current_task.md` or `plan/task-packets/<task>.md` for scope, files to read, files allowed to edit, required evidence, required artifacts, rejection checks, and validation commands.
+- `plan/progress.md` for stage, completed artifacts, checks run, remaining risks, and a compact capability-use audit.
+
+Do not turn user process instructions into manuscript text. Requirements such as "make it natural", "fill later", "avoid AI writing", or "replace this" belong in plan/review files, not in paper sections.
+
+Use subagents only when the user's environment explicitly allows delegation and the work can be split into disjoint files or reviews. Record each delegated task's inputs, output path, and review status in `plan/progress.md` or `plan/agent_provenance.md`.
+
 ## Loading Strategy
 
 Do not load the entire `references/` tree by default.
@@ -54,6 +66,8 @@ Do not load the entire `references/` tree by default.
 - **Figure gate**: no generated numeric figure; numbers must come from code, data, tables, or logs.
 - **Figure asset gate**: after writing a figure plan, actually produce the figure assets when the environment provides the needed tools. For method, teaser, framework, pipeline, architecture, and overview diagrams, invoke built-in image generation and save the generated image as the default figure used in the paper. TikZ/SVG precise schematics are optional backup/reference only (exact labels, terminology alignment, or compile fallback)—not a parallel required deliverable. If image generation is unavailable, record the blocker instead of treating the plan as complete.
 - **Reviewer gate**: no final draft while high-severity reviewer objections remain unaddressed.
+- **Task-state gate**: no medium or full-paper task without a scoped task packet, progress update, and acceptance criteria.
+- **Completion gate**: no "done" claim until required artifacts exist, checks have been run or blockers recorded, and remaining risks are visible.
 - **Checklist gate**: no submission without limitations, reproducibility, compute/data/code status, and LLM usage status when applicable.
 - **Build gate**: attempt compilation or record why compilation could not run.
 - **Packaging gate**: no commit/push without status, citation, TODO, and artifact-size checks.
@@ -72,6 +86,18 @@ Do not load the entire `references/` tree by default.
 For full-paper work, follow `references/artifacts.md`. For smaller requests, produce only the relevant subset while preserving claim-evidence discipline.
 
 For long-running tasks, maintain auditable intermediate artifacts such as `paper_story.md`, `claim_evidence_map.md`, `literature/positioning.md`, `citation_verification.md`, `figures/figure_plan.md`, and `build_check.md`.
+
+For medium or larger tasks, finish with a short audit in `plan/progress.md` or the closest existing progress file:
+
+```markdown
+### Capability-use audit
+- Required references/scripts:
+- Inputs consumed:
+- Inputs not used and why:
+- Artifacts produced:
+- Verification run:
+- Remaining risk:
+```
 
 ## Response Style
 

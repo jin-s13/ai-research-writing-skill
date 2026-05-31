@@ -9,6 +9,9 @@ For smaller requests, produce only the relevant subset, but still preserve claim
 - `project_inventory.md`: repository structure, notes, results, templates, existing citations, unresolved missing inputs.
 - `experiment_inventory.md`: datasets, baselines, metrics, numbers, caveats, reproducibility gaps.
 - `claim_evidence_map.md`: major claims mapped to evidence and status.
+- `plan/project-overview.md` when a paper repo already uses a `plan/` workspace: target, constraints, language, venue, deadlines, source files, and current stage.
+- `plan/progress.md`: current task, artifacts changed, checks run, remaining risks, and capability-use audit.
+- `plan/task-packets/<task>.md`: scope, files to read, files allowed to edit, required evidence, required artifacts, rejection checks, and validation commands for medium or full-paper work.
 
 ## Story Artifacts
 
@@ -45,6 +48,8 @@ If a paper cannot be downloaded, the inventory must record the official URL and 
 - `build_check.md`: compilation attempt, tool availability, and unresolved build blockers.
 - `submission_readiness.md`: reviewer-risk status before final submission when the paper is close to complete.
 - `reviewer_analysis.md`: author-facing reviewer-style diagnosis with strengths, risks, evidence gaps, and recommended decisions.
+- `plan/review/<task>_spec.md`: whether the output matched the requested scope, files, and required artifacts.
+- `plan/review/<task>_quality.md`: claim support, logic, citation fit, prose quality, and unresolved weaknesses.
 
 ## Minimal Subsets
 
@@ -56,3 +61,4 @@ If a paper cannot be downloaded, the inventory must record the official URL and 
 | Figures | `figures/figure_plan.md`, figure specs, generated assets, source or fallback files |
 | Citation repair | `references.bib`, `citation_verification.md` |
 | Submission audit | `build_check.md`, `submission_readiness.md`, checklist notes |
+| Medium or multi-file task | `plan/task-packets/<task>.md`, `plan/progress.md`, relevant output artifacts |
