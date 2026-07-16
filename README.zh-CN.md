@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python: stdlib only](https://img.shields.io/badge/Python-stdlib%20only-blue.svg)](scripts/README.md)
 [![Entrypoint](https://img.shields.io/badge/Entrypoint-SKILL.md-purple.svg)](SKILL.md)
-[![LaTeX templates](https://img.shields.io/badge/Templates-NeurIPS%20%7C%20ICML%20%7C%20ICLR%20%7C%20CVPR%20%7C%20ACL-orange.svg)](templates/README.md)
+[![Template sources](https://img.shields.io/badge/Templates-official%20sources-orange.svg)](templates/README.md)
 
 把一个 ML/AI 研究仓库，整理成**有证据、有图表、能编译、能继续投稿打磨的论文草稿**。
 
@@ -82,7 +82,7 @@
 | 停在提纲和建议 | 落地 `paper_story.md`、`claim_evidence_map.md`、`references.bib` 和图表文件 |
 | 泛泛而谈“可以改进” | 给出审稿式意见、拒稿风险、venue checklist、编译与打包检查 |
 
-**模板和 checklist 覆盖：** NeurIPS、ICML、ICLR、CVPR、ICCV、ECCV、ACL、AAAI、COLM 等。正式投稿前，请一定以[会议官方说明](references/venue-templates.md)为准。
+**Venue profile 与模板来源覆盖：** NeurIPS、ICML、ICLR、CVPR、ICCV、ECCV、ACL、AAAI、COLM 等。模板不再直接打包进仓库；当再分发许可不清楚时，只从已审计的官方来源获取。正式投稿前，请一定以[会议官方说明](references/venue-templates.md)为准。
 
 ## 使用前后对比
 
@@ -125,7 +125,7 @@
 ## 安装
 
 **最简单的理解：**根目录 [`SKILL.md`](SKILL.md) 是唯一规范入口。  
-`references/`、`scripts/`、`templates/` 和 `examples/` 都是它按需调用的辅助材料。
+`references/`、确定性检查脚本、已审计的模板来源和可选端到端 example，都是它按需调用的辅助材料。
 
 ### 让 Agent 自动安装
 
@@ -160,9 +160,8 @@ ai-research-writing-skill/
 ├── examples/             # 端到端 demo paper
 ├── SKILL.md              # 唯一规范 agent 入口
 ├── references/           # 工作流、写作、引用、图表、venue、审稿
-│   └── assets/           # 科研图表示例与版式参考
 ├── scripts/              # claim、引用、占位符、编译日志和投稿前检查
-├── templates/            # NeurIPS / ICML / CVPR / ACL / ... LaTeX 模板
+├── templates/            # 官方来源 manifest，不再复制会议 author kit
 └── README.md
 ```
 
@@ -172,9 +171,10 @@ ai-research-writing-skill/
 |---|---|
 | [`references/workflow.md`](references/workflow.md) | 完整论文工作流 |
 | [`references/artifacts.md`](references/artifacts.md) | 论文仓库里应该落盘哪些产物 |
+| [`references/research-handoff.md`](references/research-handoff.md) | 上游研究系统交给本 skill 的证据契约 |
 | [`references/figure-workflow.md`](references/figure-workflow.md) | 如何区分概念图、方法图和数值结果图 |
 | [`references/citation-workflow.md`](references/citation-workflow.md) | 如何检索、核验和修复 BibTeX |
-| [`templates/README.md`](templates/README.md) | 模板列表和编译说明 |
+| [`templates/README.md`](templates/README.md) | 官方模板来源审计与固定版本下载 |
 | [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | 用本项目给自己写论文的端到端示例 |
 
 ---
@@ -185,8 +185,12 @@ ai-research-writing-skill/
 python3 scripts/extract_claims.py main.tex > claim_evidence_map.md
 python3 scripts/check_citations.py main.tex references.bib
 python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
+python3 scripts/check_numeric_evidence.py /path/to/paper-project
+python3 scripts/check_research_handoff.py /path/to/handoff-project
 python3 scripts/parse_build_log.py main.log
 python3 scripts/camera_ready_check.py main.tex
+python3 scripts/fetch_template.py icml2026 --output /path/to/paper/.venue-template
+python3 scripts/record_build.py /path/to/paper-project
 python3 scripts/research_quality_gate.py /path/to/paper-project
 ```
 
@@ -196,7 +200,7 @@ python3 scripts/research_quality_gate.py /path/to/paper-project
 
 ## 使用注意
 
-- 仓库里的会议模板只是方便起步，**正式投稿前一定要核对官方 author instructions**。  
+- 会议模板从已审计的官方来源获取；固定归档会校验 SHA-256，**正式投稿前仍要核对官方 author instructions**。
 - 不要把私有 PDF、未公开实验日志、API key 或审稿保密材料提交进仓库。  
 - 生成图可以帮助解释方法，但不能作为数值结果或实验结论的来源。
 

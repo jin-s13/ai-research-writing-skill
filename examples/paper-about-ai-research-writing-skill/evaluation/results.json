@@ -1,0 +1,78 @@
+{
+  "schema_version": "ai-research-writing/contract-eval-v1",
+  "scope": "mechanical reliability; not paper-quality or acceptance evaluation",
+  "cases": [
+    {
+      "name": "Failure-path regression suite",
+      "status": "pass",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "stdout_tail": [],
+      "stderr_tail": [
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 11 tests in 0.765s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "name": "Skill package contract",
+      "status": "pass",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/research_quality_gate.py",
+        ".",
+        "--mode",
+        "skill"
+      ],
+      "stdout_tail": [
+        "Research quality gate passed."
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "Citation-key integrity",
+      "status": "pass",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/check_citations.py",
+        "examples/paper-about-ai-research-writing-skill/paper/main.tex",
+        "examples/paper-about-ai-research-writing-skill/paper/references.bib"
+      ],
+      "stdout_tail": [
+        "Citation key check passed."
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "Unresolved-marker scan",
+      "status": "pass",
+      "exit_code": 0,
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/check_todos.py",
+        "examples/paper-about-ai-research-writing-skill/paper/main.tex",
+        "examples/paper-about-ai-research-writing-skill/paper/references.bib",
+        "examples/paper-about-ai-research-writing-skill/paper/tables",
+        "examples/paper-about-ai-research-writing-skill/paper/figures"
+      ],
+      "stdout_tail": [
+        "No unresolved TODO-like markers found."
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

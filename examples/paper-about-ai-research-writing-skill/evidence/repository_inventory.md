@@ -12,11 +12,7 @@ Inventory generated for the example paper about `ai-research-writing-skill`.
 
 ## Example Paper Template
 
-This example paper uses the repository's bundled ICML 2026 template files copied into `paper/`:
-
-- `icml2026.sty`
-- `icml2026.bst`
-- `fancyhdr.sty`
+This example paper was built with the official ICML 2026 archive recorded in `paper_state.json`. The archive URL and SHA-256 are part of the build contract; template files are fetched when rebuilding rather than redistributed by this repository.
 
 The example includes two image-generated figures used in the paper:
 
@@ -29,7 +25,7 @@ It also keeps a deterministic TikZ fallback:
 
 ## Deterministic Helper Scripts
 
-The repository includes 8 top-level helper script/reference files under `scripts/`:
+The repository includes 10 Python helper scripts under `scripts/`, including:
 
 - `camera_ready_check.py`
 - `check_citations.py`
@@ -38,11 +34,13 @@ The repository includes 8 top-level helper script/reference files under `scripts
 - `make_latex_table.py`
 - `parse_build_log.py`
 - `research_quality_gate.py`
-- `README.md`
+- `record_build.py`
+- `fetch_template.py`
+- `paper_contract.py`
 
 ## Venue Templates
 
-The repository includes bundled LaTeX template directories for 9 venue families:
+The audited manifest records official source and license status for 9 venue families:
 
 - AAAI 2026
 - ACL
@@ -61,4 +59,4 @@ The repository includes bundled LaTeX template directories for 9 venue families:
 
 ## Reference Library
 
-The repository includes 21 top-level reference files under `references/`, covering story design, citations, figures, reviewer checks, venues, submission packaging, and task management.
+The repository includes 21 top-level reference and schema files under `references/`, covering story design, citations, figures, reviewer checks, venues, submission packaging, task management, and the machine state contract.

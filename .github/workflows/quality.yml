@@ -1,0 +1,39 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run unit and failure-path tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate skill package
+        run: python scripts/research_quality_gate.py . --mode skill
+      - name: Validate end-to-end example
+        run: python scripts/research_quality_gate.py examples/paper-about-ai-research-writing-skill
+      - name: Check example citation keys
+        run: >-
+          python scripts/check_citations.py
+          examples/paper-about-ai-research-writing-skill/paper/main.tex
+          examples/paper-about-ai-research-writing-skill/paper/references.bib
+      - name: Check example markers
+        run: >-
+          python scripts/check_todos.py
+          examples/paper-about-ai-research-writing-skill/paper/main.tex
+          examples/paper-about-ai-research-writing-skill/paper/references.bib
+          examples/paper-about-ai-research-writing-skill/paper/tables
+          examples/paper-about-ai-research-writing-skill/paper/figures

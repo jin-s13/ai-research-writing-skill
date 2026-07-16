@@ -1,103 +1,69 @@
-# Full Paper Workflow
+# Full-Paper Workflow
 
-Use this reference for full-paper generation, major revisions, or submission preparation. Move through the states below; do not silently skip a gate. If evidence is unavailable, record the limitation and continue with a weaker claim.
+Use this state machine for full-paper generation, major revision, or submission preparation. Load `artifacts.md` with it. Do not skip a failed gate; weaken the claim or record a blocker.
 
-For the expected artifacts, load `references/artifacts.md` alongside this workflow.
+## 1. Declare the Contract
 
-## State Machine
+- If an upstream system supplied `research_handoff.json`, load `research-handoff.md`, validate the handoff, and carry every blocker forward before creating paper state.
+- Detect target venue, template, anonymity mode, main `.tex`, bibliography, page/checklist constraints, and paper stage.
+- Create `paper_state.json`, one task packet, and `plan/progress.md`.
+- Run `research_quality_gate.py` early so missing inputs are visible before drafting.
 
-### 1. Venue and Template Detection
+## 2. Inventory Evidence
 
-- Identify target venue, anonymity mode, page limit, checklist, camera-ready constraints, and main `.tex` file.
-- If target venue and template conflict, state the conflict and follow the user's stated target unless they override it.
-- Load `references/venue-profiles.md`.
-- Use `templates/README.md` when choosing or explaining a bundled LaTeX template.
+- Inspect code, documentation, notes, logs, tables, notebooks, existing drafts, figures, and citations.
+- Create a repository inventory and experiment inventory without duplicating an existing project overview.
+- Record datasets, splits, seeds, baselines, metrics, uncertainty, compute, and missing evidence.
 
-### 2. Repo and Artifact Inventory
+## 3. Fix the Story and Literature Position
 
-- Inspect repo structure, README/docs, notes, results, templates, existing `.bib`, and prior drafts.
-- Create `project_inventory.md` and `experiment_inventory.md` for full-paper tasks.
-- If the paper repo uses a `plan/` workspace, create or update `plan/project-overview.md` and `plan/progress.md` instead of duplicating the same information.
-- For medium or full-paper tasks, create `plan/task-packets/<task>.md` before drafting. Include scope, files to read, files allowed to edit, evidence/data inputs, required artifacts, rejection checks, and validation commands.
-- Prefer repository evidence over memory.
-- Note missing artifacts instead of guessing.
+- Load `paper-story.md`; define thesis, task boundary, gap, technical insight, contributions, claims to make, and claims to avoid.
+- Load `literature-review.md` and `citation-workflow.md`; inventory close papers and baselines before Related Work prose.
+- Build the initial claim-evidence map. Unsupported claims must be weakened, removed, or explicitly classified as claims to avoid.
 
-### 3. Paper Story
+## 4. First Draft Pass: Evidence-Bearing Core
 
-- Load `references/paper-story.md`.
-- Load `references/literature-review.md` when the literature gap or related work positioning is uncertain.
-- Write the one-sentence thesis.
-- Identify the exact literature gap and the technical reason it exists.
-- Separate strong claims, careful claims, and claims to avoid.
-- Produce `paper_story.md` before drafting long prose.
-- For new or niche tasks, explicitly define the task boundary and input/output.
+Write a provisional title and abstract only to constrain scope, then draft in this order:
 
-### 4. Claim-Evidence Map
+1. Method / System Design.
+2. Experiments / Evaluation.
+3. Results, ablations, failure analysis, and limitations.
+4. Figures and tables tied to those sections.
 
-- Map each Abstract/Introduction claim to repo evidence, experiment numbers, or verified citations.
-- For existing drafts, use `scripts/extract_claims.py` to bootstrap the map, then manually refine evidence status.
-- Remove or weaken unsupported claims.
-- Load `references/abstract-introduction.md` for Abstract/Introduction work.
-- Load `references/section-writing.md` when writing or revising other sections.
-- Treat negative or mixed results as scope control, not as material to hide.
+Do not polish the provisional abstract as final copy. Let the completed evidence-bearing sections determine the final framing.
 
-### 5. Draft Sections
+For long papers, use one bounded agent/model call per numbered block. Each call receives the paper story, claim map, relevant evidence, and completed preceding sections; it must not regenerate unrelated sections.
 
-- Draft in this order: Abstract, Introduction, Related Work, Method, Experiments, Limitations, Conclusion.
-- For Abstract/Introduction, include paragraph roles and a reverse outline.
-- For Related Work, first create or update the literature corpus, related work matrix, and positioning analysis in `literature/`.
-- Keep terminology stable across all sections.
-- Do not write the paper as "naive baseline + patch" unless the paper is explicitly an ablation note. Build curiosity around a real technical challenge.
-- Use `references/reviewer-self-review.md` for major revisions and before submission.
+## 5. Second Draft Pass: Framing and Synthesis
 
-### 6. Figures and Tables
+1. Related Work from the literature matrix and verified corpus.
+2. Introduction from the final gap, method, and evidence.
+3. Conclusion from demonstrated results and limitations.
+4. Rewrite the title and Abstract last.
 
-- Load `references/figure-workflow.md`.
-- Load `references/figure-spec.md` when creating or reviewing a figure plan.
-- For every figure, first classify it as `evidence-result` or `concept-method`, then write its role, message, entities, relationships, layout, backend, source, and backup/fallback.
-- For `evidence-result` figures, use deterministic plotting or LaTeX tables; never use image generation for exact numbers, axes, metric values, tables, or benchmark claims.
-- After the plan is written, generate the actual figure files. Do not stop with `figures/figure_plan.md` unless the needed tool, data, or access is unavailable and recorded as a blocker.
-- For `concept-method` figures (overview, method, framework, pipeline, architecture, teaser), use built-in image generation as the default figure in the paper. TikZ/SVG precise schematics are optional backup/reference only—add them when exact labels, terminology alignment, or a compile fallback is needed, not as a parallel required deliverable.
-- Do not bind generated figures to a specific external image API or model unless the user explicitly requests it.
-- Use `scripts/make_latex_table.py` for CSV-to-LaTeX tables when exact table formatting is needed.
-- Inspect generated diagrams. If text is distorted or labels are wrong, regenerate with shorter text or add deterministic labels through the fallback/overlay.
-- Update the LaTeX draft to reference generated figure/table assets when the paper section depends on them.
-- Captions must state the takeaway, not merely describe the visual elements.
+Run a terminology pass and reverse-outline pass across the complete manuscript.
 
-### 7. Citation Verification
+## 6. Produce Figure and Table Assets
 
-- Load `references/citation-workflow.md` for finding and adding citations.
-- Load `references/citation-checklist.md` for final citation/checklist audit.
-- Fetch citation metadata programmatically; do not write BibTeX from memory.
-- Create or update `references.bib` with retrieved BibTeX entries. Do not stop at candidate URLs or a citation plan when an authoritative BibTeX source is available.
-- Download or save official accessible copies of important related papers in `literature/papers/` when access and licensing permit; otherwise record `metadata-only` or `needs-access` in `literature/paper_inventory.md`.
-- Record verification sources in `citation_verification.md`.
-- Verify that the cited paper supports the sentence-level claim, not merely the broad topic.
+- Load `figure-workflow.md` and `figure-spec.md`.
+- Classify each asset as `evidence-result` or `concept-method` and record role, message, entities, layout, backend, source, and backup.
+- Use deterministic plotting or LaTeX tables for numbers, axes, metrics, benchmarks, and comparisons.
+- For overview, method, framework, pipeline, architecture, and teaser figures, use built-in image generation as the default paper asset. Inspect generated images before inclusion; regenerate or edit when labels or structure are wrong.
+- Wire every required asset into LaTeX and write takeaway-driven captions.
 
-### 8. Reviewer Self-Review
+## 7. Verify Citations
 
-- Load `references/reviewer-self-review.md`.
-- Review the paper as a skeptical reviewer across contribution, clarity, experiments, evaluation completeness, and method soundness.
-- Produce an author-facing reviewer analysis, not only automatic edits; explain strengths, weaknesses, rejection risks, and trade-offs.
-- Convert high-risk issues into concrete edits, experiments, or explicit limitations.
-- For medium or larger tasks, run two reviews before claiming completion: spec compliance against the task packet, then quality review for claim support, logic, citation fit, and manuscript cleanliness.
-- Record the review result in `plan/progress.md` or `plan/review/`.
+- Fetch structured metadata; do not write BibTeX from memory.
+- Add concrete entries to `references.bib` and record provenance plus sentence-level relation in `citation_verification.md`.
+- Run `check_citations.py`; for terminal stages, every cited key must have a verified record.
 
-### 9. Venue Checklist and Build
+## 8. Review, Build, and Package
 
-- Use the checklist that matches the actual target/template. If user request and template conflict, state the conflict and choose the target venue unless the user overrides.
-- Load `references/venue-templates.md` when drafting venue-specific sections or checklist text.
-- Fill checklist answers honestly; `No` is better than pretending missing reproducibility details exist.
-- Run LaTeX build if tools are available; otherwise record missing tools in `build_check.md`.
-- Use `scripts/parse_build_log.py` when a LaTeX log exists.
-- Use `scripts/check_citations.py` when a `.tex`/`.bib` pair exists.
-- Use `scripts/check_todos.py` before submission packaging.
-- Use `scripts/research_quality_gate.py` for Markdown/LaTeX project-level checks when a draft has chapters, plan files, figures, or literature artifacts.
-- Before saying the work is complete, update the capability-use audit in `plan/progress.md` or record why no progress file exists.
-
-### 10. Submission Packaging
-
-- Load `references/submission-packaging.md`.
-- Use `scripts/camera_ready_check.py` for final/camera-ready audits.
-- Before commit/push, check `git status`, staged files, generated binary sizes, and whether the worktree is clean after commit.
-- For Overleaf-linked repos, push only after the user asks or clearly authorizes it.
+- Run two reviews: task/spec compliance, then skeptical paper-quality review.
+- In the paper-quality review, use methodology, domain/positioning, and statistics/evidence lenses. Merge duplicate objections before revision.
+- Convert high-risk objections into edits, experiments, limitations, or blockers.
+- Revise targeted sections first. Avoid whole-paper regeneration unless the story itself changed; rerun numeric, citation, and build checks after every substantive revision.
+- Run marker, citation, quality, venue, and build-log checks.
+- Compile the actual LaTeX package. After success, run `record_build.py` so later source changes invalidate the build record.
+- For submission, complete the venue checklist and `submission_readiness.md`, then follow `submission-packaging.md`.
+- Update `plan/progress.md` with completed checks and remaining scientific risks before reporting completion.

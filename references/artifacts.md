@@ -1,64 +1,67 @@
 # Artifact Contract
 
-Use this reference for full-paper tasks or whenever the agent needs to decide which durable files to create. Artifacts should be created in the target paper project, not in the skill library.
+Create artifacts in the target paper project, not in this skill repository. Use the smallest set that preserves evidence and verification.
 
-For smaller requests, produce only the relevant subset, but still preserve claim-evidence discipline.
+## Machine State
 
-## Project and Evidence Artifacts
+Full-paper and submission modes require `paper_state.json`:
 
-- `project_inventory.md`: repository structure, notes, results, templates, existing citations, unresolved missing inputs.
-- `experiment_inventory.md`: datasets, baselines, metrics, numbers, caveats, reproducibility gaps.
-- `claim_evidence_map.md`: major claims mapped to evidence and status.
-- `plan/project-overview.md` when a paper repo already uses a `plan/` workspace: target, constraints, language, venue, deadlines, source files, and current stage.
-- `plan/progress.md`: current task, artifacts changed, checks run, remaining risks, and capability-use audit.
-- `plan/task-packets/<task>.md`: scope, files to read, files allowed to edit, required evidence, required artifacts, rejection checks, and validation commands for medium or full-paper work.
+```json
+{
+  "schema_version": "ai-research-writing/paper-state-v1",
+  "mode": "full-paper",
+  "stage": "drafting",
+  "target_venue": "ICML 2026",
+  "main_tex": "paper/main.tex",
+  "bibliography": "paper/references.bib",
+  "required_artifacts": ["experiment_inventory.md"],
+  "blockers": [],
+  "build": {
+    "status": "not-run",
+    "command": "tectonic main.tex",
+    "pdf": "paper/main.pdf",
+    "external_inputs": [],
+    "input_sha256": "",
+    "pdf_sha256": ""
+  }
+}
+```
 
-## Story Artifacts
+Use `stage: complete` or `submission-ready` only after checks pass. After a successful build, run:
 
-- `paper_story.md`: thesis, gap, method insight, contributions, claims to make, and claims to avoid.
-- Task boundary notes when the task is new, niche, or easy to confuse with nearby settings.
+```bash
+python3 /path/to/skill/scripts/record_build.py /path/to/paper-project
+python3 /path/to/skill/scripts/research_quality_gate.py /path/to/paper-project
+```
 
-## Literature Artifacts
+The complete JSON schema is `paper-state.schema.json`.
 
-- `literature/paper_inventory.md`: important related papers, metadata, local file path or URL, status, and relevance.
-- `literature/related_work_matrix.md`: lines of work, representative papers, gaps, and how the paper relates.
-- `literature/positioning.md`: closest works, task differences, contribution boundary, and claims to make or avoid.
-- `literature/notes/`: compact notes for close papers and baselines.
-- `literature/papers/`: local copies of important papers only when access and licensing permit.
+## Core Artifacts
 
-Do not commit copyrighted PDFs or private downloads unless redistribution is allowed and the user explicitly wants them included.
-If a paper cannot be downloaded, the inventory must record the official URL and status (`metadata-only` or `needs-access`) instead of silently omitting the missing local copy.
-
-## Draft and Citation Artifacts
-
-- Main LaTeX draft: preserve the venue template; keep anonymous unless final/camera-ready is requested.
-- `references.bib`: verified references only, fetched from authoritative BibTeX/metadata sources rather than written from memory.
-- `citation_verification.md`: source used to verify each citation and the sentence-level claim it supports.
-
-## Figure and Table Artifacts
-
-- `figures/figure_plan.md`: role, message, entities, relationships, layout, backend, source, and fallback for each figure.
-- `figures/figure_specs.yaml` or `figures/figure_specs.md`: machine-checkable role/message/entities/layout/backend specs.
-- Generated figure/table assets: image-generated diagrams, deterministic plot PDFs/PNGs, and LaTeX tables that the draft can include directly.
-- Figure/table source files: prompts/specs for generated diagrams, deterministic scripts for numerical plots, and editable fallback/overlay files when needed.
-
-## Submission and Review Artifacts
-
-- Checklist, reproducibility, limitations, compute/data/code, and LLM usage notes for the target venue.
-- `build_check.md`: compilation attempt, tool availability, and unresolved build blockers.
-- `submission_readiness.md`: reviewer-risk status before final submission when the paper is close to complete.
-- `reviewer_analysis.md`: author-facing reviewer-style diagnosis with strengths, risks, evidence gaps, and recommended decisions.
-- `plan/review/<task>_spec.md`: whether the output matched the requested scope, files, and required artifacts.
-- `plan/review/<task>_quality.md`: claim support, logic, citation fit, prose quality, and unresolved weaknesses.
-
-## Minimal Subsets
-
-| Request type | Minimal durable artifacts |
+| Concern | Artifact |
 |---|---|
-| Story only | `paper_story.md` |
-| Abstract/Introduction revision | `claim_evidence_map.md`, revised `.tex` section |
-| Related Work | `literature/paper_inventory.md`, `literature/related_work_matrix.md`, `literature/positioning.md`, citation updates |
-| Figures | `figures/figure_plan.md`, figure specs, generated assets, source or fallback files |
+| Scope and execution | `plan/task-packets/<task>.md`, `plan/progress.md` |
+| Repository and experiments | `project_inventory.md` or existing overview; `experiment_inventory.md` when experiments exist |
+| Quantitative provenance | `numeric_evidence.json` for numbers used in evidence-sensitive sections |
+| Story and claims | `paper_story.md`, `claim_evidence_map.md` |
+| Literature | `literature/paper_inventory.md`, `literature/related_work_matrix.md`, `literature/positioning.md` |
+| Citations | `references.bib`, `citation_verification.md` |
+| Figures and tables | `figures/figure_plan.md`, specs/prompts, generated assets, deterministic plot/table sources |
+| Review | `reviewer_analysis.md` or `plan/review/` reports |
+| Build and submission | `build_check.md`, plus `submission_readiness.md` in submission mode |
+
+Do not commit copyrighted or private paper PDFs unless redistribution is permitted and the user explicitly requests it. Record inaccessible papers as `metadata-only` or `needs-access` rather than silently omitting them.
+
+## Minimal Sets
+
+| Request | Minimum durable output |
+|---|---|
+| Story | `paper_story.md` |
+| Section revision | revised section plus claim/evidence notes |
+| Related Work | inventory, matrix, positioning, citation updates |
+| Figure work | plan/spec, final asset, source or prompt |
 | Citation repair | `references.bib`, `citation_verification.md` |
-| Submission audit | `build_check.md`, `submission_readiness.md`, checklist notes |
-| Medium or multi-file task | `plan/task-packets/<task>.md`, `plan/progress.md`, relevant output artifacts |
+| Full paper | machine state plus applicable core artifacts above |
+| Submission | full-paper set, checklist, `submission_readiness.md`, recorded build |
+
+When an upstream research system supplies evidence, validate `research_handoff.json` using `research-handoff.md` before creating the paper artifacts. For quantitative papers, add `numeric_evidence.json` to `required_artifacts`; the quality gate validates it automatically when present. Its schema is `numeric-evidence.schema.json`.

@@ -1,107 +1,65 @@
 ---
 name: ai-research-writing-skill
-description: End-to-end research paper generation and revision for ML/AI/CV/NLP papers from repositories, notes, experiments, and conference templates. Use when turning a research project into a publication-ready LaTeX draft, building a paper story, writing or revising Abstract/Introduction/Related Work/Method/Experiments, designing figures and tables, verifying citations, completing NeurIPS/ICML/ICLR/CVPR/ICCV/ECCV/ACL-style checklists, running build checks, or preparing an Overleaf/Git submission.
+description: End-to-end research paper generation, review, and revision for ML/AI/CV/NLP projects from repositories, notes, experiment logs, drafts, and conference templates. Use when building a paper story, mapping claims to evidence, writing or revising sections, producing figures and tables, verifying citations, acting as a skeptical reviewer, running venue or build checks, or preparing a LaTeX/Overleaf/Git submission package.
 ---
 
 # AI Research Writing Skill
 
-## Core Mandate
+## Mandate
 
-Treat paper writing as a **claim-evidence-engineering workflow**, not prose generation.
+Treat paper writing as claim-evidence engineering, not prose generation.
 
-Every major claim must be backed by code, results, notes, or verified citations. If evidence is missing, weaken the claim or mark the gap explicitly.
+- Ground claims in repository files, experiment artifacts, notes, or verified citations.
+- Never invent citations or numeric results. Mark missing evidence visibly and weaken unsupported claims.
+- For full papers, produce concrete LaTeX, BibTeX, figure, table, review, and build artifacts; do not stop at an outline.
+- Keep human judgment in the loop for scientific correctness, visual inspection, reviewer risk, and final submission decisions.
 
-Never invent citations. Fetch BibTeX from arXiv, DOI/Crossref, Semantic Scholar, publisher pages, or official software/documentation sources. If a citation cannot be verified, use an explicit placeholder and tell the user.
+## Route the Task
 
-When the user asks for a full paper, do not stop at an outline. Produce concrete paper artifacts, then iterate.
+Choose the smallest route that covers the request. Load only the listed references first.
 
-For full-paper work, do not stop at plans for figures or citations. Generate or fetch the concrete assets whenever tools and access allow: image files for non-numeric diagrams, deterministic plot/table files for results, `references.bib` entries for citations, and local paper copies or metadata records for the literature corpus.
+| Route | Load first |
+|---|---|
+| Full paper or major revision | `references/workflow.md`, `references/artifacts.md` |
+| Upstream research-system handoff | `references/research-handoff.md`, `references/artifacts.md` |
+| Story, thesis, gap, or contribution | `references/paper-story.md` |
+| Section writing or revision | `references/README.md`, then the section-specific reference |
+| Figures and tables | `references/figure-workflow.md`, `references/figure-spec.md` |
+| Citation search or repair | `references/citation-workflow.md` |
+| Reviewer diagnosis | `references/reviewer-guidelines.md`, `references/reviewer-self-review.md` |
+| Submission or camera-ready audit | `references/submission-packaging.md`, `references/citation-checklist.md` |
+| Deterministic checks or formatting | `scripts/README.md` |
 
-## Operating Modes
+## Execution Contract
 
-Choose the smallest mode that satisfies the user request.
+For full-paper and submission work:
 
-| Mode | Use when | Load first |
-|---|---|---|
-| Full-paper mode | Turn a repo, notes, results, and template into a draft or submission package | `references/README.md`, `references/workflow.md`, `references/artifacts.md` |
-| Story mode | Clarify thesis, gap, contributions, and claims to make or avoid | `references/paper-story.md` |
-| Section mode | Write or revise Abstract, Introduction, Related Work, Method, Experiments, Limitations, or Conclusion | `references/README.md`, then the section-specific reference |
-| Figure mode | Design publication figures, tables, diagrams, or teaser visuals | `references/figure-workflow.md`, `references/figure-spec.md`, `references/figure-pattern-atlas.md` as needed |
-| Citation mode | Find, verify, repair, or add references | `references/citation-workflow.md` |
-| Reviewer mode | Diagnose reviewer risks or prepare author-facing self-review | `references/reviewer-guidelines.md`, `references/reviewer-self-review.md` |
-| Submission mode | Run checklist, build checks, TODO/citation checks, or Overleaf/Git packaging | `references/submission-packaging.md`, `references/citation-checklist.md` |
-| Automation mode | Use bundled scripts for claims, tables, logs, citations, TODOs, or camera-ready checks | `scripts/README.md` |
+1. Create `paper_state.json` from the contract in `references/artifacts.md`; declare mode, stage, venue, main TeX, bibliography, required artifacts, blockers, and build record.
+2. If `research_handoff.json` exists, validate it first. Otherwise inventory the repository and experiments before drafting. Create one task packet and update `plan/progress.md` at the start and end.
+3. Establish the story, claim boundaries, and literature position before long-form prose.
+4. Follow the two-pass drafting order in `references/workflow.md`: write evidence-bearing core sections first, then finalize framing sections.
+5. Run the mode-aware quality gate. A terminal stage is invalid when inputs are missing, claims/citations remain unresolved, verification is pending, blockers remain, or build hashes are stale.
 
-If the user asks for multiple named skills that this skill subsumes, apply it as the coordinator and load the relevant reference files.
+Keep process instructions in plan/review files, never in manuscript prose.
 
-## Task State and Audit
+## Gates
 
-For medium or full-paper tasks, create or update durable task-state artifacts in the target paper repo before substantial drafting:
+- **Evidence**: exact numbers must trace to data, logs, tables, notebooks, or scripts. Quantitative papers maintain `numeric_evidence.json` and pass its deterministic check.
+- **Story**: define thesis, gap, contribution boundary, and claims to avoid before a full draft.
+- **Literature**: position close work before writing Related Work.
+- **Citation**: retrieve metadata from authoritative sources; record claim-level support and provenance.
+- **Figures**: generated images may explain concepts but cannot create numeric evidence. For overview, method, framework, pipeline, architecture, and teaser figures, use built-in image generation as the default paper asset; use deterministic plots/tables for results.
+- **Review**: resolve high-severity reviewer objections or record them as blockers.
+- **Build**: compile the real package, record source/PDF hashes, and fail when the recorded build becomes stale.
+- **Completion**: do not say "done" until required artifacts and checks pass or explicit blockers are reported.
 
-- `project_inventory.md` or `plan/project-overview.md` for scope, target venue, inputs, constraints, and missing evidence.
-- `plan/current_task.md` or `plan/task-packets/<task>.md` for scope, files to read, files allowed to edit, required evidence, required artifacts, rejection checks, and validation commands.
-- `plan/progress.md` for stage, completed artifacts, checks run, remaining risks, and a compact capability-use audit.
+## Evidence Boundaries
 
-Do not turn user process instructions into manuscript text. Requirements such as "make it natural", "fill later", "avoid AI writing", or "replace this" belong in plan/review files, not in paper sections.
+- Treat negative, mixed, missing-seed, or incomplete results as scope constraints, not material to hide.
+- Verify that each citation supports the attached sentence, not merely the topic.
+- Save important papers locally only when access and redistribution permit; otherwise record stable metadata and access status.
+- Generated diagrams communicate a workflow or idea; they are never experimental evidence.
 
-Use subagents only when the user's environment explicitly allows delegation and the work can be split into disjoint files or reviews. Record each delegated task's inputs, output path, and review status in `plan/progress.md` or `plan/agent_provenance.md`.
+## Finish
 
-## Loading Strategy
-
-Do not load the entire `references/` tree by default.
-
-1. Start with `references/README.md` when the needed reference is unclear.
-2. For full-paper tasks, load `references/workflow.md` and `references/artifacts.md`.
-3. Load examples only after choosing a writing pattern; prefer one narrow example file over the whole `references/examples/` folder.
-4. Keep generated paper artifacts in the user's target paper repo, not in this skill library.
-
-## Non-Negotiable Gates
-
-- **Evidence gate**: repository files, experiment logs, notes, and verified citations outrank memory.
-- **Story gate**: no full draft before thesis, gap, contributions, and claims-to-avoid are explicit.
-- **Literature gate**: no Related Work draft before close papers, baselines, and major lines of work are inventoried and positioned.
-- **Claim gate**: no unsupported strong claim in Abstract or Introduction.
-- **Citation gate**: no unverified BibTeX unless clearly marked as a placeholder.
-- **Citation asset gate**: every cited work must be added to `references.bib` from an authoritative source, or be recorded as a visible placeholder/blocker. Important related papers should be downloaded or saved locally when access and licensing permit.
-- **Figure gate**: no generated numeric figure; numbers must come from code, data, tables, or logs.
-- **Figure asset gate**: after writing a figure plan, actually produce the figure assets when the environment provides the needed tools. For method, teaser, framework, pipeline, architecture, and overview diagrams, invoke built-in image generation and save the generated image as the default figure used in the paper. TikZ/SVG precise schematics are optional backup/reference only (exact labels, terminology alignment, or compile fallback)—not a parallel required deliverable. If image generation is unavailable, record the blocker instead of treating the plan as complete.
-- **Reviewer gate**: no final draft while high-severity reviewer objections remain unaddressed.
-- **Task-state gate**: no medium or full-paper task without a scoped task packet, progress update, and acceptance criteria.
-- **Completion gate**: no "done" claim until required artifacts exist, checks have been run or blockers recorded, and remaining risks are visible.
-- **Checklist gate**: no submission without limitations, reproducibility, compute/data/code status, and LLM usage status when applicable.
-- **Build gate**: attempt compilation or record why compilation could not run.
-- **Packaging gate**: no commit/push without status, citation, TODO, and artifact-size checks.
-
-## Evidence Policy
-
-- Exact numbers must come from source tables, logs, notebooks, or plotting scripts.
-- If a result has missing seeds, uncertainty, dataset details, or fairness assumptions, mark the caveat in the relevant artifact and paper section.
-- Related work citations must come from verified metadata and support the specific sentence where they appear.
-- Close or important related papers should be saved locally when permitted and summarized before they are used for contrast or positioning.
-- Generated diagrams may illustrate a workflow, but they cannot create new scientific evidence.
-- If the user wants a stronger claim than the evidence supports, write the strongest defensible version and name the missing evidence.
-
-## Output Discipline
-
-For full-paper work, follow `references/artifacts.md`. For smaller requests, produce only the relevant subset while preserving claim-evidence discipline.
-
-For long-running tasks, maintain auditable intermediate artifacts such as `paper_story.md`, `claim_evidence_map.md`, `literature/positioning.md`, `citation_verification.md`, `figures/figure_plan.md`, and `build_check.md`.
-
-For medium or larger tasks, finish with a short audit in `plan/progress.md` or the closest existing progress file:
-
-```markdown
-### Capability-use audit
-- Required references/scripts:
-- Inputs consumed:
-- Inputs not used and why:
-- Artifacts produced:
-- Verification run:
-- Remaining risk:
-```
-
-## Response Style
-
-- For long tasks, report concrete artifacts changed and checks run.
-- For writing tasks, include a compact rationale only when it helps the user revise.
-- For review tasks, lead with the most important risks and file/section references.
-- Preserve the user's scientific intent, but do not preserve unsupported wording.
+Report the concrete artifacts changed, checks run, and remaining scientific risks. Preserve the author's intent, but not unsupported wording.

@@ -9,6 +9,18 @@ Reviewer self-review has two outputs:
 
 Do not silently "fix" a paper in ways that hide scientific trade-offs from the author. If a risk requires new experiments, different framing, or a weaker claim, state that clearly.
 
+## Three Review Lenses
+
+Run three focused passes before merging findings:
+
+| Lens | Primary questions |
+|---|---|
+| Methodology | Is the method sound, motivated, reproducible, and supported by appropriate experiments? |
+| Domain and positioning | Is the task important, the closest work represented accurately, and the contribution genuinely differentiated? |
+| Statistics and evidence | Do numbers trace to sources; are uncertainty, seeds, tests, failures, and claim strength handled correctly? |
+
+Do not ask one model call to rewrite the paper while reviewing it. First record concrete findings with section/claim references, deduplicate them, classify severity, and decide whether each needs an edit, experiment, citation, limitation, removed claim, or blocker.
+
 ## Five-Dimension Review
 
 Score each dimension as `pass`, `needs revision`, or `needs evidence`. Use `references/reviewer-guidelines.md` for venue-facing reviewer expectations and score calibration.

@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python: stdlib only](https://img.shields.io/badge/Python-stdlib%20only-blue.svg)](scripts/README.md)
 [![Entrypoint](https://img.shields.io/badge/Entrypoint-SKILL.md-purple.svg)](SKILL.md)
-[![LaTeX templates](https://img.shields.io/badge/Templates-NeurIPS%20%7C%20ICML%20%7C%20ICLR%20%7C%20CVPR%20%7C%20ACL-orange.svg)](templates/README.md)
+[![Template sources](https://img.shields.io/badge/Templates-official%20sources-orange.svg)](templates/README.md)
 
 Turn an ML/AI research repo into an **evidence-backed, build-ready conference paper draft**.
 
@@ -82,7 +82,7 @@ I have a draft and want to revise it. Use AI Research Writing Skill to improve t
 | Stops at an outline | Concrete artifacts: `paper_story.md`, `claim_evidence_map.md`, `references.bib`, figure files |
 | Generic writing tips | Reviewer-style comments, rejection-risk diagnosis, venue checklists, build & packaging gates |
 
-**Supported venues (templates & checklists):** NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL, AAAI, COLM, and related ML/AI conferences. Always verify [official author instructions](references/venue-templates.md) before submission.
+**Venue profiles and audited template sources:** NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL, AAAI, COLM, and related ML/AI conferences. Templates are fetched from recorded official sources rather than redistributed when licensing is unclear. Always verify [official author instructions](references/venue-templates.md) before submission.
 
 ## Before / After
 
@@ -125,7 +125,7 @@ The skill enforces checkpoints agents must not skip:
 ## Installation
 
 **Simple rule:** the only canonical entrypoint is the root [`SKILL.md`](SKILL.md).  
-The rest of the repository is supporting material that the skill loads as needed: `references/`, `scripts/`, `templates/`, and `examples/`.
+The rest of the repository is supporting material loaded as needed: `references/`, deterministic `scripts/`, audited template sources, and an optional end-to-end example.
 
 ### Agent-Assisted Install
 
@@ -160,9 +160,8 @@ ai-research-writing-skill/
 ├── examples/             # Minimal demo paper repo
 ├── SKILL.md              # Canonical agent entrypoint
 ├── references/           # Workflow, writing, citations, figures, venues, review
-│   └── assets/           # Figure pattern references (figures4papers-style)
 ├── scripts/              # Claims, citations, TODOs, build-log, camera-ready checks
-├── templates/            # NeurIPS / ICML / CVPR / ACL / … LaTeX starters
+├── templates/            # Audited official-source manifest; no vendored author kits
 └── README.zh-CN.md
 ```
 
@@ -172,9 +171,10 @@ ai-research-writing-skill/
 |---|---|
 | [`references/workflow.md`](references/workflow.md) | Full-paper state machine |
 | [`references/artifacts.md`](references/artifacts.md) | What to create in *your* paper repo |
+| [`references/research-handoff.md`](references/research-handoff.md) | Evidence contract for upstream research systems |
 | [`references/figure-workflow.md`](references/figure-workflow.md) | Diagrams vs plots; generation defaults |
 | [`references/citation-workflow.md`](references/citation-workflow.md) | Search, verify, BibTeX |
-| [`templates/README.md`](templates/README.md) | Template list and compile tips |
+| [`templates/README.md`](templates/README.md) | Audited official sources and pinned template fetches |
 | [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | End-to-end paper about this project |
 
 ---
@@ -185,8 +185,12 @@ ai-research-writing-skill/
 python3 scripts/extract_claims.py main.tex > claim_evidence_map.md
 python3 scripts/check_citations.py main.tex references.bib
 python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
+python3 scripts/check_numeric_evidence.py /path/to/paper-project
+python3 scripts/check_research_handoff.py /path/to/handoff-project
 python3 scripts/parse_build_log.py main.log
 python3 scripts/camera_ready_check.py main.tex
+python3 scripts/fetch_template.py icml2026 --output /path/to/paper/.venue-template
+python3 scripts/record_build.py /path/to/paper-project
 python3 scripts/research_quality_gate.py /path/to/paper-project
 ```
 
@@ -196,7 +200,7 @@ More: [`scripts/README.md`](scripts/README.md).
 
 ## Safety & hygiene
 
-- Bundled templates are **convenience copies** — confirm current venue rules before submitting.  
+- Conference author kits are fetched from audited official sources and verified by SHA-256 when pinned; confirm current venue rules before submitting.
 - Do **not** commit private PDFs, proprietary logs, API keys, or reviewer-confidential material.
 
 ---

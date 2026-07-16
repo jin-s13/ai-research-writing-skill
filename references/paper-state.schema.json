@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jin-s13/ai-research-writing-skill/paper-state.schema.json",
+  "title": "AI Research Writing Paper State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "stage", "target_venue", "main_tex", "bibliography", "required_artifacts", "blockers", "build"],
+  "properties": {
+    "schema_version": {"const": "ai-research-writing/paper-state-v1"},
+    "mode": {"enum": ["draft", "full-paper", "submission"]},
+    "stage": {"type": "string", "minLength": 1},
+    "target_venue": {"type": "string", "minLength": 1},
+    "main_tex": {"type": "string", "minLength": 1},
+    "bibliography": {"type": "string", "minLength": 1},
+    "required_artifacts": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "command", "pdf", "external_inputs", "input_sha256", "pdf_sha256"],
+      "properties": {
+        "status": {"enum": ["not-run", "blocked", "failed", "passed"]},
+        "command": {"type": "string", "minLength": 1},
+        "pdf": {"type": "string", "minLength": 1},
+        "external_inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "source", "archive_sha256"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "source": {"type": "string", "format": "uri"},
+              "archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            }
+          }
+        },
+        "input_sha256": {"type": "string"},
+        "pdf_sha256": {"type": "string"}
+      }
+    }
+  }
+}

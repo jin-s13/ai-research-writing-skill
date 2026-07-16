@@ -13,7 +13,7 @@
 \usepackage{amssymb}
 \usepackage{url}
 
-\icmltitlerunning{AI Research Writing Skill}
+\icmltitlerunning{research writing skill}
 
 \begin{document}
 
@@ -99,7 +99,7 @@ The implementation is intentionally repository-native. The skill does not requir
 \begin{enumerate}
   \item \textbf{Canonical entrypoint}: \texttt{SKILL.md} describes the agent behavior and routes tasks to references.
   \item \textbf{Reference library}: \texttt{references/} contains focused guidance for workflow, writing, citations, figures, venues, review, task management, and packaging.
-  \item \textbf{Template collection}: \texttt{templates/} provides convenience LaTeX starters for major ML/AI venue families.
+  \item \textbf{Template source manifest}: \texttt{templates/} records official sources, audit status, and pinned archive hashes without redistributing author kits whose licenses are unclear.
   \item \textbf{Deterministic helper scripts}: \texttt{scripts/} contains static checks for claims, citations, unresolved markers, build logs, camera-ready readiness, and table generation.
   \item \textbf{Example package}: \texttt{examples/} demonstrates the full workflow on this repository itself.
 \end{enumerate}
@@ -108,7 +108,7 @@ This design trades platform-specific automation for portability. Any capable age
 
 \section{Repository Evidence}
 
-Table~\ref{tab:repository-evidence} summarizes local evidence used for this example paper. The repository includes venue template directories for major ML/AI conference families, top-level references for writing and submission workflows, helper scripts for static checks and table generation, and a portable single-entrypoint design centered on the root skill file.
+Table~\ref{tab:repository-evidence} summarizes local evidence used for this example paper. The repository includes audited venue source records, focused references for writing and submission workflows, deterministic helper scripts, and a portable single-entrypoint design centered on the root skill file.
 
 \input{tables/repository_evidence.tex}
 
@@ -122,13 +122,21 @@ The story artifact defines the thesis as a claim-evidence-engineering workflow f
 
 The figure workflow uses generated images for conceptual communication and deterministic LaTeX tables for repository evidence. The teaser and method overview are therefore illustrations of the process, while Table~\ref{tab:repository-evidence} carries count-based repository evidence. This separation is important because generated images can clarify architecture but cannot create scientific measurements.
 
-The build workflow compiles the paper with the bundled ICML-style files and records warnings in \texttt{build\_check.md}. The resulting PDF is included in the repository so readers can inspect the output quality directly. The build record also lists residual risks, including the absence of benchmark evidence and the need to verify official venue requirements before any real submission.
+The build workflow compiles the paper with the official ICML archive identified by URL and SHA-256 in \texttt{paper\_state.json}, then records warnings and source/PDF hashes. The resulting PDF remains in the repository so readers can inspect output quality directly, while the author-kit files themselves are fetched on demand rather than redistributed.
 
 \section{Quality Checks}
 
 The repository includes helper scripts that operationalize part of the workflow. Citation checks scan LaTeX citation keys against the BibTeX file. Marker checks look for unresolved notes in manuscript artifacts. A research quality gate scans for common unresolved placeholders and missing package components. Build-log parsing and camera-ready checks provide additional submission-oriented signals.
 
 These scripts are deliberately modest. They do not prove semantic correctness, validate every citation claim, or guarantee venue compliance. Their role is to catch mechanical failures and force unresolved risks into visible records. In the workflow, script output is paired with human review and reviewer-style critique rather than treated as an oracle.
+
+\section{Reproducible Contract Evaluation}
+
+To make the example testable rather than purely descriptive, the repository includes a deterministic evaluation runner. It executes the failure-path regression suite, validates the skill package, checks citation-key integrity, and scans the paper package for unresolved markers. The runner records commands, exit codes, and output tails in a machine-readable JSON artifact and regenerates Table~\ref{tab:contract-evaluation} from those live results.
+
+\input{tables/contract_evaluation.tex}
+
+This evaluation has a deliberately narrow interpretation. A passing result shows that declared inputs resolve, tested failure modes are rejected, citation keys are internally consistent, and the checked package contains no unresolved markers. It does not measure factual correctness, novelty, reviewer preference, writing quality, or acceptance probability. Those outcomes require independent scientific and human evaluation.
 
 \section{Related Projects}
 
@@ -140,11 +148,11 @@ The key distinction is operational depth in one vertical. Instead of serving as 
 
 \section{Limitations}
 
-This example paper has important limitations. It does not benchmark the skill against other writing systems. It does not show user-study evidence. It does not prove that generated papers are correct, useful, or publishable. The repository inventory establishes only that certain files and workflows exist, not that they improve author productivity or paper quality.
+This example paper has important limitations. Its contract evaluation measures mechanical reliability, not comparative writing quality. It does not benchmark the skill against other writing systems or provide user-study evidence. It does not prove that generated papers are correct, useful, or publishable. The repository inventory establishes only that certain files and workflows exist, not that they improve author productivity or paper quality.
 
 The workflow also depends on the agent and user applying the gates faithfully. A careless agent could still overstate a claim, cite an irrelevant source, or ignore a build warning. The skill reduces this risk by requiring explicit artifacts and checks, but it cannot eliminate the need for human scientific judgment.
 
-Finally, venue templates bundled in the repository are convenience copies. Official author instructions, page limits, checklist requirements, anonymity rules, and camera-ready policies can change. Any real submission must therefore verify venue requirements against official sources before use.
+Finally, official author instructions, page limits, checklist requirements, anonymity rules, archive hashes, and camera-ready policies can change. The source manifest makes changes visible, but any real submission must still verify the target venue's current instructions.
 
 \section{Conclusion}
 

@@ -1,178 +1,99 @@
-# Citation Workflow Reference
+# Citation Verification Workflow
 
-Use this reference when finding, adding, or repairing citations. Never generate BibTeX from memory; always verify metadata and claim support.
+Use this when finding, adding, or repairing citations. Verification has three separate dimensions; never collapse them into one `verified` label:
 
-## Non-Negotiable Rule
+1. **Existence and metadata**: the work and its bibliographic fields are real.
+2. **BibTeX integrity**: LaTeX keys resolve to one structurally valid entry.
+3. **Claim support**: the abstract or paper text supports the attached sentence.
 
-Do not invent citations. A fluent but false bibliography is an academic integrity failure. If a citation cannot be verified, mark it as a placeholder or remove the claim.
+`check_citations.py` covers only the second dimension and declared-input completeness.
 
-## Six-Step Verified Citation Workflow
+## Source Routing
 
-```text
-1. SEARCH   -> find candidates from authoritative scholarly sources
-2. VERIFY  -> confirm title/authors/year/DOI/arXiv in reliable metadata
-3. SAVE     -> save important papers locally when access and licensing permit
-4. RETRIEVE -> fetch BibTeX from DOI, arXiv, publisher, or official metadata
-5. VALIDATE -> check that the cited work supports the sentence-level claim
-6. RECORD  -> add .bib entry and log verification in citation_verification.md
-```
+Resolve from the strongest identifier available:
 
-This workflow must produce concrete files when possible. For full-paper work, citation completion means `references.bib` has been created or updated, `citation_verification.md` records the checked source, and important accessible papers are saved or explicitly marked as `metadata-only`/`needs-access` in the literature inventory.
+| Input | Primary verification | Secondary cross-check |
+|---|---|---|
+| DOI | DOI resolver, publisher/proceedings, Crossref or the relevant registration agency | OpenAlex |
+| arXiv ID | Official arXiv API/page | OpenAlex or Semantic Scholar |
+| PMID/PMCID | PubMed/PMC | OpenAlex |
+| Exact title only | OpenAlex or Semantic Scholar discovery | DOI/arXiv/publisher after identification |
+| Software/dataset | Official repository, docs, release, dataset card, or CITATION metadata | OpenAlex only when a scholarly work also exists |
 
-## Source Selection
+Official references:
 
-| Need | Preferred source |
-|---|---|
-| ML/AI paper search | Semantic Scholar, OpenAlex, arXiv |
-| DOI metadata | Crossref, DOI content negotiation |
-| Preprint metadata | arXiv API or arXiv page |
-| Publisher version | official proceedings or publisher page |
-| Software/library citation | official docs, release page, repository citation metadata |
-| Dataset citation | dataset card, official dataset page, paper, or license page |
+- Crossref REST/content negotiation: `https://www.crossref.org/documentation/retrieve-metadata/`
+- OpenAlex API: `https://developers.openalex.org/api-reference/works`
+- arXiv API: `https://info.arxiv.org/help/api/`
+- Semantic Scholar Academic Graph API: `https://api.semanticscholar.org/api-docs/`
 
-Google Scholar has no official public API. Avoid workflows that depend on scraping it.
+## OpenAlex: Recommended Role
 
-## Source Reliability Tiers
+OpenAlex is useful for broad scholarly discovery, exact-title search, DOI/PMID/OpenAlex identifier resolution, citation graphs, authorship/institution normalization, open-access locations, and batched DOI lookup. Its current API uses a free API key and credit-based limits; record API errors and rate-limit status rather than silently returning an empty result.
 
-Prefer structured, authoritative sources before broad discovery tools:
+Do not use OpenAlex as the sole authority when a DOI, arXiv record, official proceedings page, or publisher record exists. OpenAlex aggregates metadata, so venue/version fields can differ, abstracts or identifiers can be missing, and it does not establish sentence-level claim support. Use it as resolver and cross-check, not as the final source of truth.
 
-1. **Tier 1: authoritative structured metadata**: DOI/Crossref, arXiv, PubMed/PMID when applicable, publisher/proceedings pages, official software or dataset citation metadata.
-2. **Tier 2: scholarly discovery APIs**: Semantic Scholar, OpenAlex, domain preprint servers, and citation graph services. Use these for discovery and cross-checking, then verify against Tier 1 when possible.
-3. **Tier 3: unstable or access-limited search**: Google Scholar, institutional indexes, Web of Science/Scopus pages, CNKI/万方 manual search. Use only as last resort and mark results as potentially incomplete.
+## Six-Step Procedure
 
-For citation verification, route from strongest identifier to weaker search: DOI -> arXiv ID/PMID -> exact title -> title plus first author -> method/task query.
+1. **Segment** the manuscript into individual citable claims.
+2. **Discover** candidates using exact title, method/task, baseline/benchmark, and author queries.
+3. **Resolve** DOI, arXiv ID, PMID, or stable official software/dataset identity.
+4. **Verify metadata** against the primary source; use a second source when fields conflict.
+5. **Read for support** and classify the sentence relation.
+6. **Record** BibTeX, provenance, relation, access status, and unresolved conflicts.
 
-## Segment-to-Citation Workflow
+Do not cite a search-result record before resolving it to a primary identifier or official artifact.
 
-When adding citations to prose, do not search the whole paragraph as one vague query:
+## Claim Relations
 
-1. Split text into citable claims or short segments.
-2. For each segment, extract the exact claim and its boundary.
-3. Generate 2-4 English search queries: precise title/term query, synonym query, broader background query, and method/dataset query when relevant.
-4. Search candidates using the source tiers above.
-5. Assign support status before citing: `direct`, `partial`, `background`, `contrast`, `software`, `weak`, or `metadata-only`.
-6. Only cite `direct`, `contrast`, or `software` for strong claims. Use `partial` or `background` only for scoped context sentences.
+Use one status per citation-sentence pair:
 
-Never cite a `metadata-only` candidate as claim support before checking the abstract, publisher page, or paper text.
+- `direct`: directly establishes the sentence.
+- `background`: motivates the area but not the specific claim.
+- `contrast`: accurately describes the compared setting.
+- `software`: documents a tool, dataset, model, or repository.
+- `partial`: supports only a narrower statement; revise the sentence.
+- `weak`: does not support the sentence; remove or replace it.
+- `metadata-only`: existence checked, content not inspected; cannot support a claim yet.
 
-## Query Strategy
+Strong technical or comparative claims require `direct`, `contrast`, or `software` as appropriate.
 
-Search in this order:
+## Durable Records
 
-1. Exact known title.
-2. Method name + task/domain.
-3. Baseline name + benchmark/task.
-4. Author name + keyword when title is uncertain.
-5. Existing `.bib` keys and citations in the codebase.
-
-Record failed searches when they affect the paper story.
-
-## Local Paper Corpus
-
-For Related Work or positioning tasks, maintain a local literature corpus before drafting prose:
-
-- Save important papers in `literature/papers/` when access and licensing permit.
-- Record all important candidates in `literature/paper_inventory.md`, including official URL, local path, status, and relevance.
-- Create short notes under `literature/notes/` for close works and baselines before using them for contrast.
-- Do not commit copyrighted PDFs or private downloads to an open-source repository unless redistribution is allowed and the user explicitly wants them included.
-
-Use `references/literature-review.md` for the full corpus, matrix, and positioning workflow.
-
-Do not treat a list of search results as a downloaded corpus. If the paper is open access or otherwise accessible, save the official PDF or stable local copy. If it cannot be saved, keep the official URL and status in the inventory so the missing local copy is visible.
-
-## BibTeX Retrieval Output
-
-When adding citations:
-
-1. Create `references.bib` if it does not exist.
-2. Fetch BibTeX or structured metadata from DOI/Crossref, arXiv, publisher pages, Semantic Scholar, OpenAlex, or official docs.
-3. Normalize only the key and obvious formatting; do not invent missing metadata.
-4. Add the entry to `references.bib`.
-5. Record the source URL/API and claim relation in `citation_verification.md`.
-
-If no authoritative BibTeX is available, use a visible placeholder key and record the blocker. Do not leave citations only in prose or only in the verification table.
-
-## Metadata Verification
-
-A citation is verified when:
-
-- title, first author, year, and venue/preprint source are consistent;
-- DOI or arXiv ID is present when applicable;
-- BibTeX was fetched or derived from an authoritative source;
-- the citation supports the claim it is attached to.
-
-Use two sources when metadata conflicts or the work is obscure.
-
-## BibTeX Key Convention
-
-Use stable, readable keys:
-
-```text
-firstauthor_year_shorttitle
-```
-
-Examples:
-
-```text
-vaswani_2017_attention
-kirillov_2023_segment
-```
-
-Keep keys lowercase, ASCII, and stable once used in the paper.
-
-## Claim Validation
-
-For each citation sentence, classify the support:
-
-- `direct`: paper directly supports the claim.
-- `background`: paper motivates the area only.
-- `contrast`: paper is being contrasted.
-- `software`: citation documents a tool/library/dataset.
-- `weak`: citation does not support the claim.
-
-Strong claims require `direct`, `contrast`, or `software` support depending on sentence type.
-
-## `citation_verification.md` Template
+For each cited key, store at least:
 
 ```markdown
-| Key | Source checked | Claim supported | Relation | Status | Notes |
-|---|---|---|---|---|---|
-| author_2026_short | DOI / arXiv / publisher URL | Sentence or claim | direct | verified | ... |
+| Key | Identifier | Primary source | Cross-check | Claim supported | Relation | Status | Checked at |
+|---|---|---|---|---|---|---|---|
+| author_2026_work | doi:... | Crossref/publisher URL | OpenAlex URL | Exact scoped sentence | direct | verified | 2026-07-16 |
 ```
 
-Status values:
+Use these terminal statuses:
 
-- `verified`
-- `software-doc`
-- `placeholder`
-- `needs-license-check`
-- `removed`
+- `verified`: scholarly metadata and claim relation checked.
+- `software-doc`: official software/dataset artifact checked.
+- `repository-verified`: official repository identity checked for project positioning only.
 
-## Placeholder Policy
+Use visible non-terminal statuses such as `metadata-only`, `conflict`, `needs-access`, or `placeholder`. Terminal paper stages must fail while any cited key remains non-terminal.
 
-Use visible placeholders only when the draft needs to preserve intent:
+For a future online verifier, cache normalized records in `citation_lock.json` with identifier, returned fields, provider, request URL, checked timestamp, and a digest of the normalized metadata. Network errors, 404s, conflicts, and rate limits must be explicit states; cached data must not be presented as freshly verified.
 
-```latex
-\cite{PLACEHOLDER_author_year_verify}
-```
+## BibTeX Rules
 
-Then record the placeholder in `citation_verification.md` and tell the user. Do not leave hidden placeholder citations in a final draft.
+- Retrieve BibTeX through DOI content negotiation, arXiv, publisher/proceedings, or structured metadata; do not type it from memory.
+- Keep stable lowercase ASCII keys such as `vaswani_2017_attention`.
+- Normalize formatting only; never invent missing authors, venue, year, pages, DOI, or URL.
+- Distinguish preprint and proceedings versions. Cite the version actually supporting the sentence.
+- Run `check_citations.py` after every bibliography change.
 
-## Citation Repair Procedure
+## Local Corpus and Access
 
-When a citation key is missing or suspicious:
+Save close papers under `literature/papers/` only when access and licensing permit. Record every important candidate in the paper inventory with official URL, local path, version, and `available`, `metadata-only`, or `needs-access` status. Never commit copyrighted/private downloads to a public repository without permission.
 
-1. Search the key in `.bib`, `.tex`, notes, and downloaded PDFs.
-2. Search the title or nearby prose online/API if network tools are available.
-3. Replace with a verified primary source.
-4. Add or update the corresponding `references.bib` entry.
-5. If no source supports the sentence, revise the sentence.
-6. Run `scripts/check_citations.py`.
+## Failure Rules
 
-## Common Failure Modes
-
-- Real authors with fabricated titles.
-- Wrong year for arXiv versus proceedings.
-- Citing a survey for a specific technical claim from the original paper.
-- Using software repository metadata as evidence for a scientific result.
-- Citing concurrent work as a baseline when task definitions are not comparable.
+- Conflicting metadata: show both records and resolve against the primary source.
+- No primary identifier: keep `metadata-only` until the official artifact is inspected.
+- No support for the sentence: revise the sentence or remove the citation.
+- API unavailable or rate-limited: record the failure; do not treat an empty response as no matching literature.
+- Placeholder in a final draft: fail the citation gate.

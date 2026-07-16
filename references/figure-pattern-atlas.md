@@ -2,11 +2,12 @@
 
 Use this reference for Class 1 figures: deterministic evidence/result figures, including result figures, ablation figures, trend plots, heatmaps, radar plots, qualitative evidence grids, and publication-style multi-panel evidence figures.
 
-Vendored local reference assets live in:
+Upstream pattern collections:
 
-- `references/assets/figures4papers/`
+- `https://github.com/ChenLiu-1996/figures4papers`
+- `https://github.com/Yuan1z0825/nature-skills`
 
-Use these files as local pattern references. Do not copy demo data, manuscript-specific labels, or scientific claims into a target paper. Reuse the visual pattern, layout logic, palette discipline, and export conventions.
+The repository does not vendor their rendered figures or scripts. Inspect the upstream project when a concrete plotting pattern is needed, preserve attribution, and adapt only the visual pattern, layout logic, palette discipline, and export conventions to the target paper's own data.
 
 ## When To Use
 
@@ -17,7 +18,7 @@ Load this after `figure-workflow.md` and `figure-spec.md` when:
 - the user asks for Nature-style, high-impact, publication-ready, or figures4papers-style plots;
 - the figure needs SVG/PDF/high-DPI outputs with editable text.
 
-When using the atlas, inspect the closest local `plot_*.py` files under `references/assets/figures4papers/` before writing a new deterministic plotting script.
+When using the atlas, inspect the closest upstream plotting example before writing a new deterministic plotting script.
 
 For Class 2 concept/method diagrams, follow `figure-workflow.md`: generated image is the default figure; TikZ/SVG is optional backup/reference only. Use this atlas mainly for Class 1 deterministic result panels and exact-text/vector backups when needed.
 

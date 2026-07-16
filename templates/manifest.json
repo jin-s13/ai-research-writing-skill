@@ -1,0 +1,88 @@
+{
+  "schema_version": "ai-research-writing/template-manifest-v1",
+  "audited_at": "2026-07-16",
+  "policy": "Templates are fetched from official sources into the user's paper project. They are not redistributed by this repository when redistribution terms are unclear.",
+  "templates": {
+    "icml2026": {
+      "venue": "ICML 2026",
+      "official_page": "https://icml.cc/Conferences/2026/AuthorInstructions",
+      "archive_url": "https://media.icml.cc/Conferences/ICML2026/Styles/icml2026.zip",
+      "archive_sha256": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c",
+      "strip_prefix": "",
+      "license_status": "unverified-for-redistribution",
+      "notes": "Official author kit. No explicit redistribution license was found in the archive during this audit."
+    },
+    "iclr2026": {
+      "venue": "ICLR 2026",
+      "official_page": "https://iclr.cc/Conferences/2026/AuthorGuide",
+      "archive_url": "https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026.zip",
+      "archive_sha256": "b6d63b29992e153f804bb6d170c57db156c011b5bedf96a9f31d58813b909acf",
+      "strip_prefix": "iclr2026",
+      "license_status": "unverified-for-redistribution",
+      "notes": "Official ICLR Master Template archive. The upstream repository did not expose an explicit root license during this audit."
+    },
+    "cvpr2026": {
+      "venue": "CVPR 2026",
+      "official_page": "https://cvpr.thecvf.com/Conferences/2026/AuthorGuidelines",
+      "archive_url": "https://codeload.github.com/cvpr-org/author-kit/zip/refs/tags/CVPR2026-v1(latex)",
+      "archive_sha256": "ef672bf4ad1c6801237b957d57b0087d4412e7dee01ad3b512abe82960c6466c",
+      "strip_prefix": "author-kit-CVPR2026-v1-latex-",
+      "license_status": "unverified-for-redistribution",
+      "notes": "Pinned official author-kit release. Upstream provides the kit for author use but no explicit root redistribution license was found."
+    },
+    "iccv2025": {
+      "venue": "ICCV 2025",
+      "official_page": "https://iccv.thecvf.com/Conferences/2025/AuthorGuidelines",
+      "archive_url": "https://media.eventhosts.cc/Conferences/ICCV2025/ICCV2025-Author-Kit.zip",
+      "archive_sha256": "95fba96bb37ca93ca600c00b1548b248f98e1f876ed8d06e0ffba2f0f259b6b0",
+      "strip_prefix": "ICCV2025-Author-Kit",
+      "license_status": "unverified-for-redistribution",
+      "notes": "Official author kit. No explicit redistribution license was found in the archive during this audit."
+    },
+    "acl": {
+      "venue": "ACL rolling style files",
+      "official_page": "https://github.com/acl-org/acl-style-files",
+      "archive_url": "https://codeload.github.com/acl-org/acl-style-files/zip/refs/heads/master",
+      "archive_sha256": "bead1eec1aa2c4de8596ddcdd5ac22917f38b2c8441b853ff13015c0b0b8b92e",
+      "strip_prefix": "acl-style-files-master",
+      "license_status": "unverified-for-redistribution",
+      "notes": "Official repository archive. The associated Overleaf template states CC BY 4.0, but the GitHub archive had no explicit root license during this audit."
+    },
+    "neurips2025": {
+      "venue": "NeurIPS 2025",
+      "official_page": "https://neurips.cc/Conferences/2025/CallForPapers",
+      "archive_url": null,
+      "archive_sha256": null,
+      "strip_prefix": null,
+      "license_status": "manual-download-required",
+      "notes": "Use the official conference download. A stable licensed archive URL was not established during this audit."
+    },
+    "eccv2026": {
+      "venue": "ECCV 2026",
+      "official_page": "https://eccv.ecva.net/Conferences/2026/SubmissionPolicies",
+      "archive_url": null,
+      "archive_sha256": null,
+      "strip_prefix": null,
+      "license_status": "manual-download-required",
+      "notes": "The official page links the current author kit. LNCS components carry separate Springer terms, so use the official package directly."
+    },
+    "aaai2026": {
+      "venue": "AAAI 2026",
+      "official_page": "https://aaai.org/conference/aaai/aaai-26/submission-instructions/",
+      "archive_url": null,
+      "archive_sha256": null,
+      "strip_prefix": null,
+      "license_status": "manual-download-required",
+      "notes": "Download the current AAAI-26 Author Kit from the official instructions; redistribution terms were not explicit."
+    },
+    "colm2025": {
+      "venue": "COLM 2025",
+      "official_page": "https://colmweb.org/2025/cfp.html",
+      "archive_url": null,
+      "archive_sha256": null,
+      "strip_prefix": null,
+      "license_status": "manual-download-required",
+      "notes": "The official repository now tracks newer editions. Use the archived 2025 source linked by the official conference page."
+    }
+  }
+}

@@ -7,6 +7,7 @@ Use this file as the first stop when deciding which reference files to load. Loa
 | User intent | Load first | Then load as needed |
 |---|---|---|
 | Full paper or major revision | `workflow.md`, `artifacts.md`, `task-management.md` | `paper-story.md`, `section-writing.md`, `citation-workflow.md`, `figure-workflow.md`, venue/reviewer references |
+| Upstream research-system handoff | `research-handoff.md`, `artifacts.md` | `numeric-evidence.md` for quantitative work |
 | Paper story, thesis, gap, or contributions | `paper-story.md` | `literature-review.md` if positioning is uncertain |
 | Abstract / Introduction | `abstract-introduction.md` | `section-writing.md`, one example file after choosing a pattern |
 | Related Work or positioning | `literature-review.md`, `citation-workflow.md` | `section-writing.md`, related-work examples |

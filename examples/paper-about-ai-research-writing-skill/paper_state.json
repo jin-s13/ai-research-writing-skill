@@ -1,0 +1,30 @@
+{
+  "schema_version": "ai-research-writing/paper-state-v1",
+  "mode": "full-paper",
+  "stage": "complete",
+  "target_venue": "ICML 2026 style demo",
+  "main_tex": "paper/main.tex",
+  "bibliography": "paper/references.bib",
+  "required_artifacts": [
+    "evidence/repository_inventory.md",
+    "evaluation/results.json",
+    "figures/figure_plan.md",
+    "literature/positioning.md",
+    "paper/tables/contract_evaluation.tex"
+  ],
+  "blockers": [],
+  "build": {
+    "status": "passed",
+    "command": "tectonic -Z search-path=.venue-template main.tex",
+    "pdf": "paper/main.pdf",
+    "external_inputs": [
+      {
+        "name": "ICML 2026 official style archive",
+        "source": "https://media.icml.cc/Conferences/ICML2026/Styles/icml2026.zip",
+        "archive_sha256": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c"
+      }
+    ],
+    "input_sha256": "ef454e64b400d8dd89520d5cab0e343cec792aecd75dae99cd9088a917c1b464",
+    "pdf_sha256": "2d4aa39c183382e5f55231fbd83926cb1632c7b2c8f9b12a7d8249752d711ff7"
+  }
+}

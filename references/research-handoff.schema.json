@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jin-s13/ai-research-writing-skill/research-handoff.schema.json",
+  "title": "Upstream Research Handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "research_question", "paper_type", "target_venue", "quantitative", "artifacts", "blockers"],
+  "properties": {
+    "schema_version": {"const": "ai-research-writing/research-handoff-v1"},
+    "research_question": {"type": "string", "minLength": 1},
+    "paper_type": {"type": "string", "minLength": 1},
+    "target_venue": {"type": "string", "minLength": 1},
+    "quantitative": {"type": "boolean"},
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_inventory", "analysis", "decision"],
+      "properties": {
+        "project_inventory": {"type": "string", "minLength": 1},
+        "analysis": {"type": "string", "minLength": 1},
+        "decision": {"type": "string", "minLength": 1},
+        "experiment_inventory": {"type": "string", "minLength": 1},
+        "numeric_evidence": {"type": "string", "minLength": 1},
+        "literature_inventory": {"type": "string", "minLength": 1},
+        "figure_inventory": {"type": "string", "minLength": 1}
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"quantitative": {"const": true}}},
+      "then": {"properties": {"artifacts": {"required": ["project_inventory", "analysis", "decision", "experiment_inventory", "numeric_evidence"]}}}
+    }
+  ]
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from pathlib import Path
 
 
@@ -13,6 +14,7 @@ SKIP_DIRS = {
     "__pycache__",
     ".pytest_cache",
     ".mypy_cache",
+    ".venue-template",
     "node_modules",
     "venv",
     ".venv",
@@ -55,14 +57,15 @@ def iter_files(paths: list[Path]):
             yield path
 
 
-def read_text(path: Path) -> str | None:
+def read_text(path: Path) -> str:
     try:
         return path.read_text(encoding="utf-8")
-    except UnicodeDecodeError:
-        try:
-            return path.read_text(encoding="latin-1")
-        except UnicodeDecodeError:
-            return None
+    except FileNotFoundError as exc:
+        raise RuntimeError(f"Input path does not exist: {path}") from exc
+    except UnicodeDecodeError as exc:
+        raise RuntimeError(f"Text input is not valid UTF-8: {path}") from exc
+    except OSError as exc:
+        raise RuntimeError(f"Text input cannot be read: {path}: {exc}") from exc
 
 
 def main() -> int:
@@ -76,19 +79,31 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    allow_res = [re.compile(pattern) for pattern in args.allow]
+    missing_inputs = [path for path in args.paths if not path.exists()]
+    if missing_inputs:
+        for path in missing_inputs:
+            print(f"Input path does not exist: {path}", file=sys.stderr)
+        return 2
+
+    try:
+        allow_res = [re.compile(pattern) for pattern in args.allow]
+    except re.error as exc:
+        print(f"Invalid --allow regex: {exc}", file=sys.stderr)
+        return 2
     findings: list[tuple[Path, int, str]] = []
 
-    for path in iter_files(args.paths):
-        text = read_text(path)
-        if text is None:
-            continue
-        for lineno, line in enumerate(text.splitlines(), start=1):
-            if not MARKER_RE.search(line):
-                continue
-            if any(pattern.search(line) for pattern in allow_res):
-                continue
-            findings.append((path, lineno, line.strip()))
+    try:
+        for path in iter_files(args.paths):
+            text = read_text(path)
+            for lineno, line in enumerate(text.splitlines(), start=1):
+                if not MARKER_RE.search(line):
+                    continue
+                if any(pattern.search(line) for pattern in allow_res):
+                    continue
+                findings.append((path, lineno, line.strip()))
+    except RuntimeError as exc:
+        print(f"TODO check failed: {exc}", file=sys.stderr)
+        return 2
 
     if findings:
         print("Unresolved TODO-like markers:")

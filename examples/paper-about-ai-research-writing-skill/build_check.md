@@ -3,13 +3,19 @@
 ## Command
 
 ```bash
+python3 scripts/fetch_template.py icml2026 \
+  --output examples/paper-about-ai-research-writing-skill/paper/.venue-template
 cd examples/paper-about-ai-research-writing-skill/paper
-tectonic main.tex
+tectonic -Z search-path=.venue-template main.tex
+cd ../../../
+python3 examples/paper-about-ai-research-writing-skill/evaluation/run_evaluation.py
+python3 scripts/record_build.py examples/paper-about-ai-research-writing-skill
+python3 scripts/research_quality_gate.py examples/paper-about-ai-research-writing-skill
 ```
 
 ## Result
 
-Verified with the bundled Tectonic engine. The command produced `paper/main.pdf` from the local ICML-style template files.
+Verified with Tectonic 0.16.9. The command produced `paper/main.pdf` using the official ICML 2026 archive identified in `paper_state.json`. The state records SHA-256 hashes for the paper input graph, external template archive, and resulting PDF, so source or declared-template changes invalidate the recorded build.
 
 Known warnings:
 
@@ -22,11 +28,7 @@ Known warnings:
 The command should produce `main.pdf` from:
 
 - `main.tex`
-- `icml2026.sty`
-- `icml2026.bst`
-- `fancyhdr.sty`
-- `algorithm.sty`
-- `algorithmic.sty`
+- `.venue-template/` fetched from the official archive recorded in `paper_state.json`
 - `figures/teaser_imagegen.png`
 - `figures/overview_imagegen.png`
 - `figures/method_overview.tex`
