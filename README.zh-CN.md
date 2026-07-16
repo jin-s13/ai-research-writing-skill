@@ -157,7 +157,6 @@ git clone https://github.com/jin-s13/ai-research-writing-skill.git
 
 ```text
 ai-research-writing-skill/
-├── docs/                 # 发布与增长 playbook
 ├── examples/             # 端到端 demo paper
 ├── SKILL.md              # 唯一规范 agent 入口
 ├── references/           # 工作流、写作、引用、图表、venue、审稿
@@ -177,7 +176,6 @@ ai-research-writing-skill/
 | [`references/citation-workflow.md`](references/citation-workflow.md) | 如何检索、核验和修复 BibTeX |
 | [`templates/README.md`](templates/README.md) | 模板列表和编译说明 |
 | [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | 用本项目给自己写论文的端到端示例 |
-| [`docs/LAUNCH_PLAYBOOK.zh-CN.md`](docs/LAUNCH_PLAYBOOK.zh-CN.md) | 开源发布和推广清单 |
 
 ---
 

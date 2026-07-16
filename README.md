@@ -157,7 +157,6 @@ Follow SKILL.md and load only the relevant references for my task.
 
 ```text
 ai-research-writing-skill/
-├── docs/                 # Launch and growth playbook
 ├── examples/             # Minimal demo paper repo
 ├── SKILL.md              # Canonical agent entrypoint
 ├── references/           # Workflow, writing, citations, figures, venues, review
@@ -177,7 +176,6 @@ ai-research-writing-skill/
 | [`references/citation-workflow.md`](references/citation-workflow.md) | Search, verify, BibTeX |
 | [`templates/README.md`](templates/README.md) | Template list and compile tips |
 | [`examples/paper-about-ai-research-writing-skill/`](examples/paper-about-ai-research-writing-skill/) | End-to-end paper about this project |
-| [`docs/LAUNCH_PLAYBOOK.zh-CN.md`](docs/LAUNCH_PLAYBOOK.zh-CN.md) | Launch and growth checklist |
 
 ---
 

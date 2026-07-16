@@ -18,6 +18,7 @@ venv/
 .coverage
 coverage.xml
 *.log
+docs/
 literature/papers/
 *.pdf
 !templates/**/*.pdf
