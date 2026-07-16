@@ -24,12 +24,16 @@ from paper_contract import (
     resolve_graphics,
 )
 from check_numeric_evidence import verify_project as verify_numeric_evidence
+from citation_lock import validate_lock
 
 
 SCHEMA_VERSION = "ai-research-writing/paper-state-v1"
 VALID_MODES = {"draft", "full-paper", "submission", "skill"}
 STATE_FIELDS = {"schema_version", "mode", "stage", "target_venue", "main_tex", "bibliography", "required_artifacts", "blockers", "build"}
-BUILD_FIELDS = {"status", "command", "pdf", "external_inputs", "input_sha256", "pdf_sha256"}
+BUILD_FIELDS = {
+    "status", "command", "pdf", "external_inputs", "input_sha256", "pdf_sha256",
+    "attestation", "exit_code", "log", "log_sha256", "tool_version", "ran_at",
+}
 EXTERNAL_INPUT_FIELDS = {"name", "source", "archive_sha256"}
 TERMINAL_STAGES = {"complete", "submission-ready"}
 UNRESOLVED_RE = re.compile(
@@ -198,24 +202,27 @@ def external_build_records(build: dict[str, object], issues: list[Issue]) -> lis
     return records
 
 
-def validate_verification_table(path: Path, cited: set[str], issues: list[Issue]) -> None:
+def validate_verification_table(path: Path, cited: set[str], issues: list[Issue]) -> set[str]:
     try:
         headers, rows = markdown_rows(path)
     except ContractError as exc:
         add(issues, "failure", str(exc))
-        return
+        return set()
     if "key" not in headers or "status" not in headers:
         add(issues, "failure", "citation_verification.md table requires Key and Status columns.")
-        return
+        return set()
     key_index = headers.index("key")
     status_index = headers.index("status")
     verified: set[str] = set()
+    scholarly: set[str] = set()
     open_keys: list[str] = []
     for row in rows:
         key = row[key_index].strip().strip("`")
         status = row[status_index].strip().lower()
         if status in {"verified", "software-doc", "repository-verified"}:
             verified.add(key)
+            if status == "verified":
+                scholarly.add(key)
         elif key:
             open_keys.append(f"{key} ({status or 'empty status'})")
     missing = sorted(cited - verified)
@@ -223,6 +230,7 @@ def validate_verification_table(path: Path, cited: set[str], issues: list[Issue]
         add(issues, "failure", "Cited keys lack a verified citation record: " + ", ".join(missing))
     if open_keys:
         add(issues, "failure", "Citation verification has unresolved records: " + ", ".join(open_keys))
+    return scholarly
 
 
 def validate_claim_map(path: Path, terminal: bool, issues: list[Issue]) -> None:
@@ -358,7 +366,19 @@ def validate_paper(root: Path, requested_mode: str | None, issues: list[Issue]) 
                 add(issues, "failure", "Duplicate BibTeX keys: " + ", ".join(duplicates))
             verification = root / "citation_verification.md"
             if verification.is_file() and terminal:
-                validate_verification_table(verification, cited, issues)
+                scholarly = validate_verification_table(verification, cited, issues)
+                if scholarly:
+                    requests_path = root / "citation_requests.json"
+                    lock_path = root / "citation_lock.json"
+                    if not requests_path.is_file() or not lock_path.is_file():
+                        add(
+                            issues,
+                            "failure",
+                            "Terminal scholarly citations require citation_requests.json and citation_lock.json.",
+                        )
+                    else:
+                        for failure in validate_lock(root, main_tex, requests_path, lock_path):
+                            add(issues, "failure", failure)
         except ContractError as exc:
             add(issues, "failure", str(exc))
 
@@ -377,6 +397,18 @@ def validate_paper(root: Path, requested_mode: str | None, issues: list[Issue]) 
     if isinstance(build, dict) and terminal:
         if build.get("status") != "passed":
             add(issues, "failure", "A terminal stage requires build.status = passed.")
+        if stage == "submission-ready" and build.get("attestation") != "executed":
+            add(issues, "failure", "submission-ready requires record_build.py --run attestation.")
+        if build.get("attestation") == "executed":
+            if build.get("exit_code") != 0:
+                add(issues, "failure", "Executed build attestation requires exit_code = 0.")
+            log_value = build.get("log")
+            if not isinstance(log_value, str) or not log_value:
+                add(issues, "failure", "Executed build attestation requires a build log path.")
+            else:
+                log_path = require_nonempty(root, log_value, issues)
+                if log_path.is_file() and build.get("log_sha256") != digest_file(log_path):
+                    add(issues, "failure", "Recorded build log digest does not match the current log.")
         pdf_value = build.get("pdf")
         input_digest = build.get("input_sha256")
         pdf_digest = build.get("pdf_sha256")
@@ -386,6 +418,14 @@ def validate_paper(root: Path, requested_mode: str | None, issues: list[Issue]) 
             pdf_path = require_nonempty(root, pdf_value, issues)
             if main_tex.is_file() and bibliography.is_file() and pdf_path.is_file():
                 try:
+                    if build.get("attestation") == "executed":
+                        external_records.append(
+                            json.dumps(
+                                {"command": build.get("command"), "tool_version": build.get("tool_version")},
+                                sort_keys=True,
+                                separators=(",", ":"),
+                            )
+                        )
                     actual_input = digest_files(root, paper_input_files(root, main_tex, bibliography), external_records)
                     actual_pdf = digest_file(pdf_path)
                     if input_digest != actual_input:

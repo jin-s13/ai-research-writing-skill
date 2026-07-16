@@ -76,7 +76,14 @@ Use these terminal statuses:
 
 Use visible non-terminal statuses such as `metadata-only`, `conflict`, `needs-access`, or `placeholder`. Terminal paper stages must fail while any cited key remains non-terminal.
 
-For a future online verifier, cache normalized records in `citation_lock.json` with identifier, returned fields, provider, request URL, checked timestamp, and a digest of the normalized metadata. Network errors, 404s, conflicts, and rate limits must be explicit states; cached data must not be presented as freshly verified.
+Create `citation_requests.json` from `citation-requests.schema.json`, with a DOI or arXiv identifier and one or more sentence-level support records for every scholarly citation. Then run:
+
+```bash
+python3 scripts/verify_citations.py /path/to/paper-project --mailto you@example.org
+python3 scripts/check_citation_lock.py /path/to/paper-project
+```
+
+The verifier uses Crossref for Crossref DOI metadata, DataCite after a Crossref 404, and the official arXiv API for arXiv identifiers. Set `OPENALEX_API_KEY` or pass `--openalex-api-key` for a secondary comparison. OpenAlex conflicts are blocking and never replace an available primary record. `citation_lock.json` stores provider URLs, normalized metadata, checked time, request and claim-support digests, optional cross-check data, and an explicit status. Network errors, 404s, conflicts, incomplete metadata, and rate limits are non-terminal.
 
 ## BibTeX Rules
 

@@ -6,22 +6,28 @@
   "additionalProperties": false,
   "required": ["schema_version", "entries"],
   "properties": {
-    "schema_version": {"const": "ai-research-writing/numeric-evidence-v1"},
+    "schema_version": {"const": "ai-research-writing/numeric-evidence-v2"},
     "entries": {
-      "type": "array",
-      "minItems": 1,
+      "type": "array", "minItems": 1,
       "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["value", "source"],
+        "type": "object", "additionalProperties": false,
+        "required": ["value", "source", "selector"],
         "properties": {
           "value": {"type": "number"},
           "source": {"type": "string", "minLength": 1},
-          "locator": {"type": "string"},
+          "selector": {
+            "type": "object", "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind": {"enum": ["json-pointer", "jsonl", "csv", "tsv"]},
+              "pointer": {"type": "string"},
+              "column": {"type": "string", "minLength": 1},
+              "where": {"type": "object"}
+            }
+          },
+          "aggregate": {"enum": ["identity", "mean", "sample-std", "population-std", "sum", "min", "max", "count"]},
           "representations": {
-            "type": "array",
-            "minItems": 1,
-            "uniqueItems": true,
+            "type": "array", "minItems": 1, "uniqueItems": true,
             "items": {"enum": ["raw", "percent"]}
           },
           "tolerance": {"type": "number", "minimum": 0},

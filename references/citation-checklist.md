@@ -39,7 +39,7 @@ python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
 python3 scripts/check_citations.py main.tex references.bib
 python3 scripts/parse_build_log.py main.log
 python3 scripts/camera_ready_check.py main.tex --checklist checklist.tex
-python3 scripts/record_build.py /path/to/paper-project
+python3 scripts/record_build.py /path/to/paper-project --run
 python3 scripts/research_quality_gate.py /path/to/paper-project
 ```
 

@@ -27,10 +27,10 @@ Full-paper and submission modes require `paper_state.json`:
 }
 ```
 
-Use `stage: complete` or `submission-ready` only after checks pass. After a successful build, run:
+Use `stage: complete` or `submission-ready` only after checks pass. Drafts may record an existing PDF as `artifact-only`; before declaring `submission-ready`, execute the declared build command and record its log, exit code, tool version, source hash, and PDF hash:
 
 ```bash
-python3 /path/to/skill/scripts/record_build.py /path/to/paper-project
+python3 /path/to/skill/scripts/record_build.py /path/to/paper-project --run
 python3 /path/to/skill/scripts/research_quality_gate.py /path/to/paper-project
 ```
 

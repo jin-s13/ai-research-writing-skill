@@ -28,12 +28,12 @@ Create `research_handoff.json` using `research-handoff.schema.json`. Paths are r
 }
 ```
 
-For quantitative work, `experiment_inventory` and `numeric_evidence` are required. The handoff may declare blockers; the writing agent must carry them into `paper_state.json`, weaken affected claims, or stop.
+For quantitative work, `experiment_inventory` and numeric-evidence v2 are required. A handoff may retain blockers for inspection, but full-paper drafting must use `--require-unblocked`. Exploratory partial writing must carry every blocker into `paper_state.json` and weaken affected claims.
 
 Validate before drafting:
 
 ```bash
-python3 scripts/check_research_handoff.py /path/to/handoff-project
+python3 scripts/check_research_handoff.py /path/to/handoff-project --require-unblocked
 ```
 
 ## Ownership Boundary

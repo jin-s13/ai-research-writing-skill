@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import math
 import re
+import statistics
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -14,9 +16,12 @@ from pathlib import Path
 from paper_contract import ContractError, collect_tex_text, load_json_object
 
 
-SCHEMA_VERSION = "ai-research-writing/numeric-evidence-v1"
+SCHEMA_VERSION = "ai-research-writing/numeric-evidence-v2"
 ROOT_FIELDS = {"schema_version", "entries"}
-ENTRY_FIELDS = {"value", "source", "locator", "representations", "tolerance", "note"}
+ENTRY_FIELDS = {"value", "source", "selector", "aggregate", "representations", "tolerance", "note"}
+SELECTOR_FIELDS = {"kind", "pointer", "column", "where"}
+SELECTOR_KINDS = {"json-pointer", "jsonl", "csv", "tsv"}
+AGGREGATES = {"identity", "mean", "sample-std", "population-std", "sum", "min", "max", "count"}
 REPRESENTATIONS = {"raw", "percent"}
 STRICT_SECTION_TERMS = {
     "result",
@@ -62,10 +67,11 @@ class NumericFinding:
 
 
 def _source_path(root: Path, raw: str) -> Path:
-    path_part = raw.split("#", 1)[0]
-    if not path_part:
+    if not raw:
         raise ContractError(f"Numeric evidence source has no file path: {raw}")
-    path = (root / path_part).resolve()
+    if "#" in raw:
+        raise ContractError("Numeric evidence v2 keeps JSON pointers in selector.pointer, not source fragments")
+    path = (root / raw).resolve()
     try:
         path.relative_to(root.resolve())
     except ValueError as exc:
@@ -75,32 +81,123 @@ def _source_path(root: Path, raw: str) -> Path:
     return path
 
 
-def _verify_json_pointer(path: Path, raw_source: str, expected: float, tolerance: float) -> None:
-    if "#" not in raw_source:
-        return
-    fragment = raw_source.split("#", 1)[1]
-    if path.suffix.lower() != ".json":
-        raise ContractError(f"Numeric evidence fragments require a JSON source: {raw_source}")
-    if not fragment.startswith("/"):
-        raise ContractError(f"Numeric evidence JSON fragment must be a JSON Pointer beginning with '/': {raw_source}")
-    try:
-        value: object = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ContractError(f"Cannot read numeric evidence JSON source: {raw_source}: {exc}") from exc
-    for raw_token in fragment[1:].split("/"):
+def _json_pointer(value: object, pointer: str, source: str) -> object:
+    if pointer == "":
+        return value
+    if not pointer.startswith("/"):
+        raise ContractError(f"Numeric evidence JSON Pointer must begin with '/': {source}#{pointer}")
+    for raw_token in pointer[1:].split("/"):
         token = raw_token.replace("~1", "/").replace("~0", "~")
         if isinstance(value, dict) and token in value:
             value = value[token]
         elif isinstance(value, list) and token.isdigit() and int(token) < len(value):
             value = value[int(token)]
         else:
-            raise ContractError(f"Numeric evidence JSON Pointer does not resolve: {raw_source}")
-    if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(float(value)):
-        raise ContractError(f"Numeric evidence JSON Pointer is not a finite number: {raw_source}")
-    if not math.isclose(float(value), expected, rel_tol=tolerance, abs_tol=tolerance):
-        raise ContractError(
-            f"Numeric evidence value {expected:g} does not match source value {float(value):g}: {raw_source}"
-        )
+            raise ContractError(f"Numeric evidence JSON Pointer does not resolve: {source}#{pointer}")
+    return value
+
+
+def _matches_where(row: dict[str, object], where: dict[str, object]) -> bool:
+    return all(str(row.get(key)) == str(expected) for key, expected in where.items())
+
+
+def _selected_values(path: Path, source: str, selector: dict[str, object]) -> list[float]:
+    unknown = sorted(set(selector) - SELECTOR_FIELDS)
+    if unknown:
+        raise ContractError("Numeric evidence selector contains unknown fields: " + ", ".join(unknown))
+    kind = selector.get("kind")
+    if kind not in SELECTOR_KINDS:
+        raise ContractError(f"Numeric evidence selector.kind must be one of: {', '.join(sorted(SELECTOR_KINDS))}")
+    where = selector.get("where", {})
+    if not isinstance(where, dict) or any(not isinstance(key, str) or not key for key in where):
+        raise ContractError("Numeric evidence selector.where must be an object with non-empty string keys")
+
+    selected: list[object]
+    if kind == "json-pointer":
+        pointer = selector.get("pointer")
+        if not isinstance(pointer, str):
+            raise ContractError("json-pointer selector requires a string pointer")
+        if path.suffix.lower() != ".json":
+            raise ContractError(f"json-pointer selector requires a .json source: {source}")
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ContractError(f"Cannot read numeric evidence JSON source: {source}: {exc}") from exc
+        value = _json_pointer(payload, pointer, source)
+        selected = value if isinstance(value, list) else [value]
+    elif kind in {"csv", "tsv"}:
+        column = selector.get("column")
+        if not isinstance(column, str) or not column:
+            raise ContractError(f"{kind} selector requires a non-empty column")
+        delimiter = "," if kind == "csv" else "\t"
+        try:
+            with path.open("r", encoding="utf-8", newline="") as handle:
+                reader = csv.DictReader(handle, delimiter=delimiter)
+                if reader.fieldnames is None or column not in reader.fieldnames:
+                    raise ContractError(f"Numeric evidence column {column!r} is missing from {source}")
+                selected = [row[column] for row in reader if _matches_where(row, where)]
+        except (OSError, UnicodeDecodeError, csv.Error) as exc:
+            raise ContractError(f"Cannot read numeric evidence {kind.upper()} source: {source}: {exc}") from exc
+    else:
+        column = selector.get("column")
+        if not isinstance(column, str) or not column:
+            raise ContractError("jsonl selector requires a non-empty column")
+        selected = []
+        try:
+            for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise ContractError(f"Invalid JSONL at {source}:{line_number}: {exc}") from exc
+                if not isinstance(row, dict):
+                    raise ContractError(f"JSONL record at {source}:{line_number} must be an object")
+                if _matches_where(row, where):
+                    if column not in row:
+                        raise ContractError(f"JSONL column {column!r} is missing at {source}:{line_number}")
+                    selected.append(row[column])
+        except (OSError, UnicodeDecodeError) as exc:
+            raise ContractError(f"Cannot read numeric evidence JSONL source: {source}: {exc}") from exc
+
+    if not selected:
+        raise ContractError(f"Numeric evidence selector matched no values in {source}")
+    values: list[float] = []
+    for item in selected:
+        if isinstance(item, bool):
+            raise ContractError(f"Numeric evidence selector produced a boolean in {source}")
+        try:
+            number = float(item)
+        except (TypeError, ValueError) as exc:
+            raise ContractError(f"Numeric evidence selector produced a non-number in {source}: {item!r}") from exc
+        if not math.isfinite(number):
+            raise ContractError(f"Numeric evidence selector produced a non-finite value in {source}")
+        values.append(number)
+    return values
+
+
+def _aggregate(values: list[float], operation: str, source: str) -> float:
+    if operation not in AGGREGATES:
+        raise ContractError(f"Numeric evidence aggregate must be one of: {', '.join(sorted(AGGREGATES))}")
+    if operation == "identity":
+        if len(values) != 1:
+            raise ContractError(f"identity aggregate requires exactly one selected value in {source}")
+        return values[0]
+    if operation == "mean":
+        return statistics.fmean(values)
+    if operation == "sample-std":
+        if len(values) < 2:
+            raise ContractError(f"sample-std requires at least two values in {source}")
+        return statistics.stdev(values)
+    if operation == "population-std":
+        return statistics.pstdev(values)
+    if operation == "sum":
+        return math.fsum(values)
+    if operation == "min":
+        return min(values)
+    if operation == "max":
+        return max(values)
+    if operation == "count":
+        return float(len(values))
+    raise AssertionError(operation)
 
 
 def load_registry(root: Path, registry_path: Path) -> list[EvidenceValue]:
@@ -125,10 +222,16 @@ def load_registry(root: Path, registry_path: Path) -> list[EvidenceValue]:
             )
         value = entry.get("value")
         source = entry.get("source")
+        selector = entry.get("selector")
         if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(float(value)):
             raise ContractError(f"numeric_evidence.json entries[{index}].value must be a finite number")
         if not isinstance(source, str) or not source:
             raise ContractError(f"numeric_evidence.json entries[{index}].source must be a non-empty path")
+        if not isinstance(selector, dict):
+            raise ContractError(f"numeric_evidence.json entries[{index}].selector must be an object")
+        operation = entry.get("aggregate", "identity")
+        if not isinstance(operation, str):
+            raise ContractError(f"numeric_evidence.json entries[{index}].aggregate must be a string")
         tolerance = entry.get("tolerance", 1e-6)
         if not isinstance(tolerance, (int, float)) or isinstance(tolerance, bool) or tolerance < 0:
             raise ContractError(f"numeric_evidence.json entries[{index}].tolerance must be non-negative")
@@ -143,7 +246,11 @@ def load_registry(root: Path, registry_path: Path) -> list[EvidenceValue]:
             )
         numeric = float(value)
         source_path = _source_path(root, source)
-        _verify_json_pointer(source_path, source, numeric, float(tolerance))
+        computed = _aggregate(_selected_values(source_path, source, selector), operation, source)
+        if not math.isclose(computed, numeric, rel_tol=float(tolerance), abs_tol=float(tolerance)):
+            raise ContractError(
+                f"Numeric evidence value {numeric:g} does not match computed source value {computed:g}: {source}"
+            )
         if "raw" in representations:
             values.append(EvidenceValue(numeric, source, float(tolerance)))
         if "percent" in representations:

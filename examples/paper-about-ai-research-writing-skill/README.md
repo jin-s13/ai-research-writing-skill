@@ -29,6 +29,8 @@ Do not invent performance numbers. Use repository facts as evidence.
 - `paper_state.json`: strict mode, artifact, blocker, and build-integrity contract.
 - `evaluation/results.json`: reproducible contract-evaluation results.
 - `evaluation/run_evaluation.py`: reruns failure-path, skill, citation, and marker checks.
+- `evaluation/auto_research_handoff_results.json`: recorded cross-repository handoff result.
+- `evaluation/run_auto_research_handoff.py`: invokes auto-research's real CLI and this skill's validator end to end.
 
 ## Audit Artifacts
 

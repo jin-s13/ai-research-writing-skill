@@ -1,0 +1,15 @@
+{
+  "schema_version": "ai-research-writing/cross-project-eval-v1",
+  "auto_research_exporter": "researchclaw writing-handoff",
+  "skill_validator": "scripts/check_research_handoff.py --require-unblocked",
+  "status": "pass",
+  "exit_code": 0,
+  "handoff_schema": "ai-research-writing/research-handoff-v1",
+  "numeric_schema": "ai-research-writing/numeric-evidence-v2",
+  "numeric_entries": 3,
+  "stdout_tail": [
+    "Research handoff check passed.",
+    "Writing handoff is ready for ai-research-writing-skill."
+  ],
+  "stderr_tail": []
+}

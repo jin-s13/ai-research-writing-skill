@@ -38,6 +38,7 @@
 - `literature/positioning.md` 和 `citation_verification.md`：相关项目定位与引用核验。
 - `paper/figures/` 和 `paper/tables/`：ICML 风格图表资产。
 - `build_check.md`：编译命令、结果和剩余风险。
+- [`evaluation/auto_research_handoff_results.json`](examples/paper-about-ai-research-writing-skill/evaluation/auto_research_handoff_results.json)：auto-research 真实 CLI 到本 skill validator 的跨仓库兼容性结果。
 
 ![AI Research Writing Skill method overview](examples/paper-about-ai-research-writing-skill/paper/figures/overview_imagegen.png)
 
@@ -184,13 +185,15 @@ ai-research-writing-skill/
 ```bash
 python3 scripts/extract_claims.py main.tex > claim_evidence_map.md
 python3 scripts/check_citations.py main.tex references.bib
+python3 scripts/verify_citations.py /path/to/paper-project --mailto you@example.org
+python3 scripts/check_citation_lock.py /path/to/paper-project
 python3 scripts/check_todos.py main.tex checklist.tex references.bib figures
 python3 scripts/check_numeric_evidence.py /path/to/paper-project
-python3 scripts/check_research_handoff.py /path/to/handoff-project
+python3 scripts/check_research_handoff.py /path/to/handoff-project --require-unblocked
 python3 scripts/parse_build_log.py main.log
 python3 scripts/camera_ready_check.py main.tex
 python3 scripts/fetch_template.py icml2026 --output /path/to/paper/.venue-template
-python3 scripts/record_build.py /path/to/paper-project
+python3 scripts/record_build.py /path/to/paper-project --run
 python3 scripts/research_quality_gate.py /path/to/paper-project
 ```
 

@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,6 +21,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Run unit and failure-path tests
         run: python -m unittest discover -s tests -v
+      - name: Compile deterministic scripts
+        run: python -m py_compile scripts/*.py
       - name: Validate skill package
         run: python scripts/research_quality_gate.py . --mode skill
       - name: Validate end-to-end example

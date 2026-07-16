@@ -36,7 +36,13 @@
           }
         },
         "input_sha256": {"type": "string"},
-        "pdf_sha256": {"type": "string"}
+        "pdf_sha256": {"type": "string"},
+        "attestation": {"enum": ["artifact-only", "executed"]},
+        "exit_code": {"type": ["integer", "null"]},
+        "log": {"type": "string"},
+        "log_sha256": {"type": "string"},
+        "tool_version": {"type": "string"},
+        "ran_at": {"type": "string"}
       }
     }
   }

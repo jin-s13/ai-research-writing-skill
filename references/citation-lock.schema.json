@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jin-s13/ai-research-writing-skill/citation-lock.schema.json",
+  "title": "Citation Verification Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_sha256", "records"],
+  "properties": {
+    "schema_version": {"const": "ai-research-writing/citation-lock-v1"},
+    "request_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "identifier", "status", "provider", "request_url", "checked_at", "metadata", "metadata_sha256", "claim_support_sha256", "cross_check", "cross_check_sha256", "error"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "identifier": {"type": "string", "minLength": 1},
+          "status": {"enum": ["verified", "metadata-only", "conflict", "not-found", "rate-limited", "network-error", "provider-error", "incomplete-metadata"]},
+          "provider": {"type": "string"},
+          "request_url": {"type": "string"},
+          "checked_at": {"type": "string"},
+          "metadata": {"type": "object"},
+          "metadata_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "claim_support_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "cross_check": {"type": ["object", "null"]},
+          "cross_check_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "error": {"type": "string"}
+        }
+      }
+    }
+  }
+}

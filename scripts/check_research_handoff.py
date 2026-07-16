@@ -92,6 +92,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("project_path", type=Path)
     parser.add_argument("--handoff", default="research_handoff.json", help="Handoff path relative to project")
+    parser.add_argument(
+        "--require-unblocked", action="store_true",
+        help="Fail when the handoff declares blockers instead of only reporting them",
+    )
     args = parser.parse_args()
     root = args.project_path.resolve()
     if not root.is_dir():
@@ -106,6 +110,8 @@ def main() -> int:
         print("Research handoff is structurally valid with declared blockers:")
         for blocker in blockers:
             print(f"  - {blocker}")
+        if args.require_unblocked:
+            return 1
     else:
         print("Research handoff check passed.")
     return 0

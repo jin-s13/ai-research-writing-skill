@@ -64,6 +64,6 @@ Run a terminology pass and reverse-outline pass across the complete manuscript.
 - Convert high-risk objections into edits, experiments, limitations, or blockers.
 - Revise targeted sections first. Avoid whole-paper regeneration unless the story itself changed; rerun numeric, citation, and build checks after every substantive revision.
 - Run marker, citation, quality, venue, and build-log checks.
-- Compile the actual LaTeX package. After success, run `record_build.py` so later source changes invalidate the build record.
+- Compile the actual LaTeX package with `record_build.py --run` before submission-ready so the command, log, tool version, exit code, and hashes are attested together.
 - For submission, complete the venue checklist and `submission_readiness.md`, then follow `submission-packaging.md`.
 - Update `plan/progress.md` with completed checks and remaining scientific risks before reporting completion.
