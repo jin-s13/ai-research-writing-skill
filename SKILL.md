@@ -26,7 +26,8 @@ Choose the smallest route that covers the request. Load only the listed referenc
 | Section writing or revision | `references/README.md`, then the section-specific reference |
 | Figures and tables | `references/figure-workflow.md`, `references/figure-spec.md` |
 | Citation search or repair | `references/citation-workflow.md` |
-| Reviewer diagnosis | `references/reviewer-guidelines.md`, `references/reviewer-self-review.md` |
+| Peer review | `references/reviewer-guidelines.md` |
+| Author self-review or revision diagnosis | `references/reviewer-guidelines.md`, `references/reviewer-self-review.md` |
 | Submission or camera-ready audit | `references/submission-packaging.md`, `references/citation-checklist.md` |
 | Deterministic checks or formatting | `scripts/README.md` |
 
@@ -49,7 +50,7 @@ Keep process instructions in plan/review files, never in manuscript prose.
 - **Literature**: position close work before writing Related Work.
 - **Citation**: scholarly `verified` records require `citation_requests.json` and a fresh `citation_lock.json`; metadata verification and sentence-level support are separate checks.
 - **Figures**: generated images may explain concepts but cannot create numeric evidence. For overview, method, framework, pipeline, architecture, and teaser figures, use built-in image generation as the default paper asset; use deterministic plots/tables for results.
-- **Review**: resolve high-severity reviewer objections or record them as blockers.
+- **Review**: ground objections in located evidence, separate facts from inference, and state what evidence is needed to assess the claim. For author revision/submission, resolve high-severity objections or record blockers; a completed peer review may recommend rejection.
 - **Build**: compile the real package with `record_build.py --run` before submission-ready; preserve command, log, tool version, exit code, and hashes.
 - **Completion**: do not say "done" until required artifacts and checks pass or explicit blockers are reported.
 

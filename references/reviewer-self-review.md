@@ -7,6 +7,10 @@ Reviewer self-review has two outputs:
 1. **Author analysis**: explain the paper's strengths, weaknesses, likely reviewer objections, and trade-offs in a form the author can evaluate.
 2. **Revision plan**: convert the highest-impact risks into edits, experiments, citation work, limitations, or claims to weaken.
 
+Use the evidence-first procedure and concern IDs in [reviewer-guidelines.md](reviewer-guidelines.md) before assigning severity or proposing fixes.
+
+The artifact names below apply to file-based work. For a chat-only diagnosis, present the equivalent analysis in the response without creating a paper project.
+
 Do not silently "fix" a paper in ways that hide scientific trade-offs from the author. If a risk requires new experiments, different framing, or a weaker claim, state that clearly.
 
 ## Three Review Lenses
@@ -21,9 +25,9 @@ Run three focused passes before merging findings:
 
 Do not ask one model call to rewrite the paper while reviewing it. First record concrete findings with section/claim references, deduplicate them, classify severity, and decide whether each needs an edit, experiment, citation, limitation, removed claim, or blocker.
 
-## Five-Dimension Review
+## Six-Dimension Review
 
-Score each dimension as `pass`, `needs revision`, or `needs evidence`. Use `references/reviewer-guidelines.md` for venue-facing reviewer expectations and score calibration.
+Assess each dimension as `pass`, `needs revision`, or `needs evidence`; mark `not assessed` when the needed material could not be inspected. Use `references/reviewer-guidelines.md` for venue-facing expectations and recommendation calibration.
 
 | Dimension | Reviewer question | Common failure |
 |---|---|---|
@@ -47,24 +51,9 @@ A paper becomes reviewer-ready when:
 
 ## Reviewer-Review Simulation
 
-Before finalizing, write a short simulated review:
+Before finalizing, use the concise review format in [reviewer-guidelines.md](reviewer-guidelines.md), labeled as an author-side simulation. Link each concern and question to its evidence-note ID and state what evidence is needed to assess the claim.
 
-```text
-Summary:
-Strengths:
-Weaknesses:
-Key reason for accept/reject:
-Questions for authors:
-Actionable suggestions:
-Confidence:
-```
-
-Rules:
-
-- The summary should be something authors would recognize as accurate.
-- Weaknesses must cite specific sections, claims, experiments, missing baselines, or unclear terms.
-- If the simulated review sounds generic, the paper story is not yet concrete enough.
-- If the simulated reviewer cannot name the main evidence, strengthen Abstract/Introduction and the results presentation.
+The summary should accurately reflect the paper’s strongest supported contribution. Generic findings need more specific evidence, not more prose. If the reviewer cannot identify the main evidence, determine whether the evidence is missing, inaccessible, or poorly presented before recommending new experiments or rewriting the framing.
 
 ## Author-Facing Reviewer Analysis
 
@@ -85,7 +74,7 @@ Recommended next decision:
 - Why reviewers may value it:
 
 ## Major Risks
-| Risk | Why reviewers may care | Evidence status | Severity | Recommended action |
+| Concern ID / risk | Why reviewers may care | Evidence location / status | Severity | Resolving evidence / action |
 |---|---|---|---|---|
 
 ## Claim and Evidence Gaps
@@ -111,13 +100,13 @@ Use this report to help the author decide what to do. Keep it analytical and spe
 Create `submission_readiness.md` or include this in `reviewer_analysis.md` with:
 
 1. **Paper thesis**.
-2. **Top five reviewer objections**.
+2. **Decision-relevant reviewer objections**, ranked by impact rather than a fixed count.
 3. **Evidence that addresses each objection**.
 4. **Remaining gaps**.
 5. **Planned fix**: edit, experiment, limitation, or remove claim.
 6. **Severity**: high, medium, low.
 
-High-severity unresolved issues should block a final submission response unless the user explicitly accepts the risk.
+High-severity unresolved issues block a submission-ready claim; record any user-accepted risk explicitly rather than marking it resolved. They do not block completion of an honest review report.
 
 ## Adversarial Questions
 

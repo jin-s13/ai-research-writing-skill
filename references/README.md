@@ -15,7 +15,8 @@ Use this file as the first stop when deciding which reference files to load. Loa
 | Figures and tables | `figure-workflow.md`, `figure-spec.md` | `style-presets.md`, `figure-pattern-atlas.md`, `scripts/README.md` |
 | Citations and BibTeX | `citation-workflow.md` | `citation-checklist.md` for final audit |
 | Venue checklist text | `venue-profiles.md`, `venue-templates.md` | `reviewer-guidelines.md` |
-| Reviewer diagnosis | `reviewer-guidelines.md`, `reviewer-self-review.md` | `artifacts.md` for `reviewer_analysis.md` |
+| Peer review | `reviewer-guidelines.md` | `artifacts.md` for review outputs |
+| Author self-review or revision diagnosis | `reviewer-guidelines.md`, `reviewer-self-review.md` | `artifacts.md` for `reviewer_analysis.md` |
 | Submission or camera-ready package | `submission-packaging.md`, `citation-checklist.md` | `workflow.md`, `templates/README.md`, `templates/SOURCES.md` |
 | Script usage | `../scripts/README.md` | The specific script file |
 | Task packet, progress, or completion audit | `task-management.md` | `artifacts.md`, `../scripts/README.md` |

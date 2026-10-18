@@ -1,6 +1,64 @@
 # Reviewer Guidelines Reference
 
-Use this to align a draft with how reviewers judge ML/AI/CV/NLP papers.
+Use this for evidence-based peer review and author-side diagnosis of ML/AI/CV/NLP papers. For author revision planning, also load [reviewer-self-review.md](reviewer-self-review.md).
+
+## Select the Review Context
+
+- **Author self-review / simulation**: diagnose the draft and propose revisions. Label simulated recommendations; do not present them as actual venue decisions.
+- **Assigned peer review**: assess the submitted version and available supplements, produce a concise review with evidence notes, and leave final judgment to the human reviewer. Do not rewrite the manuscript unless asked.
+
+Keep confidential review material within the authorized workspace. Never fabricate a human reviewer’s original assessment, expertise, or completed reproduction work.
+
+## Evidence-First Review Procedure
+
+1. **Inventory coverage**: record the submission version, main text, relevant appendices, code/data availability, and inaccessible or unprovided material. An access failure is not evidence that authors supplied nothing. State partial-read limits explicitly.
+2. **Restate the strongest supported contribution**: distinguish full-system performance from the controlled contribution of a component. Recognize useful negative results, simple methods, careful measurements, and new tasks without demanding leaderboard gains.
+3. **Check before objecting**: inspect relevant appendices and captions before claiming something is missing. Visually verify consequential equations, table columns, and figures when text extraction is ambiguous. If verification is impossible, retain the uncertainty rather than assert a contradiction. Recompute decisive differences or ratios where feasible, recording inputs and assumptions; a toy calculation is not a reproduced benchmark.
+4. **Build the evidence notes** below before drafting verdicts. Record what is already supplied, what it supports, and what remains unestablished. Separate direct observations, interpretations, and questions for clarification.
+5. **Prioritize by decision impact**: merge duplicate concerns and foreground the few that can change the recommendation. Around three may be a useful concise starting point, never a quota or a cap on independent material issues. Omit peripheral requests from formal reviews; keep optional editorial suggestions separate when requested.
+6. **Calibrate the recommendation**: weigh reliable contributions against unresolved risks to central claims, not the number of complaints. State decisive reasons and the evidence still needed to assess central claims. Report confidence from actual reading, technical verification, and remaining uncertainty, independently of the recommendation.
+
+### Evidence Notes
+
+For each material concern, use an ID shared by the review and evidence notes:
+
+```text
+ID / affected claim:
+Location: page, section, equation, table row, appendix, or artifact path
+Already supplied / checked:
+Observation and evidence:
+Interpretation or uncertainty: fact / inference / needs clarification
+Impact on the central claim and severity:
+Question for authors:
+Minimum evidence that would resolve or narrow this concern:
+```
+
+Record strengths with concrete locations and why the evidence matters too. Detailed derivations and checks belong in evidence notes, leaving the review concise. For file-based work, use `review.md` and `review_evidence.md` (or the user’s existing paths); keep confidential material in the authorized review workspace, outside this skill repository. For a chat-only review, provide concise evidence notes in the response without creating a paper project.
+
+### Fairness and Burden
+
+- Match requests to the actual claim. Prefer an existing table, configuration, bounded calculation, or small diagnostic over a new research project. Explain why any additional experiment is necessary to assess the submitted claim.
+- Missing detail or an unclear split supports a clarification request, not an accusation of leakage, fabrication, or misconduct. Ethics concerns need specific evidence and the venue’s appropriate reporting channel; scientific limitations alone are not ethics violations.
+- For novelty objections, identify concrete technical overlap and differences in verified close work. Apply the target venue’s rules for contemporaneous and non-peer-reviewed work; do not turn every newly found paper into a mandatory baseline.
+- Use literature to assess contributions, not infer anonymous authors. Do not rank a submission against other confidential submissions as a basis for judgment.
+- Do not penalize non-SOTA results, missing optional extensions, or cosmetic defects unless they materially undermine the paper’s stated contribution or its assessment.
+
+## Concise Review Format
+
+Use this concise working format:
+
+```text
+Review context: submitted version, AI-assisted or simulated status
+Summary: problem, method, strongest supported contribution, scope
+Strengths: specific evidence and value
+Major concerns: IDs, locations, evidence, impact on claims
+Questions: map each to a concern ID and bounded resolving evidence
+Recommendation: textual stance and decisive reasons
+Confidence and coverage: what was checked, not checked, and remains uncertain
+Ethics: evidence-based concern if any; no identified concern is not an ethics clearance
+```
+
+When the available material cannot support an overall judgment, explain why and provide only the supported partial assessment. Do not manufacture a stance merely to fill the format.
 
 ## Core Reviewer Questions
 
@@ -108,4 +166,4 @@ A reviewer-quality objection should be specific enough that an author can act on
 
 ## Rebuttal-Aware Writing
 
-Before submission, imagine the top three reviewer criticisms and make sure the main paper already answers them. During rebuttal or discussion, be open to changing the paper's framing when reviewers reveal a real gap. Do not rely on rebuttal for substantial new experiments unless the venue explicitly allows them; use rebuttal primarily for clarification, corrections, and small supporting evidence.
+Before submission, identify the highest-impact reviewer criticisms and make sure the main paper already answers them. During rebuttal or discussion, be open to changing the paper's framing when reviewers reveal a real gap. Do not rely on rebuttal for substantial new experiments unless the venue explicitly allows them; use rebuttal primarily for clarification, corrections, and small supporting evidence.

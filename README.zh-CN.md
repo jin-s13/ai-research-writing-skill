@@ -18,6 +18,10 @@
 
 ---
 
+## 使用 AI Research Writing Skill 完成的成果
+
+- [OpenVisualJev](https://github.com/jin-s13/OpenVisualJev) — 多模态决策模型的设计与分析 · [论文 PDF](https://github.com/jin-s13/OpenVisualJev/blob/main/paper/open-visualjev.pdf)
+
 ## 端到端 Demo
 
 ```text
@@ -106,7 +110,7 @@
 | **正文** | Abstract、Introduction、Related Work、Method、Experiments、Limitations、Conclusion |
 | **文献** | 本地文献清单、定位分析、核验后的 `references.bib` |
 | **图表** | overview/method 生成图；结果图表由数据、日志或脚本生成 |
-| **审稿** | reviewer-style comments、拒稿风险、作者自检、修改计划 |
+| **审稿** | 证据定位、可解除质疑的作者问题、建议与置信度校准，以及作者自检与修改计划 |
 | **投稿** | venue checklist、LaTeX 编译检查、引用审计、打包记录 |
 
 ### 内置质量门禁
@@ -220,6 +224,21 @@ python3 scripts/research_quality_gate.py /path/to/paper-project
 | [Orchestra-Research/AI-research-SKILLs](https://github.com/Orchestra-Research/AI-research-SKILLs) | 综合 AI research and engineering skills library。 | 只做一个深方向：已有 ML/AI 研究仓库的论文写作执行与投稿前整理。 |
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | Nature/CNS 风格写作、润色、审稿回复、数据可用性和高影响力图表 workflow。 | 目标 venue 是 NeurIPS、ICML、ICLR、CVPR、ACL 等 ML/AI 会议。 |
 | [ChenLiu-1996/figures4papers](https://github.com/ChenLiu-1996/figures4papers) | 面向顶会和期刊的高质量 Python 科研绘图脚本与示例。 | 把 figure workflow 接入整篇论文链路：图要绑定 claim、证据、caption、LaTeX 引用和投稿检查。 |
+
+## 引用
+
+如果你在研究中使用了 AI Research Writing Skill，欢迎引用：
+
+```bibtex
+@techreport{jin2026airesearchwritingskill,
+  title       = {{AI Research Writing Skill}: Claim-Evidence Engineering for Agentic Research Paper Generation},
+  author      = {Jin, Sheng},
+  institution = {SenseTime Research and Tetras.AI},
+  year        = {2026},
+  type        = {Technical Report},
+  url         = {https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf}
+}
+```
 
 ## License
 

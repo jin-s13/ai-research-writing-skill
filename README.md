@@ -18,6 +18,10 @@ Point your coding agent at code, experiment logs, notes, and a venue template. T
 
 ---
 
+## Created with AI Research Writing Skill
+
+- [OpenVisualJev](https://github.com/jin-s13/OpenVisualJev) — Design and Analysis of a Multimodal Decision Model · [Paper (PDF)](https://github.com/jin-s13/OpenVisualJev/blob/main/paper/open-visualjev.pdf)
+
 ## End-to-End Demo
 
 ```text
@@ -106,7 +110,7 @@ End-to-end coverage from idea to camera-ready:
 | **Writing** | Abstract, Intro, Related Work, Method, Experiments, Limitations, Conclusion |
 | **Literature** | Local corpus, positioning, verified `references.bib` |
 | **Figures** | Plan + assets: **generated** overview/method diagrams; **deterministic** plots for numbers |
-| **Review** | Reviewer-style comments, rejection-risk diagnosis, self-review, concrete revision plan |
+| **Review** | Evidence-linked peer review, bounded author questions, recommendation/confidence calibration, and author self-review |
 | **Submit** | Venue checklist, LaTeX build check, TODO/citation audit, packaging |
 
 ### Quality gates (built in)
@@ -221,6 +225,21 @@ This project is inspired by and builds on the excellent research-writing and fig
 | [ChenLiu-1996/figures4papers](https://github.com/ChenLiu-1996/figures4papers) | High-quality Python scripts and examples for publication figures in top AI conferences and journals. | Integrates figure planning into a larger paper pipeline: figures are tied to claims, evidence, captions, LaTeX references, and submission checks. |
 
 In short: the related projects provide writing wisdom, broad skill ecosystems, Nature-style publication craft, or figure-making expertise. This project packages those inspirations into a **claim-evidence-engineering workflow for AI paper agents working inside real research repositories**.
+
+## Citation
+
+If you use AI Research Writing Skill in your research, please cite:
+
+```bibtex
+@techreport{jin2026airesearchwritingskill,
+  title       = {{AI Research Writing Skill}: Claim-Evidence Engineering for Agentic Research Paper Generation},
+  author      = {Jin, Sheng},
+  institution = {SenseTime Research and Tetras.AI},
+  year        = {2026},
+  type        = {Technical Report},
+  url         = {https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf}
+}
+```
 
 ## License
 

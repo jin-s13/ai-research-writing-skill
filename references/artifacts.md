@@ -47,7 +47,8 @@ The complete JSON schema is `paper-state.schema.json`.
 | Literature | `literature/paper_inventory.md`, `literature/related_work_matrix.md`, `literature/positioning.md` |
 | Citations | `references.bib`, `citation_verification.md` |
 | Figures and tables | `figures/figure_plan.md`, specs/prompts, generated assets, deterministic plot/table sources |
-| Review | `reviewer_analysis.md` or `plan/review/` reports |
+| Author self-review | `reviewer_analysis.md` or `plan/review/` reports |
+| Peer review | Concise review plus evidence notes (see `reviewer-guidelines.md`) |
 | Build and submission | `build_check.md`, plus `submission_readiness.md` in submission mode |
 
 Do not commit copyrighted or private paper PDFs unless redistribution is permitted and the user explicitly requests it. Record inaccessible papers as `metadata-only` or `needs-access` rather than silently omitting them.
@@ -61,6 +62,7 @@ Do not commit copyrighted or private paper PDFs unless redistribution is permitt
 | Related Work | inventory, matrix, positioning, citation updates |
 | Figure work | plan/spec, final asset, source or prompt |
 | Citation repair | `references.bib`, `citation_verification.md` |
+| Peer review | Review and evidence notes, in the requested response or files; no full-paper state/build required |
 | Full paper | machine state plus applicable core artifacts above |
 | Submission | full-paper set, checklist, `submission_readiness.md`, recorded build |
 

@@ -23,6 +23,13 @@ Known warnings:
 - Narrow ICML table columns can produce harmless underfull-line warnings in descriptive comparison tables.
 - Image-generated figures increase PDF size; the compiled demo PDF is about 2 MB.
 
+## Authorship Update — 2026-10-19
+
+- Replaced the example author and affiliation with Sheng Jin, SenseTime Research and Tetras.AI; removed the placeholder email.
+- Rebuilt using `python3 scripts/record_build.py examples/paper-about-ai-research-writing-skill --run`, refreshing the source/PDF hashes and execution record in `paper_state.json`.
+- Verified the rendered first page, PDF author metadata, and absence of example author/contact text or template author errors throughout the PDF.
+- The paper quality gate passed. This update does not rerun the paper's research evaluations.
+
 ## Expected Files
 
 The command should produce `main.pdf` from:
