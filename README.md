@@ -21,7 +21,7 @@ Point your coding agent at code, experiment logs, notes, and a venue template. T
 ## Created with AI Research Writing Skill
 
 - [OpenVisualJev](https://github.com/jin-s13/OpenVisualJev) — Design and Analysis of a Multimodal Decision Model · [Paper (PDF)](https://github.com/jin-s13/OpenVisualJev/blob/main/paper/open-visualjev.pdf)
-- **Read the generated ICML-style paper PDF:** [paper/main.pdf](https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf)
+- [AI Research Writing Skill](https://github.com/jin-s13/ai-research-writing-skill) — Claim-Evidence Engineering for Agentic Research Paper Generation · [Paper (PDF)](https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf)
 
 ## End-to-End Demo
 
