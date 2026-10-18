@@ -234,7 +234,6 @@ If you use AI Research Writing Skill in your research, please cite:
 @techreport{jin2026airesearchwritingskill,
   title       = {{AI Research Writing Skill}: Claim-Evidence Engineering for Agentic Research Paper Generation},
   author      = {Jin, Sheng},
-  institution = {SenseTime Research and Tetras.AI},
   year        = {2026},
   type        = {Technical Report},
   url         = {https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf}
