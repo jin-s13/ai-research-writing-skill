@@ -24,13 +24,8 @@
         "archive_sha256": "8b29290f5828e176debb57ea9cc00252502973d55ea561a2f18a7f0a326bfc6c"
       }
     ],
-    "input_sha256": "4a72b579f87d434aa94e38aa4fbf591672b89595fe1bee117fe29ad2d64d3d84",
+    "input_sha256": "50448fb9bc1ffadc168da283984b3f5bde68db7ccf8497ae32076489ff6eb721",
     "pdf_sha256": "df7b5282a52018683b1745df0a17f01ef3d4c1b9f0e092a34240e954e40ed9ab",
-    "log": "paper/build-attestation.log",
-    "log_sha256": "b93bc00e577bd2386b4c8173ae58dc23ccd220428ad038875d4bf0f9b8dd605b",
-    "exit_code": 0,
-    "tool_version": "Tectonic 0.16.9",
-    "attestation": "executed",
-    "ran_at": "2026-10-18T18:18:34.476737+00:00"
+    "attestation": "artifact-only"
   }
 }
