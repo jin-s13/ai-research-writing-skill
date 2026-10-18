@@ -21,6 +21,7 @@
 ## 使用 AI Research Writing Skill 完成的成果
 
 - [OpenVisualJev](https://github.com/jin-s13/OpenVisualJev) — 多模态决策模型的设计与分析 · [论文 PDF](https://github.com/jin-s13/OpenVisualJev/blob/main/paper/open-visualjev.pdf)
+- **生成的 ICML 风格论文 PDF：** [paper/main.pdf](https://github.com/jin-s13/ai-research-writing-skill/blob/main/examples/paper-about-ai-research-writing-skill/paper/main.pdf)
 
 ## 端到端 Demo
 
